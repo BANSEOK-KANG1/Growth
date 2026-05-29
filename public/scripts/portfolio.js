@@ -121,10 +121,42 @@
     });
   }
 
+  function initMetaDemo() {
+    document.querySelectorAll('[data-meta-demo]').forEach((root) => {
+      const tabs = root.querySelectorAll('[data-meta-tab]');
+      const panels = root.querySelectorAll('[data-meta-panel]');
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          const id = tab.getAttribute('data-meta-tab');
+          tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+          panels.forEach((panel) => {
+            const show = panel.getAttribute('data-meta-panel') === id;
+            panel.hidden = !show;
+          });
+        });
+      });
+
+      root.querySelectorAll('[data-meta-format]').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          root.querySelectorAll('[data-meta-format]').forEach((c) => {
+            c.classList.toggle('is-active', c === chip);
+          });
+          const fmt = chip.getAttribute('data-meta-format');
+          const videoKpi = root.querySelector('[data-meta-kpi="video"]');
+          if (videoKpi) {
+            videoKpi.textContent = fmt === 'video' ? '100%' : fmt === 'static' ? '25%' : '50%';
+          }
+        });
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initReveal();
     initCounters();
     initToolTabs();
     initYouTubeDemo();
+    initMetaDemo();
   });
 })();

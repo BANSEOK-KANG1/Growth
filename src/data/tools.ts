@@ -18,6 +18,7 @@ export const toolCategories: ToolCategory[] = [
     description: '매체 운영과 성과 판단',
     items: [
       { name: 'Meta Ads', level: 90 },
+      { name: 'Meta Marketing API', level: 82, note: 'Creative + Insights ETL' },
       { name: 'Google Ads', level: 88 },
       { name: 'Naver Search Ads', level: 85 },
       { name: 'TikTok Ads', level: 82 },
@@ -73,6 +74,7 @@ export const toolCategories: ToolCategory[] = [
 
 export const toolHighlights = [
   'Meta Ads',
+  'Meta Marketing API',
   'GA4 / GTM',
   'SQL',
   'Figma',

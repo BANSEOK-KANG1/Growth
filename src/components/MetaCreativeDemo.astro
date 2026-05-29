@@ -1,0 +1,275 @@
+---
+import { metaCreativeSnapshot } from '../data/metaCreative';
+
+const snap = metaCreativeSnapshot;
+---
+
+<section class="meta-demo-wrap reveal" id="demo">
+  <div class="meta-demo-shell" data-meta-demo>
+    <div class="meta-demo-topbar">
+      <div class="meta-window-dots">
+        <span></span><span></span><span></span>
+        <strong>Meta Creative Intelligence</strong>
+      </div>
+      <span class="meta-live-badge">Sample · KR</span>
+    </div>
+
+    <div class="meta-demo-body">
+      <div class="meta-kpi-grid">
+        <div class="meta-kpi">
+          <p>Creatives</p>
+          <strong data-count={snap.creativeCount}>{snap.creativeCount}</strong>
+        </div>
+        <div class="meta-kpi">
+          <p>Avg CTR</p>
+          <strong>{snap.avgCtr}%</strong>
+        </div>
+        <div class="meta-kpi">
+          <p>Avg CPA</p>
+          <strong>₩{snap.avgCpa.toLocaleString()}</strong>
+        </div>
+        <div class="meta-kpi">
+          <p>Video %</p>
+          <strong data-meta-kpi="video">{snap.videoPct}%</strong>
+        </div>
+      </div>
+
+      <div class="meta-tabs" role="tablist">
+        <button type="button" class="meta-tab is-active" data-meta-tab="overview">Overview</button>
+        <button type="button" class="meta-tab" data-meta-tab="explorer">Explorer</button>
+        <button type="button" class="meta-tab" data-meta-tab="pattern">Pattern</button>
+        <button type="button" class="meta-tab" data-meta-tab="brief">Brief</button>
+      </div>
+
+      <div class="meta-panel" data-meta-panel="overview">
+        <p class="meta-label">Format mix</p>
+        <div class="meta-bar-list">
+          <div class="meta-bar-row"><span>Video</span><div class="meta-bar"><i style={`width: ${snap.videoPct * 2}%`}></i></div><em>{snap.videoPct}%</em></div>
+          <div class="meta-bar-row"><span>Carousel</span><div class="meta-bar"><i style={`width: ${snap.carouselPct * 2}%`}></i></div><em>{snap.carouselPct}%</em></div>
+          <div class="meta-bar-row"><span>Image</span><div class="meta-bar"><i style={`width: ${snap.imagePct * 2}%`}></i></div><em>{snap.imagePct}%</em></div>
+        </div>
+      </div>
+
+      <div class="meta-panel" data-meta-panel="explorer" hidden>
+        <p class="meta-label">Top creatives by CPA</p>
+        <div class="meta-table">
+          {snap.creatives.map((row) => (
+            <div class="meta-table-row">
+              <span class="meta-table-name">{row.name}</span>
+              <span>{row.format}</span>
+              <span>{row.hook}</span>
+              <span>₩{row.cpa.toLocaleString()}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="meta-panel" data-meta-panel="pattern" hidden>
+        <p class="meta-label">Hook × avg CPA</p>
+        {snap.hookStats.slice(0, 4).map((h) => (
+          <div class="meta-bar-row">
+            <span>{h.name}</span>
+            <div class="meta-bar"><i style={`width: ${Math.min(100, 100 - h.avgCpa / 250)}%`}></i></div>
+            <em>₩{h.avgCpa.toLocaleString()}</em>
+          </div>
+        ))}
+      </div>
+
+      <div class="meta-panel" data-meta-panel="brief" hidden>
+        <p class="meta-brief-summary">{snap.brief.summary}</p>
+        <ul class="meta-brief-list">
+          {snap.brief.nextTests.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="meta-chips">
+        <button type="button" class="meta-chip is-active" data-meta-format="all">All formats</button>
+        <button type="button" class="meta-chip" data-meta-format="video">Video only</button>
+        <button type="button" class="meta-chip" data-meta-format="static">Image/Carousel</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .meta-demo-shell {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(36, 87, 197, 0.25);
+    background: linear-gradient(135deg, #0a1628 0%, #12264a 50%, #1a3a6e 100%);
+    box-shadow: 0 24px 60px rgba(10, 22, 40, 0.35);
+  }
+
+  .meta-demo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.25);
+    border-bottom: 1px solid rgba(36, 87, 197, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+  }
+
+  .meta-window-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .meta-window-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff5f57;
+  }
+
+  .meta-window-dots span:nth-child(2) { background: #febc2e; }
+  .meta-window-dots span:nth-child(3) { background: #28c840; }
+
+  .meta-live-badge {
+    border: 1px solid rgba(36, 87, 197, 0.5);
+    background: rgba(36, 87, 197, 0.2);
+    color: #8eb4ff;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  .meta-demo-body {
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .meta-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .meta-kpi {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 12px 14px;
+  }
+
+  .meta-kpi p {
+    margin: 0 0 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .meta-kpi strong {
+    font-size: 20px;
+    color: #fff;
+  }
+
+  .meta-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .meta-tab,
+  .meta-chip {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .meta-tab.is-active,
+  .meta-chip.is-active {
+    border-color: rgba(36, 87, 197, 0.6);
+    background: rgba(36, 87, 197, 0.25);
+    color: #a8c7ff;
+  }
+
+  .meta-label {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .meta-bar-row {
+    display: grid;
+    grid-template-columns: 88px 1fr 72px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .meta-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .meta-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #2457c5, #5b9aff);
+  }
+
+  .meta-bar-row em {
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+    text-align: right;
+  }
+
+  .meta-table-row {
+    display: grid;
+    grid-template-columns: 1.5fr 0.6fr 0.7fr 0.7fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 12px;
+  }
+
+  .meta-table-name {
+    font-weight: 600;
+  }
+
+  .meta-brief-summary {
+    font-size: 14px;
+    line-height: 1.65;
+    margin: 0 0 12px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .meta-brief-list {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .meta-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    .meta-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .meta-table-row { grid-template-columns: 1fr; gap: 4px; }
+  }
+</style>

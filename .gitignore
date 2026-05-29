@@ -8,6 +8,10 @@ dist/
 # environment
 .env
 .env.*
+!.env.example
+apps/meta-creative-analyzer/.venv/
+apps/meta-creative-analyzer/__pycache__/
+apps/meta-creative-analyzer/src/__pycache__/
 
 # OS / editor
 .DS_Store

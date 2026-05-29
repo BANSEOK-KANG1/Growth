@@ -60,6 +60,14 @@ export const resumeTimeline: ResumeEntry[] = [
       '퍼널과 리텐션 지표를 함께 분석해, 리텐션 저하가 기능 부족이 아닌 핵심 가치 경험 이전 단계에서 시작됨을 규명했습니다. “무엇을 추가할 것인가”가 아닌 “어디부터 개입해야 하는가”로 문제를 재정의했습니다.'
   },
   {
+    period: '2025 – 2026',
+    category: 'Creative Analytics',
+    company: '1인 기획·개발',
+    title: 'Meta Creative Intelligence — 소재 방향성 분석 앱',
+    description:
+      'Meta Marketing API로 소재 메타(카피, CTA, 포맷)와 성과 지표를 join하고, 포맷·훅·CTA별 CPA 패턴을 분석해 Direction Brief를 생성하는 Streamlit 앱을 개발했습니다.'
+  },
+  {
     period: '2025',
     category: 'Data Marketing',
     company: '1인 기획·개발',

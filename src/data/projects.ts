@@ -19,6 +19,15 @@ export const projects: ProjectEntry[] = [
     featured: true
   },
   {
+    slug: 'meta-creative-intelligence',
+    title: 'Meta Creative Intelligence',
+    period: '2025 – 2026',
+    summary:
+      'Meta Marketing API로 소재 메타데이터(카피, CTA, 포맷)와 CPA/CTR/CVR 성과를 통합해, 포맷·훅·CTA 패턴 분석과 다음 영상/크리에이티브 방향 브리프를 자동 생성하는 분석 앱입니다.',
+    tags: ['Meta Marketing API', 'Creative Analytics', 'Python', 'Streamlit'],
+    featured: true
+  },
+  {
     slug: 'youtube-trend-analyzer',
     title: 'YouTube KR 트렌드 분석 허브',
     period: '2025',
