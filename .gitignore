@@ -18,3 +18,4 @@ apps/meta-creative-analyzer/.streamlit/secrets.toml
 .DS_Store
 .idea/
 .vscode/
+apps/meta-creative-analyzer/pages/__pycache__/

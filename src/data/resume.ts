@@ -73,7 +73,7 @@ export const resumeTimeline: ResumeEntry[] = [
     company: '1인 기획·개발',
     title: 'YouTube KR 트렌드 분석 허브',
     description:
-      'YouTube Data API로 KR 트렌딩·키워드 검색을 한 허브에서 비교하고, 카테고리·Shorts·참여율 필터로 기획용 인사이트를 추출하는 데이터 분석 도구를 직접 만들었습니다.'
+      'YouTube Data API로 KR 트렌딩·마케팅 vertical 키워드를 비교하고, engagement·Shorts·제목 훅 패턴을 분석해 Content Brief를 자동 생성하는 Streamlit 앱을 Growth Analytics Hub에 통합했습니다.'
   }
 ];
 

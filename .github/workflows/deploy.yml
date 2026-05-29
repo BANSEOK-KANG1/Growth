@@ -36,6 +36,7 @@ jobs:
           # 프로젝트 저장소 방식이면 GitHub Repository Variables에 BASE_PATH=/growth-performance-portfolio 를 추가하세요.
           BASE_PATH: ${{ vars.BASE_PATH }}
           SITE_URL: ${{ vars.SITE_URL }}
+          PUBLIC_GROWTH_APP_URL: ${{ vars.PUBLIC_GROWTH_APP_URL }}
           PUBLIC_META_CREATIVE_APP_URL: ${{ vars.PUBLIC_META_CREATIVE_APP_URL }}
 
       - name: Setup Pages
