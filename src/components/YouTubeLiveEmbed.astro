@@ -1,0 +1,87 @@
+---
+import { youtubeTrendProject } from '../data/youtubeTrend';
+
+const embedUrl = youtubeTrendProject.liveDemoUrl
+  ? `${youtubeTrendProject.liveDemoUrl}?embed=true`
+  : '';
+---
+
+{embedUrl ? (
+  <section class="yt-live-embed-wrap reveal">
+    <div class="section-header" style="margin-bottom: 16px">
+      <span class="eyebrow">Live App Embed</span>
+      <h2>실시간 Live + 포트폴리오 목업 함께 보기</h2>
+      <p>
+        아래는 Streamlit Live App 임베드입니다. KR 트렌딩·키워드 gap·Shoot Brief를
+        <strong>실 API 데이터</strong>로 확인할 수 있습니다. 목업과 나란히 비교해 보세요.
+      </p>
+    </div>
+    <div class="yt-live-embed-shell">
+      <div class="yt-live-embed-bar">
+        <span class="yt-live-dot" aria-hidden="true"></span>
+        <strong>Live · YouTube Data API · KR</strong>
+        <a href={youtubeTrendProject.liveDemoUrl} target="_blank" rel="noreferrer">새 탭에서 열기 ↗</a>
+      </div>
+      <iframe
+        src={embedUrl}
+        title="YouTube Keyword Gap Shoot Brief Live App"
+        loading="lazy"
+        allow="camera; microphone; fullscreen"
+      ></iframe>
+    </div>
+  </section>
+) : null}
+
+<style>
+  .yt-live-embed-wrap {
+    margin-top: 32px;
+  }
+
+  .yt-live-embed-shell {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #0a1628;
+    box-shadow: var(--shadow);
+  }
+
+  .yt-live-embed-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: #12264a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+    color: #e8eef8;
+  }
+
+  .yt-live-embed-bar a {
+    margin-left: auto;
+    color: #7eb8ff;
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .yt-live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+    animation: yt-pulse 2s infinite;
+  }
+
+  @keyframes yt-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .yt-live-embed-shell iframe {
+    display: block;
+    width: 100%;
+    height: min(820px, 85vh);
+    border: 0;
+    background: #0a1628;
+  }
+</style>
