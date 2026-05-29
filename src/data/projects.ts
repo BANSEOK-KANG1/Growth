@@ -19,6 +19,15 @@ export const projects: ProjectEntry[] = [
     featured: true
   },
   {
+    slug: 'youtube-trend-analyzer',
+    title: 'YouTube KR 트렌드 분석 허브',
+    period: '2025',
+    summary:
+      'YouTube Data API로 KR 트렌딩·키워드 검색을 한 화면에서 비교하고, 카테고리·Shorts·참여율 필터와 자동 인사이트 리포트로 기획 리서치 시간을 줄이는 데이터 분석 프로젝트입니다.',
+    tags: ['YouTube API', 'Python', 'Trend Analysis', 'Data Marketing'],
+    featured: true
+  },
+  {
     slug: 'growth-performance-portfolio',
     title: 'Growth Performance Portfolio',
     period: '2024 – 2026',

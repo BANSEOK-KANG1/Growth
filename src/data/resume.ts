@@ -32,14 +32,6 @@ export const resumeTimeline: ResumeEntry[] = [
   },
   {
     period: '2025 – 2026',
-    category: 'Performance Marketing',
-    company: '글로벌알파미디어',
-    title: 'Meta 캠페인 CPA 기준 운영',
-    description:
-      '소재별 성과 차이가 커서 짧은 주기로 검증하고 확장/중단 기준을 세울 필요가 있었습니다. 소재 테스트 주기를 단축하고 CPA, CVR, 클릭수, 문의 전환율을 기준으로 운영 판단을 정리했습니다.'
-  },
-  {
-    period: '2025 – 2026',
     category: 'App Growth Funnel',
     company: '글로벌알파미디어',
     title: '외국인 대상 병원 예약 앱 B2C 전환 흐름 분석',
@@ -47,12 +39,33 @@ export const resumeTimeline: ResumeEntry[] = [
       '앱 설치, 이벤트 참여, 예약 전환까지 이어지는 흐름을 채널별로 구분해 볼 필요가 있었습니다. Airbridge 기반 이벤트 구조를 검토하고 국가별·채널별 유입 차이를 비교할 수 있는 분석 흐름을 설계했습니다.'
   },
   {
-    period: '2025 – 2026',
-    category: 'Marketing Data / Reporting',
-    company: '글로벌알파미디어',
-    title: '성과 리포팅·운영 판단 기준 데이터 구조화',
+    period: '2025.11 – 2025.12',
+    category: 'Growth / PM',
+    company: '개인 프로젝트',
+    title: '신규 사용자 첫 행동 전환율 개선',
     description:
-      '매체별 광고 수치가 흩어져 확장/중단 판단이 어려웠습니다. 클릭, 비용, 전환, CPA, CVR, ROAS를 기준으로 성과를 비교하고 개선 우선순위를 볼 수 있는 리포팅 구조로 정리했습니다.'
+      '이벤트 기반 분석 환경을 가정한 시나리오 프로젝트입니다. 가입 → 첫 행동 전환 정체를 핵심 문제로 정의하고, UX 가이드 A/B 테스트로 전환·리텐션 트레이드오프를 비교했습니다.',
+    bullets: [
+      '북극성 지표: 가입 → 첫 행동 전환율',
+      '단기 전환 vs 이해된 행동 유도 — UX 가이드 방식 선택',
+      '전환 개선만으로는 리텐션 문제 해결 한계 확인'
+    ]
+  },
+  {
+    period: '2025.12',
+    category: 'Growth / PM',
+    company: '개인 프로젝트',
+    title: '퍼널·리텐션 기반 문제 발생 단계 규명',
+    description:
+      '퍼널과 리텐션 지표를 함께 분석해, 리텐션 저하가 기능 부족이 아닌 핵심 가치 경험 이전 단계에서 시작됨을 규명했습니다. “무엇을 추가할 것인가”가 아닌 “어디부터 개입해야 하는가”로 문제를 재정의했습니다.'
+  },
+  {
+    period: '2025',
+    category: 'Data Marketing',
+    company: '1인 기획·개발',
+    title: 'YouTube KR 트렌드 분석 허브',
+    description:
+      'YouTube Data API로 KR 트렌딩·키워드 검색을 한 허브에서 비교하고, 카테고리·Shorts·참여율 필터로 기획용 인사이트를 추출하는 데이터 분석 도구를 직접 만들었습니다.'
   }
 ];
 
@@ -66,14 +79,20 @@ export const coreTools = [
   'UTM',
   'Microsoft Clarity',
   'Airbridge',
+  'SQL',
+  'Python (pandas)',
   'Google Sheets',
   'Excel',
+  'Figma',
+  'Photoshop',
   'Notion'
 ];
 
 export const supplementarySkills = [
-  { name: 'KPI Definition', level: '90%', category: 'Product & Documentation' },
-  { name: 'Funnel Mapping', level: '92%', category: 'Product & Documentation' },
-  { name: 'Reporting Structure', level: '88%', category: 'Product & Documentation' },
-  { name: 'SQL', level: '75%', category: 'Analytics' }
+  { name: 'SQL', level: '78%', category: 'Analytics' },
+  { name: 'Figma', level: '80%', category: 'Design' },
+  { name: 'Photoshop', level: '72%', category: 'Design' },
+  { name: 'Python (pandas)', level: '72%', category: 'Data' },
+  { name: 'Looker Studio', level: '75%', category: 'Reporting' },
+  { name: 'A/B Test Design', level: '85%', category: 'Growth / PM' }
 ];

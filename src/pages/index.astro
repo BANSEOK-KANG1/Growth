@@ -7,7 +7,9 @@ import FunnelDiagram from '../components/FunnelDiagram.astro';
 import SkillsGrid from '../components/SkillsGrid.astro';
 import DashboardTable from '../components/DashboardTable.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
+import ToolStack from '../components/ToolStack.astro';
 import { profile } from '../data/profile';
+import { toolHighlights } from '../data/tools';
 
 const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
 const base = import.meta.env.BASE_URL;
@@ -16,22 +18,37 @@ const base = import.meta.env.BASE_URL;
 <BaseLayout>
   <section class="hero">
     <div class="container hero-grid">
-      <div>
+      <div class="reveal">
         <span class="eyebrow">Growth Performance Marketer</span>
         <h1>광고 집행자가 아니라, 성과 흐름을 설계하는 마케터</h1>
         <p class="lead">{profile.headline}</p>
         <p class="lead" style="font-size: 17px; color: var(--muted)">{profile.summary}</p>
         <blockquote class="hero-intro">{profile.oneLineIntro}</blockquote>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong data-count={4} data-suffix="+">0+</strong>
+            <span>광고 매체 운영</span>
+          </div>
+          <div class="hero-stat">
+            <strong data-count={15} data-suffix="+">0+</strong>
+            <span>실무 도구 · 스택</span>
+          </div>
+          <div class="hero-stat">
+            <strong data-count={6} data-suffix="">0</strong>
+            <span>대표 프로젝트</span>
+          </div>
+        </div>
         <div class="hero-actions">
           <a class="btn-primary" href={`${base}cases/`}>케이스 스터디 보기</a>
           <a class="btn-secondary" href={`${base}projects/`}>신규 프로젝트 보기</a>
         </div>
         <div class="tag-list">
           {profile.keywords.map((keyword) => <span class="tag">{keyword}</span>)}
+          {toolHighlights.slice(0, 4).map((tool) => <span class="tag">{tool}</span>)}
         </div>
       </div>
 
-      <aside class="hero-aside">
+      <aside class="hero-aside reveal">
         <ProfilePhoto size="lg" />
         <div class="hero-panel" aria-label="Portfolio snapshot">
         <div class="panel-title">
@@ -62,7 +79,20 @@ const base = import.meta.env.BASE_URL;
 
   <section class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">Tool Stack</span>
+          <h2>실무에서 사용하는 도구와 활용 수준</h2>
+          <p>SQL, Figma, Photoshop 등 분석·디자인·협업 도구를 직무별로 정리했습니다. 탭을 눌러 카테고리별로 확인할 수 있습니다.</p>
+        </div>
+      </div>
+      <ToolStack />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
         <div>
           <span class="eyebrow">Core Capability</span>
           <h2>좋은 회사에서 보고 싶은 실무 판단 구조</h2>
@@ -75,7 +105,7 @@ const base = import.meta.env.BASE_URL;
 
   <section class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
         <div>
           <span class="eyebrow">Growth Funnel</span>
           <h2>광고 성과를 매체 지표가 아니라 성장 퍼널로 봅니다</h2>
@@ -103,7 +133,31 @@ const base = import.meta.env.BASE_URL;
   </section>
 
   <section class="section">
-    <div class="container project-highlight">
+    <div class="container project-highlight reveal">
+      <div class="info-panel">
+        <span class="eyebrow">Featured Project</span>
+        <h2 style="margin-top: 16px">YouTube KR 트렌드 분석 허브</h2>
+        <p>YouTube Data API로 KR 트렌딩·키워드 검색을 한 화면에서 비교하고, 카테고리·Shorts·참여율 필터와 자동 인사이트 리포트로 기획 리서치 시간을 줄였습니다.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href={`${base}projects/youtube-trend-analyzer/`}>프로젝트 보기</a>
+          <a class="btn-secondary" href={`${base}projects/marketing-lead-dashboard/`}>대시보드 프로젝트</a>
+        </div>
+      </div>
+      <div class="dashboard-card">
+        <h3>API Pipeline Snapshot</h3>
+        <p>Trending API → ETL → Category/Engagement 분석 → Insight Report</p>
+        <div class="tag-list" style="margin-top: 12px">
+          <span class="tag">YouTube Data API</span>
+          <span class="tag">Python</span>
+          <span class="tag">pandas</span>
+          <span class="tag">4 Modes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container project-highlight reveal">
       <div class="info-panel">
         <span class="eyebrow">Featured Project</span>
         <h2 style="margin-top: 16px">Marketing Lead Funnel Dashboard</h2>

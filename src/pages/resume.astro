@@ -1,17 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
+import ToolStack from '../components/ToolStack.astro';
 import { profile } from '../data/profile';
 import { resumeTimeline, coreTools, supplementarySkills } from '../data/resume';
 import { education } from '../data/profile';
+import { resumeDownloads } from '../data/resumeDownloads';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const base = import.meta.env.BASE_URL;
-const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
+
+const availableDownloads = resumeDownloads.filter((item) =>
+  fs.existsSync(path.join(process.cwd(), 'public', item.filename))
+);
 ---
 
 <BaseLayout title="Resume | Kang Banseok Portfolio" description="강반석의 퍼포먼스/그로스/CRM 직무용 이력서 요약 페이지입니다.">
   <section class="page-hero">
-    <div class="container resume-hero">
+    <div class="container resume-hero reveal">
       <ProfilePhoto size="lg" />
       <div>
         <span class="eyebrow">Resume Summary</span>
@@ -24,7 +31,15 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
           {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
         </div>
         <div class="hero-actions" style="margin-top: 20px">
-          <a class="btn-primary" href={resumeHref} download>PDF 이력서 다운로드</a>
+          {availableDownloads.find((d) => d.primary) && (
+            <a
+              class="btn-primary"
+              href={`${base}${availableDownloads.find((d) => d.primary)!.filename.replace(/^\//, '')}`}
+              download
+            >
+              PDF 이력서 다운로드
+            </a>
+          )}
           <a class="btn-secondary" href={`${base}contact/`}>Contact</a>
         </div>
       </div>
@@ -32,13 +47,40 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
   </section>
 
   <section class="section">
+    <div class="container reveal">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Resume PDF</span>
+          <h2>직무별 이력서 다운로드</h2>
+          <p>퍼포먼스 마케팅, CRM·그로스, PM/Growth Analyst 포지션에 맞춘 PDF를 선택해 다운로드할 수 있습니다.</p>
+        </div>
+      </div>
+      <div class="pdf-grid">
+        {availableDownloads.map((item) => (
+          <article class="pdf-card">
+            {item.primary && <span class="pill">Recommended</span>}
+            <h3>{item.label}</h3>
+            <p>{item.description}</p>
+            <div class="tag-list">
+              {item.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+            <a class="btn-primary" href={`${base}${item.filename.replace(/^\//, '')}`} download style="margin-top: 16px; display: inline-flex;">
+              다운로드
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container grid-2">
-      <article class="info-panel">
+      <article class="info-panel reveal">
         <h2>Core Positioning</h2>
         <p>광고 영업형 퍼포먼스 마케터가 아니라, 인하우스에서 광고비와 전환 지표를 보고 성과 개선 액션을 설계하는 퍼포먼스/그로스 마케터를 지향합니다.</p>
         <blockquote>{profile.oneLineIntro}</blockquote>
       </article>
-      <article class="info-panel">
+      <article class="info-panel reveal">
         <h2>Core Tools</h2>
         <div class="tag-list">
           {coreTools.map((tool) => <span class="tag">{tool}</span>)}
@@ -48,8 +90,20 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
   </section>
 
   <section class="section">
-    <div class="container">
+    <div class="container reveal">
       <div class="section-header">
+        <div>
+          <span class="eyebrow">Tools</span>
+          <h2>카테고리별 실무 도구</h2>
+        </div>
+      </div>
+      <ToolStack />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
         <div>
           <span class="eyebrow">Experience</span>
           <h2>직무 연결 중심 경력 요약</h2>
@@ -57,7 +111,7 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
       </div>
       <div class="timeline">
         {resumeTimeline.map((entry) => (
-          <article class="timeline-item">
+          <article class="timeline-item reveal">
             <span>{entry.category}{entry.company ? ` · ${entry.company}` : ''} · {entry.period}</span>
             <h3>{entry.title}</h3>
             <p>{entry.description}</p>
@@ -76,7 +130,7 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
 
   <section class="section">
     <div class="container grid-2">
-      <div>
+      <div class="reveal">
         <div class="section-header">
           <div>
             <span class="eyebrow">Education</span>
@@ -93,7 +147,7 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
           ))}
         </div>
       </div>
-      <div>
+      <div class="reveal">
         <div class="section-header">
           <div>
             <span class="eyebrow">Supplementary Skills</span>
@@ -124,6 +178,24 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
     grid-template-columns: auto 1fr;
     gap: 32px;
     align-items: center;
+  }
+
+  .pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .pdf-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+
+  .pdf-card h3 {
+    margin-top: 10px;
   }
 
   .bar-track {

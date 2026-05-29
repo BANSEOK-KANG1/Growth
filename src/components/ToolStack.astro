@@ -1,0 +1,139 @@
+---
+import { toolCategories } from '../data/tools';
+---
+
+<section class="tool-stack reveal" data-tool-tabs>
+  <div class="tool-tabs" role="tablist" aria-label="도구 카테고리">
+    {toolCategories.map((cat, i) => (
+      <button
+        type="button"
+        class:list={['tool-tab', { 'is-active': i === 0 }]}
+        data-tool-tab={cat.id}
+        role="tab"
+        aria-selected={i === 0}
+      >
+        {cat.label}
+      </button>
+    ))}
+  </div>
+
+  {toolCategories.map((cat, i) => (
+    <div
+      class:list={['tool-panel', { 'is-active': i === 0 }]}
+      data-tool-panel={cat.id}
+      role="tabpanel"
+    >
+      <p class="tool-panel-desc">{cat.description}</p>
+      <div class="tool-grid">
+        {cat.items.map((item) => (
+          <div class="tool-item">
+            <div class="tool-item-head">
+              <strong>{item.name}</strong>
+              <span>{item.level}%</span>
+            </div>
+            {item.note && <p class="tool-note">{item.note}</p>}
+            <div class="bar-track" aria-hidden="true">
+              <span class="bar-fill" style={`width: ${item.level}%`}></span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .tool-stack {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .tool-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .tool-tab {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--muted);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tool-tab.is-active,
+  .tool-tab:hover {
+    border-color: var(--primary);
+    background: var(--surface-soft);
+    color: var(--primary-dark);
+  }
+
+  .tool-panel {
+    display: none;
+  }
+
+  .tool-panel.is-active {
+    display: block;
+    animation: fadeUp 0.35s ease;
+  }
+
+  .tool-panel-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 16px;
+  }
+
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .tool-item-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 14px;
+  }
+
+  .tool-note {
+    margin: 0 0 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .bar-track {
+    height: 8px;
+    background: var(--surface-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

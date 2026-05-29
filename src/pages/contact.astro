@@ -1,19 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { profile } from '../data/profile';
+import { resumeDownloads } from '../data/resumeDownloads';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const base = import.meta.env.BASE_URL;
-const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
 const portfolioHref = `${base}${profile.portfolioPdfPath.replace(/^\//, '')}`;
-
-const resumeExists = fs.existsSync(path.join(process.cwd(), 'public', profile.resumePdfPath));
 const portfolioExists = fs.existsSync(path.join(process.cwd(), 'public', profile.portfolioPdfPath));
+
+const availableDownloads = resumeDownloads.filter((item) =>
+  fs.existsSync(path.join(process.cwd(), 'public', item.filename))
+);
 ---
 
 <BaseLayout title="Contact | Kang Banseok Portfolio" description="강반석 포트폴리오 연락처 페이지입니다.">
-  <section class="page-hero">
+  <section class="page-hero reveal">
     <div class="container">
       <span class="eyebrow">Contact</span>
       <h1>성과 흐름을 함께 개선할 수 있는 팀을 찾고 있습니다</h1>
@@ -23,30 +25,29 @@ const portfolioExists = fs.existsSync(path.join(process.cwd(), 'public', profile
 
   <section class="section">
     <div class="container contact-grid">
-      <article class="info-panel">
+      <article class="info-panel reveal">
         <h2>Contact</h2>
         <p><strong>Email</strong><br /><a class="text-link" href={`mailto:${profile.email}`}>{profile.email}</a></p>
         <p><strong>Mobile</strong><br /><a class="text-link" href={`tel:${profile.phone.replace(/-/g, '')}`}>{profile.phone}</a></p>
         <p><strong>Location</strong><br />{profile.location}</p>
         <p><strong>GitHub</strong><br /><a class="text-link" href={profile.githubUrl} target="_blank" rel="noreferrer">{profile.githubUrl}</a></p>
-        <p><strong>Notion</strong><br /><a class="text-link" href={profile.notionUrl} target="_blank" rel="noreferrer">Notion 프로필 보기</a></p>
+        <p><strong>Notion</strong><br /><a class="text-link" href={profile.notionUrl} target="_blank" rel="noreferrer">프로젝트 허브 DB</a></p>
       </article>
-      <article class="info-panel">
-        <h2>PDF Files</h2>
-        <div class="hero-actions">
-          {resumeExists ? (
-            <a class="btn-primary" href={resumeHref} download>Resume PDF</a>
-          ) : (
-            <span class="btn-secondary pdf-unavailable">Resume PDF · 준비 중</span>
-          )}
-          {portfolioExists ? (
-            <a class="btn-secondary" href={portfolioHref} download>Portfolio PDF</a>
-          ) : (
-            <span class="btn-secondary pdf-unavailable">Portfolio PDF · 준비 중</span>
-          )}
+      <article class="info-panel reveal">
+        <h2>Resume PDF</h2>
+        <p style="color: var(--muted); margin-bottom: 16px">직무에 맞는 이력서를 선택해 다운로드하세요.</p>
+        <div class="pdf-list">
+          {availableDownloads.map((item) => (
+            <a class="pdf-link" href={`${base}${item.filename.replace(/^\//, '')}`} download>
+              <strong>{item.label}</strong>
+              <span>{item.description}</span>
+            </a>
+          ))}
         </div>
-        {!portfolioExists ? (
-          <p class="pdf-note">PDF 포트폴리오는 준비 중입니다. 웹 포트폴리오와 Notion 프로필을 참고해 주세요.</p>
+        {portfolioExists ? (
+          <a class="btn-secondary" href={portfolioHref} download style="margin-top: 16px; display: inline-flex">
+            Portfolio PDF
+          </a>
         ) : null}
       </article>
     </div>
@@ -54,15 +55,33 @@ const portfolioExists = fs.existsSync(path.join(process.cwd(), 'public', profile
 </BaseLayout>
 
 <style>
-  .pdf-unavailable {
-    opacity: 0.65;
-    cursor: default;
-    pointer-events: none;
+  .pdf-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .pdf-note {
-    margin-top: 16px;
-    font-size: 14px;
+  .pdf-link {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    background: var(--surface-soft);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .pdf-link:hover {
+    border-color: var(--primary);
+    transform: translateX(4px);
+  }
+
+  .pdf-link strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .pdf-link span {
+    font-size: 13px;
     color: var(--muted);
   }
 </style>

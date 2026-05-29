@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import YouTubeTrendDemo from '../../components/YouTubeTrendDemo.astro';
+import { youtubeTrendProject } from '../../data/youtubeTrend';
+
+const base = import.meta.env.BASE_URL;
+const p = youtubeTrendProject;
+---
+
+<BaseLayout
+  title="YouTube KR Trend Analyzer | Kang Banseok Portfolio"
+  description="YouTube Data API 기반 KR 트렌드 분석 허브 프로젝트입니다."
+>
+  <section class="page-hero reveal">
+    <div class="container">
+      <span class="eyebrow">Project · {p.period} · {p.role}</span>
+      <h1>{p.title}</h1>
+      <p>{p.problem}</p>
+      <div class="tag-list" style="margin-top: 16px">
+        {p.tools.map((tool) => <span class="tag">{tool}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">Interactive Demo</span>
+          <h2>제품 UI 목업 — 트렌딩 · 키워드 · 인사이트</h2>
+          <p>실제 Streamlit/HTML 대시보드 톤을 포트폴리오용 인터랙티브 목업으로 재현했습니다.</p>
+        </div>
+      </div>
+      <YouTubeTrendDemo />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card reveal">
+        <h2>Approach</h2>
+        <ol>
+          {p.approach.map((step) => <li>{step}</li>)}
+        </ol>
+      </article>
+      <article class="card reveal">
+        <h2>Key Metrics</h2>
+        <div class="metric-mini-grid">
+          {p.metrics.map((m) => (
+            <div class="metric-mini">
+              <strong>{m.value}</strong>
+              <span>{m.label}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container info-panel reveal">
+      <h2>Learnings</h2>
+      <ul>
+        {p.learnings.map((item) => <li>{item}</li>)}
+      </ul>
+      <div class="hero-actions" style="margin-top: 20px">
+        <a class="btn-primary" href={`${base}projects/`}>프로젝트 목록</a>
+        <a class="btn-secondary" href={p.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .metric-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .metric-mini {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    background: var(--surface-soft);
+  }
+
+  .metric-mini strong {
+    display: block;
+    font-size: 20px;
+    color: var(--primary-dark);
+  }
+
+  .metric-mini span {
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,304 @@
+---
+import { youtubeTrendSnapshot } from '../data/youtubeTrend';
+---
+
+<section class="yt-demo-wrap reveal" id="demo">
+  <div class="yt-demo-shell" data-yt-demo>
+    <div class="yt-demo-topbar">
+      <div class="yt-window-dots">
+        <span></span><span></span><span></span>
+        <strong>YouTube KR · Trend Analyzer</strong>
+      </div>
+      <span class="yt-live-badge">LIVE · KR</span>
+    </div>
+
+    <div class="yt-demo-body">
+      <div class="yt-kpi-grid">
+        <div class="yt-kpi">
+          <p>Videos</p>
+          <strong data-count={youtubeTrendSnapshot.videoCount} data-suffix="+">0+</strong>
+        </div>
+        <div class="yt-kpi">
+          <p>Categories</p>
+          <strong data-count={youtubeTrendSnapshot.categoryCount}>0</strong>
+        </div>
+        <div class="yt-kpi">
+          <p>Shorts %</p>
+          <strong data-kpi="shorts">38%</strong>
+        </div>
+        <div class="yt-kpi">
+          <p>Engagement</p>
+          <strong>4.2%</strong>
+        </div>
+      </div>
+
+      <div class="yt-tabs" role="tablist">
+        <button type="button" class="yt-tab is-active" data-tab="trending">Trending</button>
+        <button type="button" class="yt-tab" data-tab="keyword">Keyword</button>
+        <button type="button" class="yt-tab" data-tab="insight">Insight Report</button>
+      </div>
+
+      <div class="yt-demo-grid">
+        <div class="yt-panel-main">
+          <div data-panel="trending">
+            <p class="yt-label">Category mix (KR trending)</p>
+            {youtubeTrendSnapshot.categories.map((cat) => (
+              <div class="yt-bar-row">
+                <span>{cat.name}</span>
+                <div class="yt-bar"><i style={`width: ${cat.share}%`}></i></div>
+                <em>{cat.share}%</em>
+              </div>
+            ))}
+          </div>
+          <div data-panel="keyword" hidden>
+            <p class="yt-label">Keyword search vs trending</p>
+            <p>Search: <strong>AI 먹방</strong></p>
+            <p>Overlap with trending: <strong class="yt-accent">62%</strong></p>
+            <p>Unique: #브이로그 #챌린지 #케이팝</p>
+          </div>
+          <div data-panel="insight" hidden>
+            <p class="yt-label">Auto-generated insight</p>
+            <ul>
+              <li>Shorts share 상승 — 48h 이내 업로드 영상 참여율 높음</li>
+              <li>Gaming·Entertainment 키워드 동시 급등</li>
+              <li>기획용 리포트 Markdown 원클릭 생성</li>
+            </ul>
+          </div>
+        </div>
+
+        <aside class="yt-panel-side">
+          <p class="yt-label">Format filter</p>
+          <div class="yt-chips">
+            <button type="button" class="yt-chip is-active" data-format="all">All</button>
+            <button type="button" class="yt-chip" data-format="shorts">Shorts</button>
+            <button type="button" class="yt-chip" data-format="long">Long-form</button>
+          </div>
+          <p class="yt-label" style="margin-top: 16px">Trending keywords</p>
+          <div class="yt-keywords">
+            {youtubeTrendSnapshot.keywords.map((kw) => (
+              <span>{kw}</span>
+            ))}
+          </div>
+          <button type="button" class="yt-refresh" data-yt-refresh>↻ API 데이터 새로고침</button>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .yt-demo-shell {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255, 77, 109, 0.25);
+    background: linear-gradient(135deg, #0f0f0f 0%, #212121 50%, #3d0000 100%);
+    box-shadow: 0 24px 60px rgba(15, 15, 15, 0.35);
+  }
+
+  .yt-demo-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.35);
+    border-bottom: 1px solid rgba(255, 77, 109, 0.2);
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+  }
+
+  .yt-window-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .yt-window-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff5f57;
+  }
+
+  .yt-window-dots span:nth-child(2) {
+    background: #febc2e;
+  }
+
+  .yt-window-dots span:nth-child(3) {
+    background: #28c840;
+  }
+
+  .yt-live-badge {
+    border: 1px solid rgba(255, 77, 109, 0.4);
+    background: rgba(255, 77, 109, 0.15);
+    color: #ff8fa3;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .yt-demo-body {
+    padding: 20px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .yt-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .yt-kpi {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(145deg, #1a1a1a, #252525);
+    padding: 12px 14px;
+  }
+
+  .yt-kpi p {
+    margin: 0 0 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  .yt-kpi strong {
+    font-size: 22px;
+    color: #fff;
+  }
+
+  .yt-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0 16px;
+  }
+
+  .yt-tab,
+  .yt-chip {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .yt-tab.is-active,
+  .yt-chip.is-active {
+    border-color: rgba(255, 77, 109, 0.5);
+    background: rgba(255, 77, 109, 0.2);
+    color: #ff8fa3;
+  }
+
+  .yt-demo-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+  }
+
+  .yt-label {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  .yt-bar-row {
+    display: grid;
+    grid-template-columns: 88px 1fr 36px;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+
+  .yt-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  .yt-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #ff0033, #ff8fa3);
+  }
+
+  .yt-bar-row em {
+    font-style: normal;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+  }
+
+  .yt-accent {
+    color: #ff8fa3;
+  }
+
+  .yt-panel-main ul {
+    margin: 0;
+    padding-left: 18px;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .yt-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .yt-keywords {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .yt-keywords span {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 77, 109, 0.15);
+    color: #ff8fa3;
+    border: 1px solid rgba(255, 77, 109, 0.25);
+  }
+
+  .yt-refresh {
+    margin-top: 16px;
+    width: 100%;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.75);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .yt-refresh.is-spinning {
+    animation: spin 0.7s linear;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .yt-kpi-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .yt-demo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
