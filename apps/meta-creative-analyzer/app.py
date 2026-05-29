@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -27,6 +28,9 @@ st.set_page_config(
 
 st.title("Meta Creative Intelligence")
 st.caption("소재 메타데이터 + 성과 지표 → 패턴 분석 → 다음 영상/크리에이티브 방향 제안")
+
+if os.getenv("RAILWAY_ENVIRONMENT"):
+    st.sidebar.info("Railway 배포 · Sample mode 기본 · Meta API는 Variables에 토큰 설정 후 토글 ON")
 
 
 @st.cache_data(ttl=300, show_spinner="Meta API에서 소재·성과 데이터를 불러오는 중…")

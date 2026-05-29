@@ -74,6 +74,8 @@ export const metaCreativeProject = {
   period: '2025 – 2026',
   role: 'Performance Marketer · Data (Solo)',
   githubUrl: 'https://github.com/BANSEOK-KANG1/Growth/tree/main/apps/meta-creative-analyzer',
+  /** Railway live app — set PUBLIC_META_CREATIVE_APP_URL in GitHub Actions or .env for build */
+  liveDemoUrl: import.meta.env.PUBLIC_META_CREATIVE_APP_URL ?? '',
   problem:
     '소재별 카피·포맷·성과가 Ads Manager에 흩어져 있어, “다음에 어떤 영상/메시지를 만들지” 판단이 감에 의존했습니다. Meta API로 소재 메타와 CPA/CTR/CVR을 한 구조로 묶을 필요가 있었습니다.',
   approach: [
@@ -92,6 +94,7 @@ export const metaCreativeProject = {
   learnings: [
     '소재 카피 메타(훅·CTA·포맷)와 성과를 join해야 “다음 영상 방향”이 데이터로 설명됩니다.',
     'API 토큰·계정 정보는 로컬 전용 — 공개 포트폴리오에는 익명 샘플만 노출합니다.',
-    '마케터는 차트보다 “다음 테스트 3가지” 문장형 브리프를 바로 씁니다.'
+    '마케터는 차트보다 “다음 테스트 3가지” 문장형 브리프를 바로 씁니다.',
+    'Railway에 배포해 Sample mode 공개 데모 + Variables로 Meta API 연동이 가능합니다.'
   ]
 };
