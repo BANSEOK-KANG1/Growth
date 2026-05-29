@@ -172,6 +172,7 @@ def _items_to_dataframe(
                 "tags": tags,
                 "source_keyword": source_keyword,
                 "is_shorts": duration_seconds <= 60 or "#shorts" in title.lower(),
+                "hours_since_publish": hours_since,
             }
         )
 

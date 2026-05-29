@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from datetime import datetime, timezone
 from typing import Iterable
 
 import pandas as pd
@@ -60,7 +61,21 @@ def enrich_youtube_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     if "format_label" not in out.columns:
         out["format_label"] = out["is_shorts"].map(lambda x: "Shorts" if x else "Long-form")
 
+    if "hours_since_publish" not in out.columns or out["hours_since_publish"].isna().all():
+        out["hours_since_publish"] = out.apply(_hours_since_publish, axis=1)
+
     return out
+
+
+def _hours_since_publish(row: pd.Series) -> float | None:
+    published = row.get("published_at")
+    if not published:
+        return None
+    try:
+        published_at = datetime.fromisoformat(str(published).replace("Z", "+00:00"))
+        return round((datetime.now(timezone.utc) - published_at).total_seconds() / 3600, 1)
+    except ValueError:
+        return None
 
 
 def overview_metrics(df: pd.DataFrame) -> dict:
