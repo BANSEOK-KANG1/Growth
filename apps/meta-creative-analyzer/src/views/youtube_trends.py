@@ -7,11 +7,10 @@ from datetime import datetime, timezone
 import pandas as pd
 import streamlit as st
 
-from bootstrap import is_streamlit_cloud, secrets_status
+from bootstrap import get_secret, inject_streamlit_secrets, is_streamlit_cloud, secrets_status
 from youtube_analyze import aggregate_by_dimension, category_mix, format_comparison
 from youtube_client import (
     MARKETING_KEYWORD_PRESETS,
-    YouTubeAPIError,
     YouTubeClient,
     load_sample_trending_dataframe,
 )
@@ -21,10 +20,8 @@ from youtube_transform import enrich_youtube_dataframe, overview_metrics
 
 @st.cache_data(ttl=3600, show_spinner="KR 트렌딩 baseline 불러오는 중…")
 def load_trending(use_api: bool) -> tuple[pd.DataFrame, str]:
-    if use_api:
-        client = YouTubeClient()
-        if not client.is_configured:
-            raise YouTubeAPIError("YOUTUBE_API_KEY가 설정되지 않았습니다.")
+    client = YouTubeClient()
+    if use_api and client.is_configured:
         df = client.load_trending_dataframe(max_results=50)
         source = f"YouTube API · KR baseline · {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}"
     else:
@@ -37,10 +34,12 @@ def load_trending(use_api: bool) -> tuple[pd.DataFrame, str]:
 def load_keyword(keyword: str, use_api: bool) -> pd.DataFrame:
     if not keyword.strip():
         return pd.DataFrame()
-    if use_api:
-        client = YouTubeClient()
+
+    client = YouTubeClient()
+    if use_api and client.is_configured:
         df = client.load_keyword_dataframe(keyword.strip(), max_results=25)
         return enrich_youtube_dataframe(df)
+
     sample = load_sample_trending_dataframe()
     enriched = enrich_youtube_dataframe(sample)
     mask = enriched["title"].str.contains(keyword.split()[0], case=False, na=False)
@@ -53,6 +52,8 @@ def load_keyword(keyword: str, use_api: bool) -> pd.DataFrame:
 
 
 def render() -> None:
+    inject_streamlit_secrets()
+
     st.title("Marketing Keyword Gap → Shoot Brief")
     st.caption(
         "KR 대중 트렌드(K-pop·먹방 noise) vs **내 마케팅 키워드** — gap 분석 후 **이번 주 찍을 영상 1편** 브리프"
@@ -65,15 +66,25 @@ def render() -> None:
 
     with st.sidebar:
         st.header("Settings")
-        use_api = st.toggle("YouTube API 사용", value=has_youtube_key)
+        use_api = st.toggle(
+            "YouTube API 사용",
+            value=has_youtube_key,
+            disabled=not has_youtube_key,
+            help="Streamlit Cloud → Settings → Secrets에 YOUTUBE_API_KEY 필요",
+        )
+        if not has_youtube_key:
+            st.error("YOUTUBE_API_KEY 미설정 — Sample mode")
+            if is_streamlit_cloud():
+                st.caption(
+                    "Secrets 예시:\n\n"
+                    '`YOUTUBE_API_KEY = "AIza..."`'
+                )
         st.caption("Region: KR")
         st.warning("키워드 검색 1회 ≈ 100 quota units")
-        try:
-            trending_df, source = load_trending(use_api)
-            st.success(source)
-        except YouTubeAPIError as exc:
-            st.error(str(exc))
-            trending_df, source = load_trending(False)
+
+        effective_api = use_api and has_youtube_key
+        trending_df, source = load_trending(effective_api)
+        st.success(source)
 
     st.markdown("### ① 내 마케팅 키워드")
     st.markdown("광고·유튜브·UGC 기획 전 — **내 상품/주제**로 검색했을 때 대중 트렌드와 얼마나 다른지 봅니다.")
@@ -89,7 +100,7 @@ def render() -> None:
         custom = st.text_input("또는 직접 입력", placeholder="예: 퍼포먼스 마케팅, CRM")
 
     primary_keyword = custom.strip() or preset
-    keyword_df = load_keyword(primary_keyword, use_api)
+    keyword_df = load_keyword(primary_keyword, effective_api)
     shoot = build_shoot_brief(primary_keyword, trending_df, keyword_df)
 
     st.divider()

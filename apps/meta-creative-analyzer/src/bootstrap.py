@@ -24,14 +24,27 @@ SECRET_KEYS = (
 )
 
 
-def inject_streamlit_secrets() -> None:
-    """Streamlit Cloud Secrets → os.environ."""
+def get_secret(key: str) -> str:
+    """Resolve secret from env → Streamlit Cloud Secrets."""
+    value = os.getenv(key, "").strip()
+    if value:
+        return value
     try:
-        for key in SECRET_KEYS:
-            if key in st.secrets and not os.getenv(key):
-                os.environ[key] = str(st.secrets[key])
+        if key in st.secrets:
+            return str(st.secrets[key]).strip()
     except Exception:
         pass
+    return ""
+
+
+def inject_streamlit_secrets() -> None:
+    """Streamlit Cloud Secrets → os.environ for downstream os.getenv callers."""
+    for key in SECRET_KEYS:
+        if os.getenv(key):
+            continue
+        value = get_secret(key)
+        if value:
+            os.environ[key] = value
 
 
 def is_streamlit_cloud() -> bool:
@@ -42,6 +55,6 @@ def is_streamlit_cloud() -> bool:
 
 def secrets_status() -> dict[str, bool]:
     return {
-        "meta": bool(os.getenv("META_ACCESS_TOKEN") and os.getenv("META_AD_ACCOUNT_ID")),
-        "youtube": bool(os.getenv("YOUTUBE_API_KEY")),
+        "meta": bool(get_secret("META_ACCESS_TOKEN") and get_secret("META_AD_ACCOUNT_ID")),
+        "youtube": bool(get_secret("YOUTUBE_API_KEY")),
     }

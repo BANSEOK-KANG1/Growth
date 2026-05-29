@@ -12,6 +12,8 @@ from typing import Any
 import pandas as pd
 import requests
 
+from bootstrap import get_secret
+
 
 class YouTubeAPIError(Exception):
     pass
@@ -36,7 +38,7 @@ class YouTubeClient:
     BASE = "https://www.googleapis.com/youtube/v3"
 
     def __init__(self, api_key: str | None = None, region_code: str = "KR"):
-        self.api_key = api_key or os.getenv("YOUTUBE_API_KEY", "")
+        self.api_key = (api_key or get_secret("YOUTUBE_API_KEY")).strip()
         self.region_code = region_code
 
     @property
