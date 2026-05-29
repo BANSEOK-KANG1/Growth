@@ -61,6 +61,13 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
             <span>{entry.category}{entry.company ? ` · ${entry.company}` : ''} · {entry.period}</span>
             <h3>{entry.title}</h3>
             <p>{entry.description}</p>
+            {entry.bullets && entry.bullets.length > 0 && (
+              <ul>
+                {entry.bullets.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
           </article>
         ))}
       </div>
@@ -81,7 +88,7 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
             <article class="timeline-item">
               <span>{entry.period}</span>
               <h3>{entry.school} {entry.degree}</h3>
-              <p>{entry.description}</p>
+              {entry.description && <p>{entry.description}</p>}
             </article>
           ))}
         </div>
@@ -131,6 +138,16 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
     height: 100%;
     background: var(--primary);
     border-radius: 999px;
+  }
+
+  .timeline-item ul {
+    margin-top: 12px;
+    padding-left: 20px;
+    color: var(--muted);
+  }
+
+  .timeline-item li {
+    margin-bottom: 6px;
   }
 
   @media (max-width: 768px) {

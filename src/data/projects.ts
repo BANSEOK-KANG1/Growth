@@ -19,18 +19,9 @@ export const projects: ProjectEntry[] = [
     featured: true
   },
   {
-    slug: 'bees-together-landing',
-    title: 'Bees Together 랜딩 페이지',
-    period: '2023.08 – 2024.03',
-    summary:
-      '비영리 양봉 재단의 웹사이트를 기획·디자인·WordPress로 구축했습니다. CTA·콘텐츠 구조·론칭 마케팅을 설계하고, 6개월간 트래픽 2배 증가를 확인했습니다.',
-    tags: ['Landing', 'WordPress', 'UX', 'Nonprofit'],
-    featured: false
-  },
-  {
     slug: 'growth-performance-portfolio',
     title: 'Growth Performance Portfolio',
-    period: '2024.05 – 2026',
+    period: '2024 – 2026',
     summary:
       '인하우스 퍼포먼스/그로스/CRM 직무 지원을 위한 케이스 스터디형 포트폴리오입니다. Astro + GitHub Pages로 구축했습니다.',
     tags: ['Portfolio', 'Astro', 'Case Study'],
