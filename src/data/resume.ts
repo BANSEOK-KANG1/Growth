@@ -71,9 +71,9 @@ export const resumeTimeline: ResumeEntry[] = [
     period: '2025',
     category: 'Data Marketing',
     company: '1인 기획·개발',
-    title: 'YouTube KR 트렌드 분석 허브',
+    title: 'Marketing Keyword Gap → Shoot Brief',
     description:
-      'YouTube Data API로 KR 트렌딩·마케팅 vertical 키워드를 비교하고, engagement·Shorts·제목 훅 패턴을 분석해 Content Brief를 자동 생성하는 Streamlit 앱을 Growth Analytics Hub에 통합했습니다.'
+      'YouTube Data API로 KR 대중 트렌드 vs 마케팅 키워드 gap을 분석하고, 포맷·훅·제목·태그가 담긴 Shoot Brief 1장으로 이번 주 촬영 액션을 도출하는 Streamlit 앱입니다.'
   }
 ];
 

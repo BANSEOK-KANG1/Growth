@@ -5,47 +5,43 @@ const growthAppBase = (
 ).replace(/\/$/, '');
 
 export const youtubeTrendSnapshot = {
-  videoCount: 50,
-  categoryCount: 15,
-  shortsShare: 38,
-  engagementRate: 4.2,
-  categories: [
-    { name: 'Entertainment', share: 82 },
-    { name: 'Music', share: 65 },
-    { name: 'Gaming', share: 48 },
-    { name: 'Howto', share: 35 },
-    { name: 'News', share: 28 }
-  ],
-  keywords: ['#AI', '#먹방', '#K-pop', '#브이로그', '#챌린지'],
-  modes: ['Trending', 'Keyword Search', 'Insight Report', 'Deep Dive']
+  keyword: 'SaaS',
+  verdict: '블루오cean',
+  engagementGap: '+1.2%p',
+  overlap: '22%',
+  format: 'Long-form 3분',
+  titleHook: 'How-to',
+  titleExample: 'SaaS 3단계 실전 가이드 | 초보도 10분 만에',
+  testTags: ['#saas', '#b2b', '#리드gen'],
+  modes: ['Keyword', 'Gap Report', 'Shoot Brief']
 };
 
 export const youtubeTrendProject = {
   slug: 'youtube-trend-analyzer',
-  title: 'YouTube KR 트렌드 분석 허브',
+  title: 'Marketing Keyword Gap → Shoot Brief',
   period: '2025 – 2026',
   role: 'PM · Data Marketing (Solo)',
   githubUrl: 'https://github.com/BANSEOK-KANG1/Growth/tree/main/apps/meta-creative-analyzer',
   liveDemoUrl: growthAppBase ? `${growthAppBase}/YouTube_KR_Trends` : '',
   problem:
-    '콘텐츠·마케팅 기획 시 KR YouTube 트렌드를 빠르게 파악해야 하지만, 트렌딩 목록·키워드 검색·정량 비교가 여러 도구에 분산되어 있었습니다.',
+    'KR YouTube 대중 트렌드(K-pop·먹방)와 내 마케팅 키워드(SaaS·리드gen) 콘텐츠가 달라서, 광고·UGC·브랜드 유튜브 기획 시 “뭘 찍어야 할지” 감으로만 결정했습니다.',
   approach: [
-    'YouTube Data API로 KR 인기 영상 수집 (ETL) + engagement·Shorts·훅 파생 지표',
-    '마케팅 vertical 키워드(SaaS, AI 마케팅, CRM 등) vs 트렌딩 overlap 분석',
-    '카테고리·포맷·제목 훅 패턴 집계 → Content Brief 자동 생성',
-    'Growth Analytics Hub Streamlit 4탭: Overview / Explorer / Keyword & Pattern / Brief'
+    'YouTube Data API — KR 트렌딩 baseline + 마케팅 키워드 검색 join',
+    'Engagement gap · Category overlap · Shorts share gap → 블루/레드/니치 판정',
+    '포맷·제목 훅·제목 예시·태그 → 이번 주 촬영 1편 Shoot Brief 자동 생성',
+    '상세 트렌딩 데이터는 expander — 핵심 UX는 3단계 워크플로'
   ],
   tools: ['YouTube Data API', 'Python', 'pandas', 'Streamlit', 'Markdown export'],
   metrics: [
-    { label: '데이터 소스', value: 'Live API' },
-    { label: '탐색 모드', value: '4' },
-    { label: '키워드 프리셋', value: '6+' },
-    { label: '출력', value: 'Content Brief' }
+    { label: 'USP', value: 'Gap → 1편 Brief' },
+    { label: '입력', value: '키워드 1개' },
+    { label: '출력', value: 'Shoot Brief' },
+    { label: '데이터', value: 'Live API' }
   ],
   learnings: [
-    '키워드 search.list는 100 quota — 프리셋·캐시 설계가 필수입니다.',
-    '마케팅 사용자는 차트보다 “다음 콘텐츠 테스트 4가지” 문장형 브리프를 바로 씁니다.',
-    '트렌딩 vs vertical 키워드 engagement gap이 블루오션 후보를 데이터로 설명합니다.',
-    'YouTube API Key만으로 회사 승인 없이 실 KR 데이터 Live 데모가 가능합니다.'
+    '범용 트렌드 분석보다 “내 키워드 vs 대중 noise” gap이 기획 액션으로 이어집니다.',
+    '출력을 Shoot Brief 1장(포맷·훅·제목·태그·이번 주 액션)으로 고정하면 USP가 명확해집니다.',
+    'Meta Creative(집행 중 CPA)와 짝 — YouTube는 기획 전 organic reference 리서치.',
+    'overlap < 30% + engagement gap 양수 → 블루오cean 판정으로 차별화 근거를 문장화.'
   ]
 };

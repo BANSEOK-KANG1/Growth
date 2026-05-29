@@ -11,7 +11,7 @@ Meta Creative Intelligence + YouTube KR Trends — Streamlit 멀티페이지 앱
 | 페이지 | 설명 | API |
 |--------|------|-----|
 | **Meta Creative** | 소재 메타 + CPA/CTR → Direction Brief | Meta (Sample 기본) |
-| **YouTube KR Trends** | KR 트렌딩 + 마케팅 키워드 → Content Brief | YouTube Data API |
+| **Keyword Gap → Shoot Brief** | 마케팅 키워드 vs KR 트렌딩 gap → 이번 주 촬영 1편 | YouTube Data API |
 
 ---
 

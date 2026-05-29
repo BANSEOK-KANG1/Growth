@@ -40,9 +40,9 @@ with col1:
         st.warning("Meta API 미설정 — Sample mode 사용")
 
 with col2:
-    st.subheader("YouTube KR Trends")
+    st.subheader("Keyword Gap → Shoot Brief")
     st.markdown(
-        "YouTube Data API KR 트렌딩 + 마케팅 vertical 키워드 → Content Brief"
+        "마케팅 키워드 vs KR 대중 트렌드 gap → **이번 주 찍을 영상 1편** 브리프"
     )
     if status["youtube"]:
         st.success("YouTube API Key 설정됨")
@@ -52,4 +52,4 @@ with col2:
 st.markdown("---")
 st.markdown("### 시작하기")
 st.page_link("pages/1_Meta_Creative.py", label="Meta Creative Intelligence →", icon="📊")
-st.page_link("pages/2_YouTube_KR_Trends.py", label="YouTube KR Trends →", icon="▶️")
+st.page_link("pages/2_YouTube_KR_Trends.py", label="Keyword Gap → Shoot Brief →", icon="🎬")

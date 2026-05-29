@@ -29,11 +29,11 @@ export const projects: ProjectEntry[] = [
   },
   {
     slug: 'youtube-trend-analyzer',
-    title: 'YouTube KR 트렌드 분석 허브',
-    period: '2025',
+    title: 'Marketing Keyword Gap → Shoot Brief',
+    period: '2025 – 2026',
     summary:
-      'YouTube Data API로 KR 트렌딩·키워드 검색을 한 화면에서 비교하고, 카테고리·Shorts·참여율 필터와 자동 인사이트 리포트로 기획 리서치 시간을 줄이는 데이터 분석 프로젝트입니다.',
-    tags: ['YouTube API', 'Python', 'Trend Analysis', 'Data Marketing'],
+      'KR YouTube 대중 트렌드 vs 마케팅 키워드(SaaS·리드gen) gap을 분석해, 포맷·훅·제목·태그가 담긴 Shoot Brief 1장으로 이번 주 촬영 액션을 도출하는 도구입니다.',
+    tags: ['YouTube API', 'Content Planning', 'Python', 'Streamlit'],
     featured: true
   },
   {

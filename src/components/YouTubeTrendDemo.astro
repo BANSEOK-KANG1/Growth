@@ -7,75 +7,71 @@ import { youtubeTrendSnapshot } from '../data/youtubeTrend';
     <div class="yt-demo-topbar">
       <div class="yt-window-dots">
         <span></span><span></span><span></span>
-        <strong>YouTube KR · Trend Analyzer</strong>
+        <strong>Keyword Gap → Shoot Brief</strong>
       </div>
-      <span class="yt-live-badge">LIVE · KR</span>
+      <span class="yt-live-badge">KR · SaaS</span>
     </div>
 
     <div class="yt-demo-body">
       <div class="yt-kpi-grid">
         <div class="yt-kpi">
-          <p>Videos</p>
-          <strong data-count={youtubeTrendSnapshot.videoCount} data-suffix="+">0+</strong>
+          <p>Keyword</p>
+          <strong>{youtubeTrendSnapshot.keyword}</strong>
         </div>
         <div class="yt-kpi">
-          <p>Categories</p>
-          <strong data-count={youtubeTrendSnapshot.categoryCount}>0</strong>
+          <p>Verdict</p>
+          <strong>{youtubeTrendSnapshot.verdict}</strong>
         </div>
         <div class="yt-kpi">
-          <p>Shorts %</p>
-          <strong data-kpi="shorts">38%</strong>
+          <p>Eng. gap</p>
+          <strong>{youtubeTrendSnapshot.engagementGap}</strong>
         </div>
         <div class="yt-kpi">
-          <p>Engagement</p>
-          <strong>4.2%</strong>
+          <p>Overlap</p>
+          <strong>{youtubeTrendSnapshot.overlap}</strong>
         </div>
       </div>
 
       <div class="yt-tabs" role="tablist">
-        <button type="button" class="yt-tab is-active" data-tab="trending">Trending</button>
-        <button type="button" class="yt-tab" data-tab="keyword">Keyword</button>
-        <button type="button" class="yt-tab" data-tab="insight">Insight Report</button>
+        <button type="button" class="yt-tab is-active" data-tab="trending">Gap Report</button>
+        <button type="button" class="yt-tab" data-tab="keyword">Shoot Brief</button>
+        <button type="button" class="yt-tab" data-tab="insight">Action</button>
       </div>
 
       <div class="yt-demo-grid">
         <div class="yt-panel-main">
           <div data-panel="trending">
-            <p class="yt-label">Category mix (KR trending)</p>
-            {youtubeTrendSnapshot.categories.map((cat) => (
-              <div class="yt-bar-row">
-                <span>{cat.name}</span>
-                <div class="yt-bar"><i style={`width: ${cat.share}%`}></i></div>
-                <em>{cat.share}%</em>
-              </div>
-            ))}
+            <p class="yt-label">Gap vs KR trending baseline</p>
+            <p>Keyword: <strong>{youtubeTrendSnapshot.keyword}</strong></p>
+            <p>Category overlap: <strong class="yt-accent">{youtubeTrendSnapshot.overlap}</strong></p>
+            <p>Engagement gap: <strong>{youtubeTrendSnapshot.engagementGap}</strong></p>
           </div>
           <div data-panel="keyword" hidden>
-            <p class="yt-label">Keyword search vs trending</p>
-            <p>Search: <strong>AI 먹방</strong></p>
-            <p>Overlap with trending: <strong class="yt-accent">62%</strong></p>
-            <p>Unique: #브이로그 #챌린지 #케이팝</p>
+            <p class="yt-label">Shoot Brief — 이번 주 1편</p>
+            <p>Format: <strong>{youtubeTrendSnapshot.format}</strong></p>
+            <p>Hook: <strong>{youtubeTrendSnapshot.titleHook}</strong></p>
+            <p>Title: <strong>{youtubeTrendSnapshot.titleExample}</strong></p>
           </div>
           <div data-panel="insight" hidden>
-            <p class="yt-label">Auto-generated insight</p>
+            <p class="yt-label">This week action</p>
             <ul>
-              <li>Shorts share 상승 — 48h 이내 업로드 영상 참여율 높음</li>
-              <li>Gaming·Entertainment 키워드 동시 급등</li>
-              <li>기획용 리포트 Markdown 원클릭 생성</li>
+              <li>Long-form 3분 · How-to 훅 · SaaS 실전 가이드 1편 촬영</li>
+              <li>Tags: {youtubeTrendSnapshot.testTags.join(' ')}</li>
+              <li>Markdown Shoot Brief 원클릭 export</li>
             </ul>
           </div>
         </div>
 
         <aside class="yt-panel-side">
-          <p class="yt-label">Format filter</p>
+          <p class="yt-label">Marketing presets</p>
           <div class="yt-chips">
-            <button type="button" class="yt-chip is-active" data-format="all">All</button>
-            <button type="button" class="yt-chip" data-format="shorts">Shorts</button>
-            <button type="button" class="yt-chip" data-format="long">Long-form</button>
+            <button type="button" class="yt-chip is-active" data-format="all">SaaS</button>
+            <button type="button" class="yt-chip" data-format="shorts">AI 마케팅</button>
+            <button type="button" class="yt-chip" data-format="long">CRM</button>
           </div>
-          <p class="yt-label" style="margin-top: 16px">Trending keywords</p>
+          <p class="yt-label" style="margin-top: 16px">Test tags</p>
           <div class="yt-keywords">
-            {youtubeTrendSnapshot.keywords.map((kw) => (
+            {youtubeTrendSnapshot.testTags.map((kw) => (
               <span>{kw}</span>
             ))}
           </div>
