@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://banseok-kang1.github.io/Growth/sitemap.xml

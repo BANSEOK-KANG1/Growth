@@ -318,7 +318,28 @@
     });
   }
 
+  function initTheme() {
+    const toggle = document.querySelector('[data-theme-toggle]');
+    if (!toggle) return;
+
+    const meta = document.querySelector('meta[data-theme-color]');
+    const lightColor = '#2457c5';
+    const darkColor = '#0f1729';
+
+    const applyTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      if (meta) meta.setAttribute('content', theme === 'dark' ? darkColor : lightColor);
+    };
+
+    toggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    initTheme();
     initReveal();
     initCounters();
     initTyping();

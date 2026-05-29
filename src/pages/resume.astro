@@ -2,21 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ToolStack from '../components/ToolStack.astro';
+import PdfDownloads from '../components/PdfDownloads.astro';
+import PdfPreview from '../components/PdfPreview.astro';
 import { profile } from '../data/profile';
 import { resumeTimeline, coreTools, supplementarySkills } from '../data/resume';
 import { education } from '../data/profile';
-import { resumeDownloads } from '../data/resumeDownloads';
-import fs from 'node:fs';
-import path from 'node:path';
+import { allPdfDownloads, primaryResumeDownload } from '../data/pdfDownloads';
+import { publicAssetExists, publicAssetUrl } from '../utils/assets';
 
 const base = import.meta.env.BASE_URL;
-
-const availableDownloads = resumeDownloads.filter((item) =>
-  fs.existsSync(path.join(process.cwd(), 'public', item.filename))
-);
+const primaryPdf = primaryResumeDownload;
+const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
 ---
 
-<BaseLayout title="Resume | Kang Banseok Portfolio" description="강반석의 퍼포먼스/그로스/CRM 직무용 이력서 요약 페이지입니다.">
+<BaseLayout
+  title={`Resume | ${profile.nameKo} — Growth Performance Marketer`}
+  description={`${profile.nameKo}의 퍼포먼스·그로스·CRM 직무용 이력서 요약 및 PDF 다운로드.`}
+  keywords={[...profile.keywords, '이력서', 'Resume PDF', profile.nameKo]}
+>
   <section class="page-hero">
     <div class="container resume-hero reveal">
       <ProfilePhoto size="lg" />
@@ -31,14 +34,12 @@ const availableDownloads = resumeDownloads.filter((item) =>
           {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
         </div>
         <div class="hero-actions" style="margin-top: 20px">
-          {availableDownloads.find((d) => d.primary) && (
-            <a
-              class="btn-primary"
-              href={`${base}${availableDownloads.find((d) => d.primary)!.filename.replace(/^\//, '')}`}
-              download
-            >
+          {hasPrimaryPdf ? (
+            <a class="btn-primary" href={publicAssetUrl(base, primaryPdf.filename)} download>
               PDF 이력서 다운로드
             </a>
+          ) : (
+            <a class="btn-primary" href={`${base}contact/`}>Contact</a>
           )}
           <a class="btn-secondary" href={`${base}contact/`}>Contact</a>
         </div>
@@ -51,27 +52,23 @@ const availableDownloads = resumeDownloads.filter((item) =>
       <div class="section-header">
         <div>
           <span class="eyebrow">Resume PDF</span>
-          <h2>직무별 이력서 다운로드</h2>
+          <h2>직무별 이력서 · 포트폴리오 PDF</h2>
           <p>퍼포먼스 마케팅, CRM·그로스, PM/Growth Analyst 포지션에 맞춘 PDF를 선택해 다운로드할 수 있습니다.</p>
         </div>
       </div>
-      <div class="pdf-grid">
-        {availableDownloads.map((item) => (
-          <article class="pdf-card">
-            {item.primary && <span class="pill">Recommended</span>}
-            <h3>{item.label}</h3>
-            <p>{item.description}</p>
-            <div class="tag-list">
-              {item.tags.map((tag) => <span class="tag">{tag}</span>)}
-            </div>
-            <a class="btn-primary" href={`${base}${item.filename.replace(/^\//, '')}`} download style="margin-top: 16px; display: inline-flex;">
-              다운로드
-            </a>
-          </article>
-        ))}
-      </div>
+      <PdfDownloads items={allPdfDownloads} showEmpty />
     </div>
   </section>
+
+  {
+    hasPrimaryPdf && (
+      <section class="section">
+        <div class="container">
+          <PdfPreview filename={primaryPdf.filename} title={primaryPdf.label} />
+        </div>
+      </section>
+    )
+  }
 
   <section class="section">
     <div class="container grid-2">
@@ -178,24 +175,6 @@ const availableDownloads = resumeDownloads.filter((item) =>
     grid-template-columns: auto 1fr;
     gap: 32px;
     align-items: center;
-  }
-
-  .pdf-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
-  }
-
-  .pdf-card {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    padding: 22px;
-    box-shadow: var(--shadow);
-  }
-
-  .pdf-card h3 {
-    margin-top: 10px;
   }
 
   .bar-track {

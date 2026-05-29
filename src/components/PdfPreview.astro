@@ -1,0 +1,65 @@
+---
+import { publicAssetExists, publicAssetUrl } from '../utils/assets';
+
+interface Props {
+  filename: string;
+  title: string;
+}
+
+const { filename, title } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const exists = publicAssetExists(filename);
+const href = publicAssetUrl(base, filename);
+---
+
+{
+  exists ? (
+    <section class="pdf-preview reveal">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">PDF Preview</span>
+          <h2>{title} 미리보기</h2>
+        </div>
+        <a class="btn-secondary" href={href} download>
+          PDF 다운로드
+        </a>
+      </div>
+      <div class="pdf-preview-frame">
+        <iframe src={`${href}#view=FitH`} title={`${title} PDF preview`} loading="lazy"></iframe>
+      </div>
+    </section>
+  ) : null
+}
+
+<style>
+  .pdf-preview {
+    margin-top: 8px;
+  }
+
+  .pdf-preview-frame {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface-muted);
+    box-shadow: var(--shadow);
+    min-height: 520px;
+  }
+
+  .pdf-preview-frame iframe {
+    display: block;
+    width: 100%;
+    height: min(72vh, 760px);
+    border: 0;
+    background: var(--surface);
+  }
+
+  @media (max-width: 768px) {
+    .pdf-preview-frame {
+      min-height: 420px;
+    }
+
+    .pdf-preview-frame iframe {
+      height: min(60vh, 560px);
+    }
+  }
+</style>

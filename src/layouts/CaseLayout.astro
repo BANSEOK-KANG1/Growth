@@ -1,12 +1,18 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { profile } from '../data/profile';
 
 const { entry } = Astro.props;
 const data = entry.data;
 const backHref = `${import.meta.env.BASE_URL}cases/`;
 ---
 
-<BaseLayout title={`${data.title} | Kang Banseok Portfolio`} description={data.summary}>
+<BaseLayout
+  title={`${data.title} | ${profile.nameKo} Portfolio`}
+  description={data.summary}
+  ogType="article"
+  keywords={[data.category, ...data.metrics, ...data.tools, profile.nameKo]}
+>
   <section class="case-hero">
     <div class="container case-hero-inner">
       <div>

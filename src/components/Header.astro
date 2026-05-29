@@ -1,5 +1,8 @@
 ---
 import { profile } from '../data/profile';
+import ThemeToggle from './ThemeToggle.astro';
+import { primaryResumeDownload } from '../data/pdfDownloads';
+import { publicAssetExists, publicAssetUrl } from '../utils/assets';
 
 const base = import.meta.env.BASE_URL;
 const navLinks = [
@@ -10,6 +13,11 @@ const navLinks = [
   { href: `${base}about/`, label: 'About' },
   { href: `${base}contact/`, label: 'Contact' }
 ];
+
+const hasPrimaryPdf = publicAssetExists(primaryResumeDownload.filename);
+const primaryPdfHref = hasPrimaryPdf
+  ? publicAssetUrl(base, primaryResumeDownload.filename)
+  : `${base}cases/`;
 ---
 
 <header class="site-header">
@@ -20,15 +28,21 @@ const navLinks = [
     </a>
 
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-    <label for="nav-toggle" class="nav-menu-btn" aria-label="Toggle navigation menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
 
     <div class="nav-links">
       {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
-      <a class="nav-cta" href={`${base}cases/`}>View Cases</a>
+      <a class="nav-cta" href={primaryPdfHref} download={hasPrimaryPdf || undefined}>
+        {hasPrimaryPdf ? 'Resume PDF' : 'View Cases'}
+      </a>
+    </div>
+
+    <div class="nav-end">
+      <ThemeToggle />
+      <label for="nav-toggle" class="nav-menu-btn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
     </div>
   </nav>
 </header>

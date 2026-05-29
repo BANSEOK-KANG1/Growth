@@ -1,20 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PdfDownloads from '../components/PdfDownloads.astro';
 import { profile } from '../data/profile';
-import { resumeDownloads } from '../data/resumeDownloads';
-import fs from 'node:fs';
-import path from 'node:path';
-
-const base = import.meta.env.BASE_URL;
-const portfolioHref = `${base}${profile.portfolioPdfPath.replace(/^\//, '')}`;
-const portfolioExists = fs.existsSync(path.join(process.cwd(), 'public', profile.portfolioPdfPath));
-
-const availableDownloads = resumeDownloads.filter((item) =>
-  fs.existsSync(path.join(process.cwd(), 'public', item.filename))
-);
+import { allPdfDownloads } from '../data/pdfDownloads';
 ---
 
-<BaseLayout title="Contact | Kang Banseok Portfolio" description="강반석 포트폴리오 연락처 페이지입니다.">
+<BaseLayout
+  title={`Contact | ${profile.nameKo} Portfolio`}
+  description={`${profile.nameKo}(${profile.nameEn}) 포트폴리오 연락처 · 이력서 PDF 다운로드.`}
+  keywords={[...profile.keywords, '연락처', 'Contact', profile.nameKo]}
+>
   <section class="page-hero reveal">
     <div class="container">
       <span class="eyebrow">Contact</span>
@@ -34,54 +29,13 @@ const availableDownloads = resumeDownloads.filter((item) =>
         <p><strong>Notion</strong><br /><a class="text-link" href={profile.notionUrl} target="_blank" rel="noreferrer">프로젝트 허브 DB</a></p>
       </article>
       <article class="info-panel reveal">
-        <h2>Resume PDF</h2>
-        <p style="color: var(--muted); margin-bottom: 16px">직무에 맞는 이력서를 선택해 다운로드하세요.</p>
-        <div class="pdf-list">
-          {availableDownloads.map((item) => (
-            <a class="pdf-link" href={`${base}${item.filename.replace(/^\//, '')}`} download>
-              <strong>{item.label}</strong>
-              <span>{item.description}</span>
-            </a>
-          ))}
-        </div>
-        {portfolioExists ? (
-          <a class="btn-secondary" href={portfolioHref} download style="margin-top: 16px; display: inline-flex">
-            Portfolio PDF
-          </a>
-        ) : null}
+        <h2>Resume & Portfolio PDF</h2>
+        <p style="color: var(--muted); margin-bottom: 16px">직무에 맞는 이력서·포트폴리오 PDF를 선택해 다운로드하세요.</p>
+        <PdfDownloads items={allPdfDownloads} variant="list" showEmpty />
+        <a class="btn-secondary" href={`${import.meta.env.BASE_URL}resume/`} style="margin-top: 16px; display: inline-flex">
+          Resume 페이지에서 미리보기
+        </a>
       </article>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .pdf-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .pdf-link {
-    display: block;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    background: var(--surface-soft);
-    transition: border-color 0.2s ease, transform 0.2s ease;
-  }
-
-  .pdf-link:hover {
-    border-color: var(--primary);
-    transform: translateX(4px);
-  }
-
-  .pdf-link strong {
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .pdf-link span {
-    font-size: 13px;
-    color: var(--muted);
-  }
-</style>
