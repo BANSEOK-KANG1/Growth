@@ -10,7 +10,7 @@ const base = import.meta.env.BASE_URL;
     <div class="container">
       <span class="eyebrow">Projects</span>
       <h1>데이터와 판단 구조를 보여주는 프로젝트</h1>
-      <p>광고 성과 분석, 전환 측정, CRM 실험을 하나의 흐름으로 연결하는 프로젝트를 정리합니다.</p>
+      <p>광고 성과 분석, 전환 측정, 랜딩·대시보드 설계를 하나의 흐름으로 연결하는 프로젝트를 정리합니다.</p>
     </div>
   </section>
 
@@ -19,14 +19,21 @@ const base = import.meta.env.BASE_URL;
       {projects.map((project) => (
         <article class="card project-card">
           {project.featured && <span class="pill">Featured</span>}
+          {project.period && <span class="pill" style="margin-left: 8px">{project.period}</span>}
           <h2>{project.title}</h2>
           <p>{project.summary}</p>
           <div class="tag-list">
             {project.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
-          <a class="btn-primary" href={`${base}projects/${project.slug}/`} style="margin-top: 20px; display: inline-flex;">
-            프로젝트 보기
-          </a>
+          {project.externalUrl ? (
+            <a class="btn-primary" href={project.externalUrl} target="_blank" rel="noreferrer" style="margin-top: 20px; display: inline-flex;">
+              사이트 보기
+            </a>
+          ) : (
+            <a class="btn-primary" href={`${base}projects/${project.slug}/`} style="margin-top: 20px; display: inline-flex;">
+              프로젝트 보기
+            </a>
+          )}
         </article>
       ))}
     </div>

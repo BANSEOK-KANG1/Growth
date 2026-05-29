@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import { profile } from '../data/profile';
-import { resumeTimeline, coreTools } from '../data/resume';
+import { resumeTimeline, coreTools, supplementarySkills } from '../data/resume';
+import { education } from '../data/profile';
 
 const base = import.meta.env.BASE_URL;
 const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
@@ -16,6 +17,9 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
         <span class="eyebrow">Resume Summary</span>
         <h1>{profile.nameKo}</h1>
         <p>{profile.headline}</p>
+        <p style="color: var(--muted); margin-top: 8px">
+          {profile.location} · {profile.email} · {profile.phone}
+        </p>
         <div class="tag-list">
           {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
         </div>
@@ -47,19 +51,61 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
     <div class="container">
       <div class="section-header">
         <div>
-          <span class="eyebrow">Experience Narrative</span>
+          <span class="eyebrow">Experience</span>
           <h2>직무 연결 중심 경력 요약</h2>
-          <p>퍼포먼스/그로스/CRM 직무와 연결되는 경험을 전면에 배치했습니다.</p>
         </div>
       </div>
       <div class="timeline">
         {resumeTimeline.map((entry) => (
           <article class="timeline-item">
-            <span>{entry.category} · {entry.period}</span>
+            <span>{entry.category}{entry.company ? ` · ${entry.company}` : ''} · {entry.period}</span>
             <h3>{entry.title}</h3>
             <p>{entry.description}</p>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Education</span>
+            <h2>학력</h2>
+          </div>
+        </div>
+        <div class="timeline">
+          {education.map((entry) => (
+            <article class="timeline-item">
+              <span>{entry.period}</span>
+              <h3>{entry.school} {entry.degree}</h3>
+              <p>{entry.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div class="section-header">
+          <div>
+            <span class="eyebrow">Supplementary Skills</span>
+            <h2>보조 역량</h2>
+          </div>
+        </div>
+        <div class="info-panel">
+          {supplementarySkills.map((skill) => (
+            <div style="margin-bottom: 16px">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px">
+                <strong>{skill.name}</strong>
+                <span style="color: var(--muted); font-size: 14px">{skill.category}</span>
+              </div>
+              <div class="bar-track" aria-label={`${skill.name} ${skill.level}`}>
+                <span class="bar-fill" style={`width: ${skill.level}`}></span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -71,6 +117,20 @@ const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
     grid-template-columns: auto 1fr;
     gap: 32px;
     align-items: center;
+  }
+
+  .bar-track {
+    height: 8px;
+    background: var(--surface-soft);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    display: block;
+    height: 100%;
+    background: var(--primary);
+    border-radius: 999px;
   }
 
   @media (max-width: 768px) {
