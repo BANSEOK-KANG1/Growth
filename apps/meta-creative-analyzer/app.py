@@ -51,5 +51,12 @@ with col2:
 
 st.markdown("---")
 st.markdown("### 시작하기")
-st.page_link("pages/1_Meta_Creative.py", label="Meta Creative Intelligence →", icon="📊")
-st.page_link("pages/2_YouTube_KR_Trends.py", label="Keyword Gap → Shoot Brief →", icon="🎬")
+st.caption("아래 버튼 또는 좌측 사이드바에서 페이지를 선택하세요.")
+
+nav1, nav2 = st.columns(2)
+with nav1:
+    if st.button("Meta Creative Intelligence →", type="primary", use_container_width=True):
+        st.switch_page("pages/1_Meta_Creative.py")
+with nav2:
+    if st.button("Keyword Gap → Shoot Brief →", type="primary", use_container_width=True):
+        st.switch_page("pages/2_YouTube_KR_Trends.py")
