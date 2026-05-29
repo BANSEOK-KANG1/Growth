@@ -20,7 +20,22 @@ const base = import.meta.env.BASE_URL;
     <div class="container hero-grid">
       <div class="reveal">
         <span class="eyebrow">Growth Performance Marketer</span>
-        <h1>광고 집행자가 아니라, 성과 흐름을 설계하는 마케터</h1>
+        <h1 class="hero-title">
+          <span class="hero-title-line">광고 집행자가 아니라,</span>
+          <span class="typing-wrap" aria-live="polite">
+            <span
+              class="typing-text"
+              data-typing
+              data-phrases={JSON.stringify([
+                '성과 흐름을 설계하는 마케터',
+                '퍼널 병목을 찾는 마케터',
+                '데이터로 액션을 만드는 마케터',
+                '측정 가능한 그로스를 만드는 마케터'
+              ])}
+            ></span>
+            <span class="typing-cursor" aria-hidden="true"></span>
+          </span>
+        </h1>
         <p class="lead">{profile.headline}</p>
         <p class="lead" style="font-size: 17px; color: var(--muted)">{profile.summary}</p>
         <blockquote class="hero-intro">{profile.oneLineIntro}</blockquote>
@@ -50,7 +65,7 @@ const base = import.meta.env.BASE_URL;
 
       <aside class="hero-aside reveal">
         <ProfilePhoto size="lg" />
-        <div class="hero-panel" aria-label="Portfolio snapshot">
+        <div class="hero-panel" data-tilt aria-label="Portfolio snapshot">
         <div class="panel-title">
           <div>
             <strong>Portfolio Focus</strong>
@@ -229,9 +244,20 @@ const base = import.meta.env.BASE_URL;
     border-left: 3px solid var(--primary);
     background: rgba(36, 87, 197, 0.06);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    font-size: 16px;
+    font-size: var(--text-base);
     color: var(--text);
-    line-height: 1.65;
+    line-height: 1.7;
+  }
+
+  .hero-title .typing-text {
+    background: linear-gradient(120deg, var(--primary-dark) 0%, var(--primary) 55%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-title .typing-cursor {
+    background: var(--primary);
   }
 
   .contact-cta-panel {

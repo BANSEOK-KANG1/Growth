@@ -1,5 +1,6 @@
 (function () {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCoarsePointer = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 
   function initReveal() {
     const nodes = document.querySelectorAll('.reveal');
@@ -63,6 +64,171 @@
     );
 
     counters.forEach((el) => observer.observe(el));
+  }
+
+  function initTyping() {
+    const nodes = document.querySelectorAll('[data-typing]');
+    if (!nodes.length) return;
+
+    nodes.forEach((el) => {
+      let phrases = [];
+      try {
+        phrases = JSON.parse(el.getAttribute('data-phrases') || '[]');
+      } catch {
+        phrases = [];
+      }
+      if (!phrases.length) return;
+
+      if (prefersReduced) {
+        el.textContent = phrases[0];
+        return;
+      }
+
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+      const typeSpeed = 72;
+      const deleteSpeed = 38;
+      const pauseEnd = 2200;
+      const pauseStart = 480;
+
+      const tick = () => {
+        const current = phrases[phraseIndex];
+
+        if (!deleting) {
+          el.textContent = current.slice(0, charIndex + 1);
+          charIndex += 1;
+
+          if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(tick, pauseEnd);
+            return;
+          }
+
+          setTimeout(tick, typeSpeed + Math.random() * 28);
+          return;
+        }
+
+        el.textContent = current.slice(0, charIndex - 1);
+        charIndex -= 1;
+
+        if (charIndex === 0) {
+          deleting = false;
+          phraseIndex = (phraseIndex + 1) % phrases.length;
+          setTimeout(tick, pauseStart);
+          return;
+        }
+
+        setTimeout(tick, deleteSpeed);
+      };
+
+      tick();
+    });
+  }
+
+  function initMouseEffects() {
+    if (prefersReduced || isCoarsePointer) return;
+
+    const glow = document.querySelector('.fx-glow');
+    const cursor = document.querySelector('.fx-cursor');
+    if (!glow || !cursor) return;
+
+    document.body.classList.add('has-mouse-fx');
+
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let glowX = targetX;
+    let glowY = targetY;
+    let cursorX = targetX;
+    let cursorY = targetY;
+    let rafId = 0;
+
+    const pointerTargets = 'a, button, [role="button"], .btn-primary, .btn-secondary, .nav-cta, .case-card, input, textarea, label';
+
+    const setTarget = (x, y) => {
+      targetX = x;
+      targetY = y;
+    };
+
+    const animate = () => {
+      cursorX += (targetX - cursorX) * 0.28;
+      cursorY += (targetY - cursorY) * 0.28;
+      glowX += (targetX - glowX) * 0.08;
+      glowY += (targetY - glowY) * 0.08;
+
+      cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0)`;
+      glow.style.transform = `translate3d(${glowX}px, ${glowY}px, 0)`;
+      rafId = requestAnimationFrame(animate);
+    };
+
+    document.addEventListener(
+      'mousemove',
+      (event) => {
+        setTarget(event.clientX, event.clientY);
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      'mouseover',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        document.body.classList.toggle('is-pointer-hover', Boolean(target.closest(pointerTargets)));
+      },
+      { passive: true }
+    );
+
+    document.addEventListener('mouseleave', () => {
+      document.body.classList.remove('is-pointer-hover');
+    });
+
+    rafId = requestAnimationFrame(animate);
+
+    window.addEventListener(
+      'blur',
+      () => {
+        cancelAnimationFrame(rafId);
+      },
+      { once: false }
+    );
+  }
+
+  function initTilt() {
+    if (prefersReduced || isCoarsePointer) return;
+
+    const cards = document.querySelectorAll('[data-tilt]');
+    if (!cards.length) return;
+
+    cards.forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(900px) rotateX(${y * -5}deg) rotateY(${x * 6}deg) translateY(-2px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+
+  function initMagneticButtons() {
+    if (prefersReduced || isCoarsePointer) return;
+
+    document.querySelectorAll('.btn-primary, .btn-secondary, .nav-cta').forEach((btn) => {
+      btn.addEventListener('mousemove', (event) => {
+        const rect = btn.getBoundingClientRect();
+        const x = event.clientX - rect.left - rect.width / 2;
+        const y = event.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
   }
 
   function initToolTabs() {
@@ -155,6 +321,10 @@
   document.addEventListener('DOMContentLoaded', () => {
     initReveal();
     initCounters();
+    initTyping();
+    initMouseEffects();
+    initTilt();
+    initMagneticButtons();
     initToolTabs();
     initYouTubeDemo();
     initMetaDemo();

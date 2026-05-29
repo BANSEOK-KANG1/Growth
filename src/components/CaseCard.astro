@@ -11,7 +11,7 @@ const caseSlug = String(entry.id).replace(/\.(md|mdx)$/, '');
 const href = `${import.meta.env.BASE_URL}cases/${caseSlug}/`;
 ---
 
-<a class="case-card" href={href}>
+<a class="case-card reveal" data-tilt href={href}>
   <div class="case-meta">
     <span class="pill">{data.category}</span>
     <span class="pill">{data.period}</span>
