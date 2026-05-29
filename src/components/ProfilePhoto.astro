@@ -1,0 +1,39 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  alt?: string;
+}
+
+const { size = 'md', alt = '강반석 프로필 사진' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const src = `${base}images/profile.png`;
+---
+
+<img class={`profile-photo profile-photo-${size}`} src={src} alt={alt} width="320" height="400" loading="lazy" />
+
+<style>
+  .profile-photo {
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    background: #fff;
+  }
+
+  .profile-photo-sm {
+    width: 96px;
+    height: 120px;
+  }
+
+  .profile-photo-md {
+    width: 200px;
+    height: 250px;
+  }
+
+  .profile-photo-lg {
+    width: 280px;
+    height: 350px;
+  }
+</style>

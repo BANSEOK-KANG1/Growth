@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "BASE_PATH=/ astro dev",
+    "start": "BASE_PATH=/ astro dev",
     "build": "astro build",
+    "build:pages": "BASE_PATH=/Growth/ astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

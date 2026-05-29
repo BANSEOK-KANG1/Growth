@@ -11,6 +11,7 @@ export const profile = {
   githubUrl: 'https://github.com/BANSEOK-KANG1',
   notionUrl: 'https://notion.so/your-portfolio',
   siteUrl: 'https://banseok-kang1.github.io/Growth/',
+  photoPath: 'images/profile.png',
   resumePdfPath: 'files/kang-banseok-resume.pdf',
   portfolioPdfPath: 'files/kang-banseok-portfolio.pdf',
   targetRoles: ['In-house Performance Marketer', 'Growth Marketer', 'CRM / Marketing Ops', 'Growth PM Assistant'],

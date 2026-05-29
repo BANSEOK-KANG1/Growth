@@ -1,14 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
 import { workPrinciples } from '../data/skills';
+import { profile } from '../data/profile';
 ---
 
 <BaseLayout title="About | Kang Banseok Portfolio" description="강반석의 일하는 방식과 포트폴리오 방향성입니다.">
   <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">About</span>
-      <h1>저는 측정되지 않는 성과를 그대로 두지 않습니다</h1>
-      <p>광고를 운영할 때 가장 먼저 보는 것은 “어떤 캠페인이 성과가 좋다”는 감각이 아니라, 그 성과를 판단할 수 있는 구조가 있는지입니다.</p>
+    <div class="container about-hero">
+      <ProfilePhoto size="md" />
+      <div>
+        <span class="eyebrow">About</span>
+        <h1>저는 측정되지 않는 성과를 그대로 두지 않습니다</h1>
+        <p>광고를 운영할 때 가장 먼저 보는 것은 “어떤 캠페인이 성과가 좋다”는 감각이 아니라, 그 성과를 판단할 수 있는 구조가 있는지입니다.</p>
+        <p style="margin-top: 12px; color: var(--muted)">{profile.oneLineIntro}</p>
+      </div>
     </div>
   </section>
 
@@ -42,3 +48,18 @@ import { workPrinciples } from '../data/skills';
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .about-hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 28px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .about-hero {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

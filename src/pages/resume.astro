@@ -1,17 +1,28 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
 import { profile } from '../data/profile';
 import { resumeTimeline, coreTools } from '../data/resume';
+
+const base = import.meta.env.BASE_URL;
+const resumeHref = `${base}${profile.resumePdfPath.replace(/^\//, '')}`;
 ---
 
 <BaseLayout title="Resume | Kang Banseok Portfolio" description="강반석의 퍼포먼스/그로스/CRM 직무용 이력서 요약 페이지입니다.">
   <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Resume Summary</span>
-      <h1>{profile.nameKo}</h1>
-      <p>{profile.headline}</p>
-      <div class="tag-list">
-        {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
+    <div class="container resume-hero">
+      <ProfilePhoto size="lg" />
+      <div>
+        <span class="eyebrow">Resume Summary</span>
+        <h1>{profile.nameKo}</h1>
+        <p>{profile.headline}</p>
+        <div class="tag-list">
+          {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
+        </div>
+        <div class="hero-actions" style="margin-top: 20px">
+          <a class="btn-primary" href={resumeHref} download>PDF 이력서 다운로드</a>
+          <a class="btn-secondary" href={`${base}contact/`}>Contact</a>
+        </div>
       </div>
     </div>
   </section>
@@ -53,3 +64,19 @@ import { resumeTimeline, coreTools } from '../data/resume';
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .resume-hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .resume-hero {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+  }
+</style>
