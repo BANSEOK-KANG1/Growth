@@ -12,6 +12,7 @@ dist/
 apps/meta-creative-analyzer/.venv/
 apps/meta-creative-analyzer/__pycache__/
 apps/meta-creative-analyzer/src/__pycache__/
+apps/meta-creative-analyzer/src/views/__pycache__/
 apps/meta-creative-analyzer/.streamlit/secrets.toml
 
 # OS / editor
