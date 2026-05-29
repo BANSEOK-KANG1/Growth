@@ -21,9 +21,9 @@ const p = metaCreativeProject;
       </div>
       <div class="hero-actions" style="margin-top: 20px">
         {p.liveDemoUrl ? (
-          <a class="btn-primary" href={p.liveDemoUrl} target="_blank" rel="noreferrer">Live App (Railway)</a>
+          <a class="btn-primary" href={p.liveDemoUrl} target="_blank" rel="noreferrer">Live App (Streamlit)</a>
         ) : (
-          <span class="btn-secondary" style="opacity: 0.7; cursor: default">Live App · Railway URL 연결 후 활성화</span>
+          <span class="btn-secondary" style="opacity: 0.7; cursor: default">Live App · Streamlit Cloud URL 연결 후 활성화</span>
         )}
         <a class="btn-secondary" href={p.githubUrl} target="_blank" rel="noreferrer">GitHub / README</a>
       </div>
@@ -39,7 +39,7 @@ const p = metaCreativeProject;
           <p>
             {p.liveDemoUrl
               ? '아래는 포트폴리오용 목업입니다. 필터·정렬·Brief 재계산·CSV는 Live App에서 사용하세요.'
-              : '포트폴리오용 정적 목업입니다. Railway Live App 배포 후 실제 Streamlit 앱 링크가 활성화됩니다.'}
+              : '포트폴리오용 정적 목업입니다. Streamlit Cloud 배포 후 Live App 링크가 활성화됩니다.'}
           </p>
         </div>
       </div>
@@ -80,7 +80,7 @@ const p = metaCreativeProject;
       </p>
       <div class="hero-actions" style="margin-top: 20px">
         {p.liveDemoUrl && (
-          <a class="btn-primary" href={p.liveDemoUrl} target="_blank" rel="noreferrer">Live App (Railway)</a>
+          <a class="btn-primary" href={p.liveDemoUrl} target="_blank" rel="noreferrer">Live App (Streamlit)</a>
         )}
         <a class="btn-secondary" href={`${base}projects/`}>프로젝트 목록</a>
         <a class="btn-secondary" href={p.githubUrl} target="_blank" rel="noreferrer">앱 README / GitHub</a>

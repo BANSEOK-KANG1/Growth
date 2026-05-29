@@ -15,6 +15,19 @@ sys.path.insert(0, str(ROOT / "src"))
 
 load_dotenv(ROOT / ".env")
 
+
+def _inject_streamlit_secrets() -> None:
+    """Streamlit Cloud Secrets → os.environ (Meta API optional)."""
+    try:
+        for key in ("META_ACCESS_TOKEN", "META_AD_ACCOUNT_ID", "META_API_VERSION"):
+            if key in st.secrets and not os.getenv(key):
+                os.environ[key] = str(st.secrets[key])
+    except Exception:
+        pass
+
+
+_inject_streamlit_secrets()
+
 from analyze import aggregate_by_dimension, compare_top_bottom  # noqa: E402
 from meta_client import MetaAPIError, MetaClient, load_sample_dataframe  # noqa: E402
 from recommend import CTA_LABELS, build_direction_brief  # noqa: E402
@@ -29,8 +42,8 @@ st.set_page_config(
 st.title("Meta Creative Intelligence")
 st.caption("소재 메타데이터 + 성과 지표 → 패턴 분석 → 다음 영상/크리에이티브 방향 제안")
 
-if os.getenv("RAILWAY_ENVIRONMENT"):
-    st.sidebar.info("Railway 배포 · Sample mode 기본 · Meta API는 Variables에 토큰 설정 후 토글 ON")
+if os.getenv("STREAMLIT_RUNTIME_ENVIRONMENT") == "cloud" or "streamlit.app" in os.getenv("STREAMLIT_SERVER_ADDRESS", ""):
+    st.sidebar.info("Streamlit Cloud · Sample mode 기본 · Meta API는 Secrets 설정 후 토글 ON")
 
 
 @st.cache_data(ttl=300, show_spinner="Meta API에서 소재·성과 데이터를 불러오는 중…")
