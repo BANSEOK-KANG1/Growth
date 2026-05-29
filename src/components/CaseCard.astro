@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'cases'>;
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+const href = `${import.meta.env.BASE_URL}cases/${entry.id}/`;
+---
+
+<a class="case-card" href={href}>
+  <div class="case-meta">
+    <span class="pill">{data.category}</span>
+    <span class="pill">{data.period}</span>
+  </div>
+  <h3>{data.title}</h3>
+  <p>{data.summary}</p>
+  <div class="tag-list">
+    {data.metrics.slice(0, 3).map((metric) => <span class="tag">{metric}</span>)}
+  </div>
+  <div class="case-card-footer">Read case →</div>
+</a>

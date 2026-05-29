@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+import { resumeTimeline, coreTools } from '../data/resume';
+---
+
+<BaseLayout title="Resume | Kang Banseok Portfolio" description="강반석의 퍼포먼스/그로스/CRM 직무용 이력서 요약 페이지입니다.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Resume Summary</span>
+      <h1>{profile.nameKo}</h1>
+      <p>{profile.headline}</p>
+      <div class="tag-list">
+        {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="info-panel">
+        <h2>Core Positioning</h2>
+        <p>광고 영업형 퍼포먼스 마케터가 아니라, 인하우스에서 광고비와 전환 지표를 보고 성과 개선 액션을 설계하는 퍼포먼스/그로스 마케터를 지향합니다.</p>
+        <blockquote>{profile.oneLineIntro}</blockquote>
+      </article>
+      <article class="info-panel">
+        <h2>Core Tools</h2>
+        <div class="tag-list">
+          {coreTools.map((tool) => <span class="tag">{tool}</span>)}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Experience Narrative</span>
+          <h2>직무 연결 중심 경력 요약</h2>
+          <p>퍼포먼스/그로스/CRM 직무와 연결되는 경험을 전면에 배치했습니다.</p>
+        </div>
+      </div>
+      <div class="timeline">
+        {resumeTimeline.map((entry) => (
+          <article class="timeline-item">
+            <span>{entry.category} · {entry.period}</span>
+            <h3>{entry.title}</h3>
+            <p>{entry.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

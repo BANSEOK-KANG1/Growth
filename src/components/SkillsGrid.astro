@@ -1,0 +1,15 @@
+---
+import { coreSkills } from '../data/skills';
+---
+
+<div class="grid-3">
+  {coreSkills.map((skill) => (
+    <article class="card">
+      <h3>{skill.title}</h3>
+      <p>{skill.description}</p>
+      <div class="tag-list">
+        {skill.items.map((item) => <span class="tag">{item}</span>)}
+      </div>
+    </article>
+  ))}
+</div>

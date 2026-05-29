@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BarChart from '../../components/BarChart.astro';
+import DashboardTable from '../../components/DashboardTable.astro';
+import CampaignTable from '../../components/CampaignTable.astro';
+import BeforeAfter from '../../components/BeforeAfter.astro';
+import CrmSegmentPanel from '../../components/CrmSegmentPanel.astro';
+import { beforeAfterComparison, calcCpa, channelSummaries, meetingPriority } from '../../data/metrics';
+
+const base = import.meta.env.BASE_URL;
+
+const maxCpa = Math.max(...channelSummaries.map((row) => calcCpa(row.spend, row.lead)));
+
+const cpaItems = channelSummaries.map((row) => {
+  const cpa = calcCpa(row.spend, row.lead);
+  return {
+    label: row.channel,
+    value: maxCpa ? Math.round((cpa / maxCpa) * 100) : 0,
+    display: row.cpa
+  };
+});
+
+const qualityItems = channelSummaries.map((row) => ({
+  label: row.channel,
+  value: parseFloat(row.leadQuality),
+  display: row.leadQuality
+}));
+---
+
+<BaseLayout title="Marketing Lead Funnel Dashboard | Kang Banseok Portfolio" description="광고 채널별 유입부터 문의, 미팅, 매출까지 이어지는 퍼널 대시보드 프로젝트입니다.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Featured Project</span>
+      <h1>Marketing Lead Funnel Dashboard</h1>
+      <p>광고 데이터와 리드/매출 데이터가 분리되어 있을 때, 실제 성과 판단이 어려워집니다. 이 프로젝트는 채널, 캠페인, 소재, UTM, 리드 상태값을 하나의 구조로 연결해 예산 판단과 CRM 액션까지 이어지는 대시보드를 설계합니다.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href={`${base}cases/`}>관련 케이스 보기</a>
+        <a class="btn-secondary" href={`${base}contact/`}>문의하기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-3">
+      <div class="metric-card"><span>Primary Goal</span><strong>Lead Quality</strong><p>클릭/문의 수가 아니라 진성문의와 미팅 전환 기준으로 판단합니다.</p></div>
+      <div class="metric-card"><span>Data Unit</span><strong>UTM + Lead</strong><p>캠페인·소재·키워드와 리드 상태값을 연결합니다.</p></div>
+      <div class="metric-card"><span>Output</span><strong>Action Plan</strong><p>예산 확대/축소, 랜딩 개선, CRM 리마인드 대상을 도출합니다.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">Decision Framework</span>
+          <h2>판단 기준 전환: CPA 단일 → 리드 품질 + 미팅</h2>
+        </div>
+      </div>
+      <BeforeAfter before={beforeAfterComparison.before} after={beforeAfterComparison.after} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Problem</h2>
+        <p>광고 매체에서는 클릭과 전환 수가 보이지만, 실제 문의가 진성 리드인지, 미팅으로 이어졌는지, 매출 가능성이 있는지까지 연결되지 않으면 예산 판단이 왜곡됩니다.</p>
+        <ul>
+          <li>CTR은 높지만 문의 품질이 낮은 캠페인</li>
+          <li>CPA는 낮지만 미팅 전환이 낮은 키워드</li>
+          <li>클릭 수는 적지만 매출 가능성이 높은 세그먼트</li>
+          <li>CRM 리마인드가 필요한 이탈 구간</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Dataset Structure</h2>
+        <p>샘플 데이터는 아래 구조를 기준으로 설계합니다.</p>
+        <div class="tag-list">
+          {['Channel', 'Campaign', 'Ad Content', 'Landing Page', 'UTM Source', 'UTM Medium', 'UTM Campaign', 'Click', 'Lead', 'Qualified Lead', 'Meeting', 'Revenue'].map((item) => <span class="tag">{item}</span>)}
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container dashboard-card">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">1. Channel Performance</span>
+          <h2>채널별 성과 판단 테이블</h2>
+          <p>수치는 샘플입니다. 실제 포트폴리오에서는 회사 데이터 대신 익명화/범위값/재구성 데이터를 사용합니다.</p>
+        </div>
+      </div>
+      <DashboardTable />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container dashboard-card">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">2. Campaign CPA / CVR</span>
+          <h2>캠페인별 성과 비교</h2>
+        </div>
+      </div>
+      <CampaignTable />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div class="dashboard-card">
+        <BarChart title="CPA 비교 (채널)" items={cpaItems} />
+      </div>
+      <div class="dashboard-card">
+        <BarChart title="Lead Quality Rate (채널)" items={qualityItems} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container dashboard-card">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">4. Meeting Conversion Priority</span>
+          <h2>미팅 전환율 기준 우선순위</h2>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Channel</th>
+              <th>Campaign</th>
+              <th>Meeting Rate</th>
+              <th>Lead Quality</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {meetingPriority.map((row, index) => (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{row.channel}</td>
+                <td><strong>{row.campaign}</strong></td>
+                <td>{row.meetingRate}</td>
+                <td>{row.leadQuality}</td>
+                <td>{row.action}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">6. CRM Remind Segments</span>
+          <h2>CRM 리마인드 대상 세그먼트</h2>
+          <p>광고 유입 이후 단계별 이탈 유저를 분리하고, 각 세그먼트에 맞는 메시지와 측정 지표를 설계합니다.</p>
+        </div>
+      </div>
+      <CrmSegmentPanel />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <article class="card">
+        <h2>Analysis Logic</h2>
+        <ul>
+          <li>CPA가 낮아도 진성문의율이 낮으면 확장 후보에서 제외합니다.</li>
+          <li>CVR이 낮아도 미팅 전환율이 높으면 랜딩/소재 개선 후 재실험합니다.</li>
+          <li>리드 상태값을 CRM과 연결해 문의 미완료/미팅 미진행/구매 미전환 세그먼트를 분리합니다.</li>
+          <li>예산 판단은 매체 지표가 아니라 리드 품질과 후속 전환을 함께 기준으로 삼습니다.</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>Portfolio Message</h2>
+        <blockquote>광고 데이터와 리드/매출 데이터가 분리되어 있으면 실제 성과 판단이 어렵습니다. 채널, 캠페인, 소재, UTM, 리드 상태값을 하나의 구조로 연결해 예산 판단과 CRM 액션까지 이어지는 대시보드를 설계했습니다.</blockquote>
+        <p>퍼포먼스 분석, 측정 구조 설계, CRM/그로스 사고를 한 번에 보여주는 대표 프로젝트입니다.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

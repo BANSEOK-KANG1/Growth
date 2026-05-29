@@ -1,0 +1,86 @@
+---
+import { crmSegments } from '../data/metrics';
+
+const priorityLabels = { high: '우선', medium: '중간', low: '낮음' } as const;
+---
+
+<div class="crm-segment-grid">
+  {crmSegments.map((segment) => (
+    <article class="crm-segment-card">
+      <div class="crm-segment-header">
+        <h3>{segment.name}</h3>
+        <span class={`decision-badge priority-${segment.priority}`}>{priorityLabels[segment.priority]}</span>
+      </div>
+      <p><strong>문제</strong> {segment.problem}</p>
+      <p><strong>메시지</strong> {segment.message}</p>
+      <div class="tag-list">
+        {segment.metrics.map((metric) => <span class="tag">{metric}</span>)}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .crm-segment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .crm-segment-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .crm-segment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .crm-segment-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .crm-segment-card p {
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .decision-badge {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .priority-high {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .priority-medium {
+    background: #d1fae5;
+    color: #047857;
+  }
+
+  .priority-low {
+    background: #f1f5f9;
+    color: #64748b;
+  }
+
+  @media (max-width: 768px) {
+    .crm-segment-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

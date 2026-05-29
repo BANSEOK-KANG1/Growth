@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseCard from '../../components/CaseCard.astro';
+
+const cases = (await getCollection('cases')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout title="Case Studies | Kang Banseok Portfolio" description="퍼포먼스/그로스/CRM 포트폴리오 케이스 스터디 목록입니다.">
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Case Studies</span>
+      <h1>문제 → 지표 → 판단 → 액션</h1>
+      <p>각 케이스는 신입 과제형 포트폴리오가 아니라, 인하우스 실무자가 광고비와 전환 지표를 어떻게 판단하는지 보여주는 구조로 작성했습니다.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container case-grid">
+      {cases.map((entry) => <CaseCard entry={entry} />)}
+    </div>
+  </section>
+</BaseLayout>

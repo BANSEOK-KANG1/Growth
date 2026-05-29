@@ -1,0 +1,82 @@
+---
+interface Props {
+  before: { title: string; items: string[] };
+  after: { title: string; items: string[] };
+}
+
+const { before, after } = Astro.props;
+---
+
+<div class="before-after">
+  <article class="before-after-card before">
+    <span class="eyebrow">Before</span>
+    <h3>{before.title}</h3>
+    <ul>
+      {before.items.map((item) => <li>{item}</li>)}
+    </ul>
+  </article>
+  <div class="before-after-arrow" aria-hidden="true">→</div>
+  <article class="before-after-card after">
+    <span class="eyebrow">After</span>
+    <h3>{after.title}</h3>
+    <ul>
+      {after.items.map((item) => <li>{item}</li>)}
+    </ul>
+  </article>
+</div>
+
+<style>
+  .before-after {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .before-after-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .before-after-card.before {
+    border-top: 3px solid #94a3b8;
+  }
+
+  .before-after-card.after {
+    border-top: 3px solid var(--primary);
+  }
+
+  .before-after-card h3 {
+    margin: 8px 0 16px;
+    font-size: 1.15rem;
+  }
+
+  .before-after-card ul {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .before-after-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  @media (max-width: 768px) {
+    .before-after {
+      grid-template-columns: 1fr;
+    }
+
+    .before-after-arrow {
+      justify-content: center;
+      transform: rotate(90deg);
+    }
+  }
+</style>

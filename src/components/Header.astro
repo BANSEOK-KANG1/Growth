@@ -1,0 +1,43 @@
+---
+import { profile } from '../data/profile';
+
+const base = import.meta.env.BASE_URL;
+const navLinks = [
+  { href: `${base}`, label: 'Home' },
+  { href: `${base}cases/`, label: 'Cases' },
+  { href: `${base}projects/`, label: 'Projects' },
+  { href: `${base}resume/`, label: 'Resume' },
+  { href: `${base}about/`, label: 'About' },
+  { href: `${base}contact/`, label: 'Contact' }
+];
+---
+
+<header class="site-header">
+  <nav class="nav-inner" aria-label="Main navigation">
+    <a class="brand" href={base}>
+      <strong>{profile.nameEn}</strong>
+      <span>{profile.role}</span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+    <label for="nav-toggle" class="nav-menu-btn" aria-label="Toggle navigation menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+
+    <div class="nav-links">
+      {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a class="nav-cta" href={`${base}cases/`}>View Cases</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.querySelectorAll('.nav-links a').forEach((link) => {
+    link.addEventListener('click', () => {
+      const toggle = document.getElementById('nav-toggle') as HTMLInputElement | null;
+      if (toggle) toggle.checked = false;
+    });
+  });
+</script>

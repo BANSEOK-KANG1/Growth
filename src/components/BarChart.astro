@@ -1,0 +1,16 @@
+---
+const { title, items = [] } = Astro.props;
+---
+
+<div class="bar-chart">
+  {title && <h3>{title}</h3>}
+  {items.map((item) => (
+    <div class="bar-row">
+      <span class="bar-label">{item.label}</span>
+      <div class="bar-track" aria-label={`${item.label} ${item.display || item.value + '%'}`}>
+        <span class="bar-fill" style={`width: ${item.value}%`}></span>
+      </div>
+      <span class="bar-value">{item.display || `${item.value}%`}</span>
+    </div>
+  ))}
+</div>

@@ -1,0 +1,50 @@
+export type ResumeEntry = {
+  period: string;
+  category: string;
+  title: string;
+  description: string;
+};
+
+export const resumeTimeline: ResumeEntry[] = [
+  {
+    period: '2024 – 2026',
+    category: 'Performance Marketing / Marketing Analytics',
+    title: '광고 성과 분석 및 전환 측정 경험',
+    description:
+      'Meta, Naver, Google, TikTok 광고 데이터를 기준으로 CPA/CVR/ROAS를 비교하고, GA4/GTM/UTM/Clarity를 활용해 문의하기 클릭과 제출완료 이벤트를 구분하는 전환 측정 구조를 정리했습니다.'
+  },
+  {
+    period: '2025 – 2026',
+    category: 'Global App Growth Funnel',
+    title: 'ZIVO hospital 앱 유입–설치–전환 퍼널 설계',
+    description:
+      '외국인 대상 병원 예약 앱에서 국가별 유입 채널, 앱 설치, 인앱 이벤트, 병원 문의/예약 가능성을 분리해서 보는 퍼널 구조를 설계했습니다.'
+  },
+  {
+    period: '2023 – 2024',
+    category: 'RFP / Requirement Structuring',
+    title: '요구사항 분석과 문서 구조화 경험',
+    description:
+      '공공 SI 제안 업무를 통해 RFP 요구사항을 기능·운영·산출물 기준으로 분해하고, 제안서 목차와 메시지를 정렬하는 경험을 했습니다. PM/Marketing Ops 직무에서 요구사항 정리 역량으로 연결합니다.'
+  },
+  {
+    period: 'Background',
+    category: 'Sales / Design',
+    title: '고객 접점과 디자인 기반 이해',
+    description:
+      '영업과 웹디자인 경험은 보조 강점으로 활용합니다. 고객 의사결정 흐름과 랜딩/콘텐츠 설득 구조를 이해하는 기반으로 연결합니다.'
+  }
+];
+
+export const coreTools = [
+  'Meta Ads',
+  'Naver Ads',
+  'Google Ads',
+  'TikTok Ads',
+  'GA4',
+  'GTM',
+  'UTM',
+  'Clarity',
+  'Airbridge',
+  'Spreadsheet'
+];

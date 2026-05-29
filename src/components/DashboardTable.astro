@@ -1,0 +1,77 @@
+---
+import { channelSummaries, getDecisionLabel } from '../data/metrics';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Spend</th>
+        {!compact && <th>Lead</th>}
+        {!compact && <th>Meeting</th>}
+        {!compact && <th>Revenue</th>}
+        <th>CVR</th>
+        <th>CPA</th>
+        <th>Lead Quality</th>
+        {!compact && <th>Meeting Rate</th>}
+        <th>Decision</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {channelSummaries.map((row) => (
+        <tr>
+          <td><strong>{row.channel}</strong></td>
+          <td>{row.spend >= 1_000_000 ? `₩${(row.spend / 1_000_000).toFixed(1)}M` : `₩${Math.round(row.spend / 1000)}K`}</td>
+          {!compact && <td>{row.lead.toLocaleString()}</td>}
+          {!compact && <td>{row.meeting.toLocaleString()}</td>}
+          {!compact && <td>{row.revenue >= 1_000_000 ? `₩${(row.revenue / 1_000_000).toFixed(0)}M` : `₩${row.revenue.toLocaleString()}`}</td>}
+          <td>{row.cvr}</td>
+          <td>{row.cpa}</td>
+          <td>{row.leadQuality}</td>
+          {!compact && <td>{row.meetingRate}</td>}
+          <td><span class={`decision-badge decision-${row.decision}`}>{getDecisionLabel(row.decision)}</span></td>
+          <td>{row.action}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .decision-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .decision-expand {
+    background: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .decision-maintain {
+    background: #d1fae5;
+    color: #047857;
+  }
+
+  .decision-reduce {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+
+  .decision-experiment {
+    background: #fef3c7;
+    color: #b45309;
+  }
+</style>
