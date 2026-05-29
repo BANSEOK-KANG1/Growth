@@ -1,0 +1,20 @@
+{
+  "name": "growth-performance-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.0.0",
+    "astro": "^5.0.0",
+    "typescript": "^5.6.0"
+  },
+  "devDependencies": {}
+}

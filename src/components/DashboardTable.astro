@@ -1,0 +1,30 @@
+---
+import { dashboardSample } from '../data/metrics';
+---
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Spend</th>
+        <th>CVR</th>
+        <th>CPA</th>
+        <th>Lead Quality</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {dashboardSample.map((row) => (
+        <tr>
+          <td><strong>{row.channel}</strong></td>
+          <td>{row.spend}</td>
+          <td>{row.cvr}</td>
+          <td>{row.cpa}</td>
+          <td>{row.leadQuality}</td>
+          <td>{row.action}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

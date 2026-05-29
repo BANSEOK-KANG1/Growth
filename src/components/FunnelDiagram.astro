@@ -1,0 +1,15 @@
+---
+import { funnelMetrics } from '../data/metrics';
+---
+
+<div class="funnel">
+  {funnelMetrics.map((item) => (
+    <div class="funnel-step">
+      <div class="funnel-stage">{item.stage}</div>
+      <div class="funnel-metrics">
+        {item.metrics.map((metric) => <span class="pill">{metric}</span>)}
+      </div>
+      <div class="funnel-question">{item.question}</div>
+    </div>
+  ))}
+</div>

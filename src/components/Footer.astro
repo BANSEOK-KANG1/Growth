@@ -1,0 +1,14 @@
+---
+import { profile } from '../data/profile';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <strong>{profile.nameKo} · {profile.role}</strong>
+      <div>광고 성과와 사용자 행동 데이터를 연결하는 포트폴리오</div>
+    </div>
+    <div>© {year} {profile.nameEn}. Built with Astro.</div>
+  </div>
+</footer>
