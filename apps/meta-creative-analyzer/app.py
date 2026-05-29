@@ -23,9 +23,6 @@ st.set_page_config(
 st.title("Growth Analytics Hub")
 st.caption("퍼포먼스·콘텐츠 마케팅 데이터 분석 — Meta 소재 패턴 + YouTube KR 트렌드")
 
-if is_streamlit_cloud():
-    st.info("Streamlit Cloud · 좌측 사이드바에서 Meta Creative 또는 YouTube KR Trends 페이지로 이동하세요.")
-
 status = secrets_status()
 col1, col2 = st.columns(2)
 
@@ -51,12 +48,26 @@ with col2:
 
 st.markdown("---")
 st.markdown("### 시작하기")
-st.caption("아래 버튼 또는 좌측 사이드바에서 페이지를 선택하세요.")
+st.caption("아래 버튼 또는 **좌측 사이드바**에서 페이지를 선택하세요.")
 
 nav1, nav2 = st.columns(2)
 with nav1:
-    if st.button("Meta Creative Intelligence →", type="primary", use_container_width=True):
-        st.switch_page("pages/1_Meta_Creative.py")
+    st.link_button(
+        "Meta Creative Intelligence →",
+        "/Meta_Creative",
+        use_container_width=True,
+        type="primary",
+    )
 with nav2:
-    if st.button("Keyword Gap → Shoot Brief →", type="primary", use_container_width=True):
-        st.switch_page("pages/2_YouTube_KR_Trends.py")
+    st.link_button(
+        "Keyword Gap → Shoot Brief →",
+        "/YouTube_KR_Trends",
+        use_container_width=True,
+        type="primary",
+    )
+
+if is_streamlit_cloud():
+    st.caption(
+        "YouTube Live API: Streamlit **Settings → Secrets**에 "
+        "`YOUTUBE_API_KEY` 추가 후 재시작"
+    )
