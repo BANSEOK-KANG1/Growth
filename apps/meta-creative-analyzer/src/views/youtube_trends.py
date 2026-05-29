@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 import pandas as pd
 import streamlit as st
 
-from bootstrap import get_secret, inject_streamlit_secrets, is_streamlit_cloud, secrets_status
+from bootstrap import get_secret, inject_streamlit_secrets, is_streamlit_cloud, mask_secret, secrets_status
 from youtube_analyze import aggregate_by_dimension, category_mix, format_comparison
 from youtube_client import (
     MARKETING_KEYWORD_PRESETS,
@@ -66,25 +66,44 @@ def render() -> None:
 
     with st.sidebar:
         st.header("Settings")
-        use_api = st.toggle(
-            "YouTube API 사용",
-            value=has_youtube_key,
-            disabled=not has_youtube_key,
-            help="Streamlit Cloud → Settings → Secrets에 YOUTUBE_API_KEY 필요",
+
+        data_source = st.radio(
+            "데이터 소스",
+            ["Sample (데모)", "YouTube Live API"],
+            index=1 if has_youtube_key else 0,
+            help="Live API는 YouTube Data API Key 필요",
         )
-        if not has_youtube_key:
-            st.error("YOUTUBE_API_KEY 미설정 — Sample mode")
-            if is_streamlit_cloud():
+        use_api = data_source == "YouTube Live API"
+
+        if use_api and not has_youtube_key:
+            st.warning("API Key가 Secrets에 없습니다.")
+            manual_key = st.text_input(
+                "API Key (이번 세션만)",
+                type="password",
+                placeholder="AIza...",
+                key="yt_api_key_input",
+            )
+            if manual_key.strip():
+                st.session_state["yt_api_key_override"] = manual_key.strip()
+                has_youtube_key = True
+                st.success(f"Key 적용됨: {mask_secret(manual_key.strip())}")
+            elif is_streamlit_cloud():
                 st.caption(
-                    "Secrets 예시:\n\n"
+                    "또는 Streamlit **Settings → Secrets**:\n\n"
                     '`YOUTUBE_API_KEY = "AIza..."`'
                 )
+        elif has_youtube_key:
+            st.success(f"API Key: {mask_secret(get_secret('YOUTUBE_API_KEY'))}")
+
         st.caption("Region: KR")
         st.warning("키워드 검색 1회 ≈ 100 quota units")
 
         effective_api = use_api and has_youtube_key
         trending_df, source = load_trending(effective_api)
-        st.success(source)
+        if effective_api:
+            st.success(source)
+        else:
+            st.info(source)
 
     st.markdown("### ① 내 마케팅 키워드")
     st.markdown("광고·유튜브·UGC 기획 전 — **내 상품/주제**로 검색했을 때 대중 트렌드와 얼마나 다른지 봅니다.")

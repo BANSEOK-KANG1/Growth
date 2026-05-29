@@ -29,5 +29,5 @@ pages = [
     st.Page(render_youtube, title="Shoot Brief", icon="🎬", url_path="YouTube_KR_Trends"),
 ]
 
-pg = st.navigation(pages)
+pg = st.navigation(pages, position="top")
 pg.run()

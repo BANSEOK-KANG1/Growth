@@ -25,20 +25,31 @@ SECRET_KEYS = (
 
 
 def get_secret(key: str) -> str:
-    """Resolve secret from env → Streamlit Cloud Secrets."""
+    """Resolve secret: session override → env → Streamlit Cloud Secrets."""
+    if key == "YOUTUBE_API_KEY":
+        override = str(st.session_state.get("yt_api_key_override", "")).strip()
+        if override:
+            return override
+
     value = os.getenv(key, "").strip()
     if value:
         return value
+
     try:
         if key in st.secrets:
             return str(st.secrets[key]).strip()
+        # lowercase / nested fallbacks
+        lower_map = {k.lower(): k for k in st.secrets.keys()}
+        if key.lower() in lower_map:
+            return str(st.secrets[lower_map[key.lower()]]).strip()
     except Exception:
         pass
+
     return ""
 
 
 def inject_streamlit_secrets() -> None:
-    """Streamlit Cloud Secrets → os.environ for downstream os.getenv callers."""
+    """Streamlit Cloud Secrets → os.environ."""
     for key in SECRET_KEYS:
         if os.getenv(key):
             continue
@@ -58,3 +69,9 @@ def secrets_status() -> dict[str, bool]:
         "meta": bool(get_secret("META_ACCESS_TOKEN") and get_secret("META_AD_ACCOUNT_ID")),
         "youtube": bool(get_secret("YOUTUBE_API_KEY")),
     }
+
+
+def mask_secret(value: str) -> str:
+    if len(value) <= 8:
+        return "****"
+    return f"{value[:4]}...{value[-4:]}"
