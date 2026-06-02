@@ -1,0 +1,292 @@
+---
+import { jdFitEntries, coverLetterSections, gapResponseNote, statusLabels } from '../data/jdFit';
+import type { JdFitStatus } from '../data/jdFit';
+
+interface Props {
+  base: string;
+}
+
+const { base } = Astro.props;
+
+const statusClass: Record<JdFitStatus, string> = {
+  strong: 'jd-fit-pill--strong',
+  partial: 'jd-fit-pill--partial',
+  gap: 'jd-fit-pill--gap'
+};
+---
+
+<div class="jd-fit-grid">
+  {jdFitEntries.map((entry) => (
+    <article class="jd-fit-card reveal" data-status={entry.status}>
+      <div class="jd-fit-card__header">
+        <span class={`jd-fit-pill ${statusClass[entry.status]}`}>{statusLabels[entry.status]}</span>
+        <h3>{entry.jdKeyword}</h3>
+      </div>
+      <p class="jd-fit-headline">{entry.headline}</p>
+      <p class="jd-fit-evidence">{entry.evidence}</p>
+      {entry.caseSlug && (
+        <a class="jd-fit-case-link" href={`${base}cases/${entry.caseSlug}/`}>
+          관련 케이스 보기 →
+        </a>
+      )}
+      {entry.gapNote && (
+        <p class="jd-fit-gap">
+          <strong>프레이밍 팁:</strong> {entry.gapNote}
+        </p>
+      )}
+      <div class="jd-fit-copy-blocks">
+        <div class="jd-fit-copy-block">
+          <div class="jd-fit-copy-block__label">
+            <span>이력서 bullet</span>
+            <button type="button" class="jd-fit-copy-btn" data-copy={entry.resumeBullet} aria-label="이력서 bullet 복사">
+              복사
+            </button>
+          </div>
+          <p class="jd-fit-copy-text">{entry.resumeBullet}</p>
+        </div>
+        <div class="jd-fit-copy-block">
+          <div class="jd-fit-copy-block__label">
+            <span>자소서 훅</span>
+            <button type="button" class="jd-fit-copy-btn" data-copy={entry.coverLetterHook} aria-label="자소서 훅 복사">
+              복사
+            </button>
+          </div>
+          <p class="jd-fit-copy-text">{entry.coverLetterHook}</p>
+        </div>
+      </div>
+    </article>
+  ))}
+</div>
+
+<section class="jd-fit-cover reveal">
+  <div class="section-header">
+    <div>
+      <span class="eyebrow">Cover Letter</span>
+      <h2>자소서 3문단 템플릿</h2>
+      <p>그로스 마케터 JD 지원 시 바로 활용할 수 있는 기본 구조입니다.</p>
+    </div>
+  </div>
+  <div class="jd-fit-cover-grid">
+    {coverLetterSections.map((section) => (
+      <article class="info-panel jd-fit-cover-panel">
+        <div class="jd-fit-copy-block__label">
+          <h3>{section.title}</h3>
+          <button
+            type="button"
+            class="jd-fit-copy-btn"
+            data-copy={section.paragraphs.join('\n\n')}
+            aria-label={`${section.title} 복사`}
+          >
+            전체 복사
+          </button>
+        </div>
+        {section.paragraphs.map((paragraph) => (
+          <p class="jd-fit-cover-paragraph">{paragraph}</p>
+        ))}
+      </article>
+    ))}
+  </div>
+  <p class="jd-fit-gap-note">{gapResponseNote}</p>
+</section>
+
+<script>
+  function initCopyButtons() {
+    document.querySelectorAll('.jd-fit-copy-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const text = btn.getAttribute('data-copy');
+        if (!text) return;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = btn.textContent;
+          btn.textContent = '복사됨';
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 1500);
+        } catch {
+          btn.textContent = '실패';
+          setTimeout(() => {
+            btn.textContent = '복사';
+          }, 1500);
+        }
+      });
+    });
+  }
+
+  initCopyButtons();
+  document.addEventListener('astro:page-load', initCopyButtons);
+</script>
+
+<style>
+  .jd-fit-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  .jd-fit-card {
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+  }
+
+  .jd-fit-card[data-status='strong'] {
+    border-left: 4px solid var(--success);
+  }
+
+  .jd-fit-card[data-status='partial'] {
+    border-left: 4px solid var(--warning);
+  }
+
+  .jd-fit-card[data-status='gap'] {
+    border-left: 4px solid var(--muted);
+  }
+
+  .jd-fit-card__header {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .jd-fit-card__header h3 {
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+  }
+
+  .jd-fit-pill {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .jd-fit-pill--strong {
+    background: rgba(18, 122, 85, 0.12);
+    color: var(--success);
+  }
+
+  .jd-fit-pill--partial {
+    background: var(--warning-bg);
+    color: var(--warning);
+  }
+
+  .jd-fit-pill--gap {
+    background: var(--surface-soft);
+    color: var(--muted);
+  }
+
+  .jd-fit-headline {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .jd-fit-evidence,
+  .jd-fit-gap {
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .jd-fit-gap {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    background: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+  }
+
+  .jd-fit-case-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .jd-fit-copy-blocks {
+    display: grid;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .jd-fit-copy-block {
+    padding: 14px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+  }
+
+  .jd-fit-copy-block__label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .jd-fit-copy-block__label span,
+  .jd-fit-copy-block__label h3 {
+    font-size: var(--text-sm);
+    font-weight: 700;
+  }
+
+  .jd-fit-copy-text,
+  .jd-fit-cover-paragraph {
+    color: var(--text-secondary);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .jd-fit-copy-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--primary);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .jd-fit-copy-btn:hover {
+    border-color: var(--primary);
+  }
+
+  .jd-fit-cover {
+    margin-top: 48px;
+  }
+
+  .jd-fit-cover-grid {
+    display: grid;
+    gap: 20px;
+  }
+
+  @media (min-width: 900px) {
+    .jd-fit-cover-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .jd-fit-cover-panel h3 {
+    margin: 0;
+    font-size: var(--text-base);
+  }
+
+  .jd-fit-cover-paragraph + .jd-fit-cover-paragraph {
+    margin-top: 12px;
+  }
+
+  .jd-fit-gap-note {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-soft);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+</style>

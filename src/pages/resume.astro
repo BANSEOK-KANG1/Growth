@@ -4,6 +4,7 @@ import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ToolStack from '../components/ToolStack.astro';
 import PdfDownloads from '../components/PdfDownloads.astro';
 import PdfPreview from '../components/PdfPreview.astro';
+import JdFitGrid from '../components/JdFitGrid.astro';
 import { profile } from '../data/profile';
 import { resumeTimeline, coreTools, supplementarySkills } from '../data/resume';
 import { education } from '../data/profile';
@@ -69,6 +70,22 @@ const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
       </section>
     )
   }
+
+  <section class="section" id="jd-fit">
+    <div class="container reveal">
+      <div class="section-header">
+        <div>
+          <span class="eyebrow">JD Fit</span>
+          <h2>그로스 마케터 JD 강점 매핑</h2>
+          <p>
+            자주 보이는 그로스 마케터 JD 8개 요건과 경험을 1:1로 연결했습니다. 이력서 bullet과 자소서 훅을 복사해
+            지원서에 바로 활용할 수 있습니다.
+          </p>
+        </div>
+      </div>
+      <JdFitGrid base={base} />
+    </div>
+  </section>
 
   <section class="section">
     <div class="container grid-2">

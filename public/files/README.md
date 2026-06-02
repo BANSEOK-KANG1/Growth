@@ -5,8 +5,8 @@
 ## 권장 파일명
 
 ```txt
-kang-banseok-resume-revised.pdf      ← 기본(추천) 이력서
-kang-banseok-resume-crm-growth.pdf   ← CRM·그로스 지원용
+kang-banseok-resume-crm-growth.pdf   ← 그로스 마케터 JD Fit 이력서 (기본·추천)
+kang-banseok-resume-revised.pdf      ← 한장 이력서 (수정본)
 kang-banseok-resume-one-page.pdf     ← 한장 이력서
 kang-banseok-resume.pdf              ← 퍼포먼스 마케팅 요약
 kang-banseok-portfolio.pdf           ← 포트폴리오 PDF

@@ -9,19 +9,19 @@ export type ResumeDownload = {
 
 export const resumeDownloads: ResumeDownload[] = [
   {
+    id: 'crm-growth',
+    label: '그로스 마케터 이력서',
+    description: 'JD Fit · 퍼널·전환·CRM · GA4/GTM 중심 그로스 마케터 지원용',
+    filename: 'files/kang-banseok-resume-crm-growth.pdf',
+    tags: ['Growth', 'CRM', 'GA4', 'Funnel'],
+    primary: true
+  },
+  {
     id: 'revised',
     label: '한장 이력서 (수정본)',
     description: 'Product / Growth Analyst · Metric-driven Decision Support',
     filename: 'files/kang-banseok-resume-revised.pdf',
-    tags: ['Growth', 'PM', 'CRM'],
-    primary: true
-  },
-  {
-    id: 'crm-growth',
-    label: 'CRM · 그로스 지원용',
-    description: '퍼널·전환·리텐션 의사결정 구조 중심 JD 맞춤 버전',
-    filename: 'files/kang-banseok-resume-crm-growth.pdf',
-    tags: ['CRM', 'Growth', 'Experiment']
+    tags: ['Growth', 'PM', 'CRM']
   },
   {
     id: 'one-page',
