@@ -1,0 +1,507 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProfilePhoto from '../components/ProfilePhoto.astro';
+import { profile } from '../data/profile';
+
+const base = import.meta.env.BASE_URL;
+const resumeUrl = `${base}files/kang-banseok-resume-baro-interactive.pdf`;
+
+const fitItems = [
+  {
+    number: '01',
+    title: 'SA·DA·SNS 멀티매체 운영',
+    description:
+      'Meta·Google·Naver·TikTok 캠페인을 운영하고 채널별 CPA·CVR·리드 품질을 동일 기준으로 비교해 예산 유지·축소·확장 후보를 도출했습니다.'
+  },
+  {
+    number: '02',
+    title: 'GA4·GTM 전환 측정',
+    description:
+      'UTM 규칙을 정리하고 문의 클릭 → 폼 진입 → 제출 완료 이벤트를 분리해, 광고 클릭 이후 실제 문의까지의 병목을 측정했습니다.'
+  },
+  {
+    number: '03',
+    title: 'CPA·CVR·ROAS 기반 최적화',
+    description:
+      '매체 지표만 보지 않고 진성문의율·미팅 전환율까지 연결해 비용이 실제 비즈니스 성과로 이어지는지를 판단합니다.'
+  },
+  {
+    number: '04',
+    title: '광고주 커뮤니케이션·AM',
+    description:
+      '성과 변화, 원인 가설, 다음 액션을 한 구조로 보고서화합니다. 요기요 영업과 삼성생명 SFP 경험을 통해 니즈 파악과 제안 커뮤니케이션을 익혔습니다.'
+  },
+  {
+    number: '05',
+    title: '소재·랜딩 개선',
+    description:
+      '카피·CTA·포맷·타깃·랜딩 조합을 A/B식으로 비교하고, Meta API 기반 소재 분석 앱을 직접 구축해 다음 제작 방향을 정리했습니다.'
+  },
+  {
+    number: '06',
+    title: '리포팅·데이터 구조화',
+    description:
+      'Excel·Google Sheets·Looker Studio·Python·SQL을 활용해 날짜·매체·캠페인 단위 Raw를 통합하고 반복 리포팅을 구조화했습니다.'
+  }
+];
+
+const evidenceCards = [
+  {
+    eyebrow: 'Lead Funnel',
+    title: 'Marketing Lead Funnel Dashboard',
+    description:
+      '유입 → 문의 → 진성문의 → 미팅 → 매출을 한 퍼널로 연결해 채널별 예산 액션을 도출한 대시보드 프로젝트입니다.',
+    href: `${base}projects/marketing-lead-dashboard/`,
+    tags: ['퍼널', '리드 품질', '예산 판단']
+  },
+  {
+    eyebrow: 'Creative Analytics',
+    title: 'Meta Creative Intelligence',
+    description:
+      'Meta 소재 메타와 CPA·CTR·CVR을 결합해 포맷·훅·CTA별 성과 패턴과 다음 소재 Direction Brief를 생성합니다.',
+    href: `${base}projects/meta-creative-intelligence/`,
+    tags: ['Meta API', '소재 분석', 'CPA']
+  },
+  {
+    eyebrow: 'Measurement',
+    title: 'Performance Funnel Analysis',
+    description:
+      'GA4/GTM 전환 이벤트와 리드 품질을 함께 보며 어디에서 성과가 끊기는지 정의한 퍼포먼스 케이스입니다.',
+    href: `${base}cases/performance-funnel-analysis/`,
+    tags: ['GA4/GTM', 'CPA/CVR', '병목 분석']
+  },
+  {
+    eyebrow: 'Content Data',
+    title: 'Marketing Keyword Gap → Shoot Brief',
+    description:
+      'YouTube Data API로 대중 트렌드와 마케팅 키워드의 차이를 분석해 포맷·훅·제목·태그가 포함된 실행 브리프를 만듭니다.',
+    href: `${base}projects/youtube-trend-analyzer/`,
+    tags: ['YouTube API', '콘텐츠', '실행안']
+  }
+];
+
+const workingPrinciples = [
+  '광고주의 목표를 매출·문의·예약·가입 중 하나로 명확히 정의한 뒤 매체 KPI와 비즈니스 KPI를 분리합니다.',
+  '리포트는 숫자 나열이 아니라 변화 → 원인 → 다음 액션 순서로 작성합니다.',
+  '성과 하락 시 매체·타깃·소재·랜딩·측정 누락을 분리해 한 번에 하나의 변수를 우선 검증합니다.',
+  'UTM·이벤트명·리포트 기준을 문서화해 광고주와 내부 제작·개발 담당자가 같은 기준으로 움직이게 합니다.'
+];
+---
+
+<BaseLayout
+  title={`바로인터랙티브 지원 | ${profile.nameKo} 온라인광고 운영·분석 AM`}
+  description="바로인터랙티브 온라인광고 운영·분석 AM 및 퍼포먼스 마케터 포지션에 맞춘 강반석의 이력서·포트폴리오 페이지입니다."
+  keywords={[
+    '바로인터랙티브',
+    '온라인광고 AM',
+    '퍼포먼스 마케터',
+    'GA4',
+    'GTM',
+    'SA',
+    'DA',
+    '강반석'
+  ]}
+  noindex={true}
+>
+  <section class="page-hero application-hero">
+    <div class="container application-hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">BARO INTERACTIVE APPLICATION</span>
+        <h1>매체 운영부터 전환 측정·리포팅까지,<br />성과를 다음 액션으로 바꾸는 마케터</h1>
+        <p class="lead">
+          Meta·Google·Naver·TikTok 캠페인 운영과 GA4/GTM/UTM 기반 전환 측정 경험을 바탕으로
+          CPA·CVR·ROAS와 리드 품질을 함께 봅니다.
+        </p>
+        <blockquote class="application-quote">
+          바로인터랙티브의 SA·DA·SNS·CPA 운영 환경에서 광고주 목표를 빠르게 이해하고,
+          매체별 성과를 수치·원인·실행안으로 정리할 수 있습니다.
+        </blockquote>
+        <div class="hero-actions">
+          <a class="btn-primary" href={resumeUrl} download>맞춤 이력서 PDF</a>
+          <a class="btn-secondary" href="#evidence">대표 케이스</a>
+          <a class="btn-secondary" href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+        <div class="tag-list application-tags">
+          <span class="tag">온라인광고 운영·분석 AM</span>
+          <span class="tag">SA · DA · SNS</span>
+          <span class="tag">GA4 · GTM · UTM</span>
+          <span class="tag">CPA · CVR · ROAS</span>
+          <span class="tag">리드 품질 · 리포팅</span>
+        </div>
+      </div>
+
+      <aside class="application-aside reveal">
+        <ProfilePhoto size="lg" />
+        <div class="hero-panel application-panel">
+          <div class="panel-title">
+            <div>
+              <strong>지원 포지션</strong>
+              <span>온라인광고 운영·분석 AM / 퍼포먼스 마케터</span>
+            </div>
+            <span class="pill">FIT</span>
+          </div>
+          <div class="metric-stack">
+            <div class="metric-row">
+              <strong>4개+</strong>
+              <p>Meta·Google·Naver·TikTok 매체 운영 경험</p>
+            </div>
+            <div class="metric-row">
+              <strong>3,800만+</strong>
+              <p>월 광고비 규모 캠페인 운영·분석 경험</p>
+            </div>
+            <div class="metric-row">
+              <strong>End-to-End</strong>
+              <p>유입 → 전환 측정 → 리드 품질 → 보고·개선</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">JD FIT</span>
+          <h2>바로인터랙티브 업무와 연결되는 6가지 강점</h2>
+          <p>회사의 검색·배너·SNS·CPA 광고 운영과 1:1 광고주 커뮤니케이션 구조에 맞춰 경험을 재배열했습니다.</p>
+        </div>
+      </div>
+      <div class="fit-grid">
+        {fitItems.map((item) => (
+          <article class="fit-card reveal">
+            <span>{item.number}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="evidence">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">WORK EVIDENCE</span>
+          <h2>말이 아니라 프로젝트로 확인할 수 있습니다</h2>
+          <p>광고 운영·전환 측정·소재 분석·리포팅과 직접 연결되는 사례만 선별했습니다.</p>
+        </div>
+      </div>
+      <div class="evidence-grid">
+        {evidenceCards.map((card) => (
+          <a class="evidence-card reveal" href={card.href}>
+            <span class="eyebrow">{card.eyebrow}</span>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+            <div class="tag-list">
+              {card.tags.map((tag) => <span class="tag">{tag}</span>)}
+            </div>
+            <strong class="card-link">프로젝트 확인 →</strong>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container experience-grid">
+      <article class="info-panel reveal">
+        <span class="eyebrow">EXPERIENCE</span>
+        <h2>퍼포먼스 실무</h2>
+        <h3>글로벌알파미디어 · 퍼포먼스마케터</h3>
+        <p>
+          해외 타깃 리드형 캠페인을 멀티매체로 운영하고, GA4/GTM 전환 측정과 리드 품질 판단을 연결했습니다.
+          날짜·매체·캠페인 단위 Raw 통합과 Sheets/Looker Studio 리포팅 구조도 설계했습니다.
+        </p>
+        <ul>
+          <li>채널별 CPA·리드 품질 비교 후 예산 후보 도출</li>
+          <li>문의 클릭 → 폼 진입 → 제출 완료 이벤트 분리</li>
+          <li>소재·랜딩·타깃 조합을 A/B식으로 반복 개선</li>
+          <li>성과 변화·원인·다음 액션 중심 주간 보고</li>
+        </ul>
+      </article>
+
+      <article class="info-panel reveal">
+        <span class="eyebrow">CLIENT COMMUNICATION</span>
+        <h2>광고주와 실행팀을 연결하는 기반</h2>
+        <p>
+          요기요 영업 1년과 삼성생명 SFP 6개월을 통해 고객 요구를 듣고 서비스 가치를 설명하는 경험을 쌓았습니다.
+          웹디자인 경험을 바탕으로 랜딩·소재 수정 요청도 제작 관점에서 구체화할 수 있습니다.
+        </p>
+        <div class="tag-list">
+          <span class="tag">니즈 파악</span>
+          <span class="tag">1:1 제안</span>
+          <span class="tag">관계 관리</span>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">Photoshop</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container working-panel reveal">
+      <div>
+        <span class="eyebrow">WORKING PRINCIPLES</span>
+        <h2>제가 광고 운영·분석 AM으로 일하는 방식</h2>
+      </div>
+      <ol>
+        {workingPrinciples.map((principle, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{principle}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section application-pack">
+    <div class="container application-pack-panel reveal">
+      <div>
+        <span class="eyebrow">APPLICATION PACK</span>
+        <h2>이력서와 전체 포트폴리오를 한 번에 확인할 수 있습니다</h2>
+        <p>채용담당자는 맞춤 이력서로 핵심 경력을 먼저 확인하고, 아래 링크에서 프로젝트의 문제·지표·판단·액션을 검토할 수 있습니다.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn-primary" href={resumeUrl} download>맞춤 이력서 PDF</a>
+        <a class="btn-secondary" href={`${base}cases/`}>전체 케이스 스터디</a>
+        <a class="btn-secondary" href={`${base}resume/`}>전체 이력서 페이지</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact-application">
+    <div class="container info-panel contact-panel reveal">
+      <div>
+        <span class="eyebrow">CONTACT</span>
+        <h2>{profile.nameKo} · {profile.email}</h2>
+        <p>{profile.location} · {profile.phone}</p>
+      </div>
+      <div class="hero-actions">
+        <a class="btn-primary" href={`mailto:${profile.email}?subject=${encodeURIComponent('[바로인터랙티브 지원] 강반석')}`}>이메일 보내기</a>
+        <a class="btn-secondary" href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub 보기</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .application-hero {
+    padding-bottom: 72px;
+  }
+
+  .application-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+    gap: 52px;
+    align-items: center;
+  }
+
+  .application-hero h1 {
+    max-width: 900px;
+  }
+
+  .application-quote {
+    margin: 22px 0 0;
+    padding: 18px 20px;
+    border-left: 3px solid var(--primary);
+    background: rgba(36, 87, 197, 0.07);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  .application-tags {
+    margin-top: 20px;
+  }
+
+  .application-aside {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .application-panel {
+    width: 100%;
+  }
+
+  .fit-grid,
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .fit-card,
+  .evidence-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .fit-card > span {
+    display: inline-flex;
+    margin-bottom: 18px;
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+
+  .fit-card h3,
+  .evidence-card h3 {
+    margin-bottom: 10px;
+  }
+
+  .fit-card p,
+  .evidence-card p {
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .evidence-card {
+    display: flex;
+    flex-direction: column;
+    color: inherit;
+    text-decoration: none;
+    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .evidence-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+  }
+
+  .evidence-card .tag-list {
+    margin-top: auto;
+    padding-top: 18px;
+  }
+
+  .card-link {
+    display: block;
+    margin-top: 18px;
+    color: var(--primary);
+  }
+
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .experience-grid h2 {
+    margin: 12px 0 18px;
+  }
+
+  .experience-grid h3 {
+    margin-bottom: 10px;
+  }
+
+  .experience-grid ul {
+    margin: 18px 0 0;
+    padding-left: 20px;
+    color: var(--muted);
+  }
+
+  .experience-grid li {
+    margin-bottom: 8px;
+  }
+
+  .working-panel {
+    display: grid;
+    grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.3fr);
+    gap: 42px;
+    align-items: start;
+  }
+
+  .working-panel h2 {
+    margin-top: 12px;
+  }
+
+  .working-panel ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+
+  .working-panel li {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+  }
+
+  .working-panel li > span {
+    color: var(--primary);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+
+  .working-panel li p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .application-pack-panel,
+  .contact-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .application-pack-panel {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(36, 87, 197, 0.08), rgba(15, 118, 110, 0.06));
+  }
+
+  .application-pack-panel h2,
+  .contact-panel h2 {
+    margin: 12px 0 10px;
+  }
+
+  .application-pack-panel > div:first-child {
+    max-width: 760px;
+  }
+
+  @media (max-width: 900px) {
+    .application-hero-grid,
+    .working-panel {
+      grid-template-columns: 1fr;
+    }
+
+    .application-aside {
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .fit-grid,
+    .evidence-grid,
+    .experience-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .application-pack-panel,
+    .contact-panel {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
