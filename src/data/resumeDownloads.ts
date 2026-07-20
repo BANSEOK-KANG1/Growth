@@ -17,6 +17,13 @@ export const resumeDownloads: ResumeDownload[] = [
     primary: true
   },
   {
+    id: 'baro-interactive',
+    label: '바로인터랙티브 맞춤 이력서',
+    description: '온라인광고 운영·분석 AM · SA/DA · GA4/GTM · CPA/CVR/ROAS 중심 지원용',
+    filename: 'files/kang-banseok-resume-baro-interactive.pdf',
+    tags: ['Agency AM', 'Performance', 'SA/DA', 'GA4/GTM']
+  },
+  {
     id: 'revised',
     label: '한장 이력서 (수정본)',
     description: 'Product / Growth Analyst · Metric-driven Decision Support',
