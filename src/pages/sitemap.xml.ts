@@ -7,6 +7,7 @@ const siteUrl = profile.siteUrl.replace(/\/$/, '');
 
 const staticPaths = [
   '',
+  'work/',
   'cases/',
   'projects/',
   'projects/meta-creative-intelligence/',

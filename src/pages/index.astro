@@ -8,8 +8,12 @@ import SkillsGrid from '../components/SkillsGrid.astro';
 import DashboardTable from '../components/DashboardTable.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
 import ToolStack from '../components/ToolStack.astro';
+import ArchiveHub from '../components/ArchiveHub.astro';
 import { profile } from '../data/profile';
 import { toolHighlights } from '../data/tools';
+import { projects } from '../data/projects';
+import { getResourceArchiveItems } from '../data/archive';
+import type { ArchiveItem } from '../data/archive';
 import { allPdfDownloads, primaryResumeDownload, portfolioDownload } from '../data/pdfDownloads';
 import { publicAssetExists, publicAssetUrl } from '../utils/assets';
 
@@ -18,6 +22,39 @@ const base = import.meta.env.BASE_URL;
 const hasPrimaryPdf = publicAssetExists(primaryResumeDownload.filename);
 const hasPortfolioPdf = publicAssetExists(portfolioDownload.filename);
 const availablePdfCount = allPdfDownloads.filter((item) => publicAssetExists(item.filename)).length;
+
+const previewArchiveItems: ArchiveItem[] = [
+  ...cases.slice(0, 2).map((entry) => {
+    const slug = String(entry.id).replace(/\.(md|mdx)$/, '');
+    return {
+      id: `preview-case-${slug}`,
+      kind: 'case' as const,
+      title: entry.data.title,
+      summary: entry.data.summary,
+      href: `${base}cases/${slug}/`,
+      category: entry.data.category,
+      period: entry.data.period,
+      tags: entry.data.tools.slice(0, 2),
+      featured: true
+    };
+  }),
+  ...projects
+    .filter((p) => p.featured)
+    .slice(0, 2)
+    .map((project) => ({
+      id: `preview-project-${project.slug}`,
+      kind: 'project' as const,
+      title: project.title,
+      summary: project.summary,
+      href: project.externalUrl ?? `${base}projects/${project.slug}/`,
+      category: 'Project',
+      period: project.period,
+      tags: project.tags.slice(0, 2),
+      featured: true,
+      external: Boolean(project.externalUrl)
+    })),
+  ...getResourceArchiveItems(base).slice(0, 1)
+];
 ---
 
 <BaseLayout
@@ -43,7 +80,6 @@ const availablePdfCount = allPdfDownloads.filter((item) => publicAssetExists(ite
                 '측정 가능한 그로스를 만드는 마케터'
               ])}
             ></span>
-            <span class="typing-cursor" aria-hidden="true"></span>
           </span>
         </h1>
         <p class="lead">{profile.headline}</p>
@@ -153,7 +189,21 @@ const availablePdfCount = allPdfDownloads.filter((item) => publicAssetExists(ite
 
   <section class="section">
     <div class="container">
-      <div class="section-header">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">Work Archive</span>
+          <h2>케이스 · 프로젝트 · 지원 자료 한눈에</h2>
+          <p>분산된 메뉴 대신 필터 하나로 실무 케이스, Live Demo, JD Fit까지 빠르게 찾을 수 있습니다.</p>
+        </div>
+        <a class="text-link" href={`${base}work/`}>전체 아카이브 →</a>
+      </div>
+      <ArchiveHub items={previewArchiveItems} compact />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
         <div>
           <span class="eyebrow">Featured Cases</span>
           <h2>Case Studies</h2>
@@ -281,7 +331,7 @@ const availablePdfCount = allPdfDownloads.filter((item) => publicAssetExists(ite
     color: transparent;
   }
 
-  .hero-title .typing-cursor {
+  .hero-title .typing-text::after {
     background: var(--primary);
   }
 

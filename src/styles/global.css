@@ -222,30 +222,34 @@ body.has-mouse-fx .fx-cursor {
 }
 
 .typing-wrap {
-  display: inline-flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0;
-  min-height: 1.2em;
+  display: block;
+  min-height: 1.25em;
   color: var(--primary-dark);
 }
 
 .typing-text {
+  display: inline;
   font-family: var(--font-display);
   font-weight: 800;
   letter-spacing: -0.045em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-.typing-cursor {
+.typing-text::after {
+  content: '';
   display: inline-block;
   width: 3px;
   height: 0.85em;
   margin-left: 4px;
   background: var(--primary);
   border-radius: 2px;
+  vertical-align: -0.08em;
   animation: typing-blink 0.9s step-end infinite;
-  vertical-align: baseline;
-  transform: translateY(0.08em);
+}
+
+.typing-cursor {
+  display: none;
 }
 
 @keyframes typing-blink {
@@ -259,7 +263,7 @@ body.has-mouse-fx .fx-cursor {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .typing-cursor {
+  .typing-text::after {
     animation: none;
     opacity: 0.6;
   }

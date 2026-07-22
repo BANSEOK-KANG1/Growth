@@ -37,6 +37,26 @@ export const projects: ProjectEntry[] = [
     featured: true
   },
   {
+    slug: 'day-anchor',
+    title: 'Day Anchor',
+    period: '2025 – 2026',
+    summary:
+      '캘린더 중심 일일 플래너 PWA. 일정·체크리스트·메모·데일리 리뷰를 Supabase로 동기화하고, 제품 기획부터 배포까지 end-to-end로 구축한 라이브 앱입니다.',
+    tags: ['Product', 'PWA', 'Next.js', 'Supabase'],
+    featured: true,
+    externalUrl: 'https://day-anchor.vercel.app'
+  },
+  {
+    slug: 'measuremkt-blog',
+    title: '측정하는 마케터',
+    period: '2026',
+    summary:
+      'GA4·GTM·광고 데이터 실무 가이드 블로그. 측정·분석 니치에 고정해 33편을 발행하고, SEO·E-E-A-T·전환 측정 관점으로 콘텐츠를 운영합니다.',
+    tags: ['GA4', 'GTM', 'Content', 'SEO'],
+    featured: false,
+    externalUrl: 'https://measuremkt.com'
+  },
+  {
     slug: 'growth-performance-portfolio',
     title: 'Growth Performance Portfolio',
     period: '2024 – 2026',

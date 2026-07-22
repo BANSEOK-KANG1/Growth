@@ -7,8 +7,7 @@ import { publicAssetExists, publicAssetUrl } from '../utils/assets';
 const base = import.meta.env.BASE_URL;
 const navLinks = [
   { href: `${base}`, label: 'Home' },
-  { href: `${base}cases/`, label: 'Cases' },
-  { href: `${base}projects/`, label: 'Projects' },
+  { href: `${base}work/`, label: 'Work' },
   { href: `${base}resume/`, label: 'Resume' },
   { href: `${base}about/`, label: 'About' },
   { href: `${base}contact/`, label: 'Contact' }
@@ -17,7 +16,7 @@ const navLinks = [
 const hasPrimaryPdf = publicAssetExists(primaryResumeDownload.filename);
 const primaryPdfHref = hasPrimaryPdf
   ? publicAssetUrl(base, primaryResumeDownload.filename)
-  : `${base}cases/`;
+  : `${base}work/`;
 ---
 
 <header class="site-header">

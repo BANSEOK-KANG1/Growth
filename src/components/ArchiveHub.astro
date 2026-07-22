@@ -1,0 +1,244 @@
+---
+import type { ArchiveItem, ArchiveKind } from '../data/archive';
+import { archiveKindLabels } from '../data/archive';
+
+interface Props {
+  items: ArchiveItem[];
+  showFilters?: boolean;
+  compact?: boolean;
+}
+
+const { items, showFilters = true, compact = false } = Astro.props;
+
+const kinds: Array<ArchiveKind | 'all'> = ['all', 'case', 'project', 'resource'];
+---
+
+<div class="archive-hub" data-archive-hub data-compact={compact ? 'true' : 'false'}>
+  {
+    showFilters && (
+      <div class="archive-filters" role="tablist" aria-label="아카이브 필터">
+        {kinds.map((kind) => (
+          <button
+            type="button"
+            class="archive-filter"
+            role="tab"
+            aria-selected={kind === 'all' ? 'true' : 'false'}
+            data-filter={kind}
+          >
+            {kind === 'all' ? '전체' : archiveKindLabels[kind]}
+            <span class="archive-filter-count" data-count-for={kind} />
+          </button>
+        ))}
+      </div>
+    )
+  }
+
+  <div class="archive-stats reveal" aria-live="polite">
+    <span data-archive-visible-count>{items.length}</span>개 항목
+  </div>
+
+  <div class="archive-grid">
+    {items.map((item) => (
+      <a
+        class="archive-card reveal"
+        href={item.href}
+        data-kind={item.kind}
+        target={item.external ? '_blank' : undefined}
+        rel={item.external ? 'noreferrer' : undefined}
+      >
+        <div class="archive-card__top">
+          <span class={`archive-kind archive-kind--${item.kind}`}>{archiveKindLabels[item.kind]}</span>
+          {item.featured && <span class="pill">Featured</span>}
+          {item.period && <span class="pill">{item.period}</span>}
+        </div>
+        <h3>{item.title}</h3>
+        <p>{item.summary}</p>
+        <div class="tag-list">
+          {item.tags.slice(0, compact ? 2 : 4).map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+        <span class="archive-card__link">{item.external ? '외부 링크 →' : '보기 →'}</span>
+      </a>
+    ))}
+  </div>
+
+  <p class="archive-empty" hidden data-archive-empty>
+    해당 카테고리에 항목이 없습니다.
+  </p>
+</div>
+
+<script>
+  function initArchiveHub() {
+    document.querySelectorAll('[data-archive-hub]').forEach((root) => {
+      if (root.getAttribute('data-archive-init') === 'true') return;
+      root.setAttribute('data-archive-init', 'true');
+
+      const cards = Array.from(root.querySelectorAll<HTMLElement>('.archive-card'));
+      const filters = Array.from(root.querySelectorAll<HTMLButtonElement>('.archive-filter'));
+      const empty = root.querySelector<HTMLElement>('[data-archive-empty]');
+      const visibleCount = root.querySelector('[data-archive-visible-count]');
+
+      const counts: Record<string, number> = {
+        all: cards.length,
+        case: cards.filter((c) => c.dataset.kind === 'case').length,
+        project: cards.filter((c) => c.dataset.kind === 'project').length,
+        resource: cards.filter((c) => c.dataset.kind === 'resource').length
+      };
+
+      root.querySelectorAll('[data-count-for]').forEach((el) => {
+        const key = el.getAttribute('data-count-for');
+        if (key && key in counts) el.textContent = `(${counts[key]})`;
+      });
+
+      const applyFilter = (kind: string) => {
+        let shown = 0;
+        cards.forEach((card) => {
+          const match = kind === 'all' || card.dataset.kind === kind;
+          card.hidden = !match;
+          if (match) shown += 1;
+        });
+        if (visibleCount) visibleCount.textContent = String(shown);
+        if (empty) empty.hidden = shown > 0;
+
+        filters.forEach((btn) => {
+          const active = btn.dataset.filter === kind;
+          btn.classList.toggle('is-active', active);
+          btn.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+      };
+
+      filters.forEach((btn) => {
+        btn.addEventListener('click', () => applyFilter(btn.dataset.filter || 'all'));
+      });
+
+      applyFilter('all');
+    });
+  }
+
+  initArchiveHub();
+  document.addEventListener('astro:page-load', initArchiveHub);
+</script>
+
+<style>
+  .archive-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .archive-filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .archive-filter.is-active {
+    border-color: var(--primary);
+    background: var(--surface-soft);
+    color: var(--primary-dark);
+  }
+
+  .archive-filter-count {
+    font-size: var(--text-xs);
+    opacity: 0.75;
+  }
+
+  .archive-stats {
+    margin-bottom: 20px;
+    font-size: var(--text-sm);
+    color: var(--muted);
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: var(--grid-gap);
+  }
+
+  .archive-hub[data-compact='true'] .archive-grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  }
+
+  .archive-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .archive-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(36, 87, 197, 0.25);
+  }
+
+  .archive-card__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .archive-kind {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: var(--text-xs);
+    font-weight: 700;
+  }
+
+  .archive-kind--case {
+    background: rgba(18, 122, 85, 0.12);
+    color: var(--success);
+  }
+
+  .archive-kind--project {
+    background: rgba(36, 87, 197, 0.1);
+    color: var(--primary);
+  }
+
+  .archive-kind--resource {
+    background: var(--warning-bg);
+    color: var(--warning);
+  }
+
+  .archive-card h3 {
+    font-size: var(--text-lg);
+    line-height: var(--leading-tight);
+  }
+
+  .archive-card p {
+    flex: 1;
+    color: var(--muted);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .archive-card__link {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--primary);
+  }
+
+  .archive-empty {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--muted);
+  }
+</style>
