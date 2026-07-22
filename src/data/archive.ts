@@ -50,6 +50,30 @@ export function getResourceArchiveItems(base: string): ArchiveItem[] {
       featured: true
     },
     {
+      id: 'portfolio-hub',
+      kind: 'resource',
+      title: 'Portfolio Hub · JD /for/{slug}',
+      summary: 'JD별 맞춤 URL 허브. fintech-growth-pm · content-marketing 샘플 프로필.',
+      href: 'https://banseok-kang1.github.io/portfolio-hub/',
+      category: 'JD Fit',
+      period: '2026-07',
+      tags: ['Hub', 'JD Fit'],
+      featured: true,
+      external: true
+    },
+    {
+      id: 'pm-portfolio',
+      kind: 'resource',
+      title: 'PM Portfolio · Work Archive',
+      summary: 'APS Problem Solver 핏 PM 사이트. 케이스 전체는 /work/에서.',
+      href: 'https://banseok-kang1.github.io/pm/work/',
+      category: 'PM',
+      period: '2026',
+      tags: ['PM', 'Archive'],
+      featured: false,
+      external: true
+    },
+    {
       id: 'resume-jd-fit',
       kind: 'resource',
       title: 'JD Fit 한눈에 보기',
