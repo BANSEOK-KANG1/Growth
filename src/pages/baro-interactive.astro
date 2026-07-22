@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
+import PortfolioCrossLinks from '../components/PortfolioCrossLinks.astro';
 import { profile } from '../data/profile';
 
 const base = import.meta.env.BASE_URL;
@@ -118,9 +119,10 @@ const workingPrinciples = [
         </blockquote>
         <div class="hero-actions">
           <a class="btn-primary" href={resumeUrl} download>맞춤 이력서 PDF</a>
-          <a class="btn-secondary" href="#evidence">대표 케이스</a>
-          <a class="btn-secondary" href={profile.githubUrl} target="_blank" rel="noreferrer">GitHub</a>
+          <a class="btn-secondary" href={`${base}work/`}>Work Archive</a>
+          <a class="btn-secondary" href={base}>Growth 홈</a>
         </div>
+        <PortfolioCrossLinks current="baro" />
         <div class="tag-list application-tags">
           <span class="tag">온라인광고 운영·분석 AM</span>
           <span class="tag">SA · DA · SNS</span>
@@ -267,9 +269,11 @@ const workingPrinciples = [
       </div>
       <div class="hero-actions">
         <a class="btn-primary" href={resumeUrl} download>맞춤 이력서 PDF</a>
-        <a class="btn-secondary" href={`${base}cases/`}>전체 케이스 스터디</a>
+        <a class="btn-secondary" href={`${base}work/`}>Work Archive 전체 보기</a>
+        <a class="btn-secondary" href={base}>Growth 홈으로</a>
         <a class="btn-secondary" href={`${base}resume/`}>전체 이력서 페이지</a>
       </div>
+      <PortfolioCrossLinks current="baro" compact />
     </div>
   </section>
 

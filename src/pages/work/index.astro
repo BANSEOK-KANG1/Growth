@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArchiveHub from '../../components/ArchiveHub.astro';
+import PortfolioCrossLinks from '../../components/PortfolioCrossLinks.astro';
 import { archiveKindDescriptions } from '../../data/archive';
 import type { ArchiveItem } from '../../data/archive';
 import { getResourceArchiveItems } from '../../data/archive';
@@ -57,6 +58,12 @@ const archiveItems = [...caseItems, ...projectItems, ...getResourceArchiveItems(
         Cases와 Projects, Resume/JD Fit을 분산하지 않고 한 화면에서 필터로 정리했습니다. 채용 담당자가
         <strong>실무 판단 → 도구 → 지원 문서</strong> 순으로 빠르게 훑을 수 있게 구성했습니다.
       </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href={base}>Growth 홈</a>
+        <a class="btn-secondary" href={`${base}baro-interactive/`}>바로인터랙티브 JD Fit</a>
+        <a class="btn-secondary" href={`${base}resume/`}>Resume</a>
+      </div>
+      <PortfolioCrossLinks current="work" />
       <div class="archive-kind-legend">
         {Object.entries(archiveKindDescriptions).map(([kind, desc]) => (
           <div class="archive-kind-legend__item">
