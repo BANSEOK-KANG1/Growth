@@ -39,6 +39,17 @@ export function getResourceArchiveItems(base: string): ArchiveItem[] {
       featured: true
     },
     {
+      id: 'baro-interactive',
+      kind: 'resource',
+      title: '바로인터랙티브 맞춤 지원 페이지',
+      summary: '온라인광고 운영·분석 AM / 퍼포먼스 마케터 JD에 맞춘 원페이지 + 맞춤 이력서 PDF.',
+      href: `${base}baro-interactive/`,
+      category: 'JD Fit',
+      period: '2026-07',
+      tags: ['Agency', 'SA/DA', 'PDF'],
+      featured: true
+    },
+    {
       id: 'resume-jd-fit',
       kind: 'resource',
       title: 'JD Fit 한눈에 보기',

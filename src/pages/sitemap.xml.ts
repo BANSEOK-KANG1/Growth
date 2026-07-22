@@ -14,6 +14,7 @@ const staticPaths = [
   'projects/youtube-trend-analyzer/',
   'projects/marketing-lead-dashboard/',
   'resume/',
+  'baro-interactive/',
   'about/',
   'contact/'
 ];
