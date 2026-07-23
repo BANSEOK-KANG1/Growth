@@ -323,8 +323,8 @@
     if (!toggle) return;
 
     const meta = document.querySelector('meta[data-theme-color]');
-    const lightColor = '#2457c5';
-    const darkColor = '#0f1729';
+    const lightColor = '#0b7a6f';
+    const darkColor = '#0e1014';
 
     const applyTheme = (theme) => {
       document.documentElement.setAttribute('data-theme', theme);

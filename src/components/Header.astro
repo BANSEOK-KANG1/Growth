@@ -22,8 +22,11 @@ const primaryPdfHref = hasPrimaryPdf
 <header class="site-header">
   <nav class="nav-inner" aria-label="Main navigation">
     <a class="brand" href={base}>
-      <strong>{profile.nameEn}</strong>
-      <span>{profile.role}</span>
+      <span class="brand-mark" aria-hidden="true">GK</span>
+      <span class="brand-copy">
+        <strong>{profile.nameEn}</strong>
+        <span>{profile.role}</span>
+      </span>
     </a>
 
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />

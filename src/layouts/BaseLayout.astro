@@ -83,7 +83,7 @@ const webPageSchema = {
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords.join(', ')} />
     <meta name="author" content={profile.nameKo} />
-    <meta name="theme-color" content="#2457c5" data-theme-color />
+    <meta name="theme-color" content="#0b7a6f" data-theme-color />
     <meta name="color-scheme" content="light dark" />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="googlebot" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
@@ -110,7 +110,7 @@ const webPageSchema = {
 
     <title>{fullTitle}</title>
 
-    <script is:inline define:vars={{ lightColor: '#2457c5', darkColor: '#0f1729' }}>
+    <script is:inline define:vars={{ lightColor: '#0b7a6f', darkColor: '#0e1014' }}>
       (function () {
         const stored = localStorage.getItem('theme');
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -129,7 +129,7 @@ const webPageSchema = {
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&display=swap"
       rel="stylesheet"
     />
 

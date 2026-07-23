@@ -132,15 +132,17 @@ const kinds: Array<ArchiveKind | 'all'> = ['all', 'case', 'project', 'resource']
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 14px;
+    padding: 6px 10px;
     border: 1px solid var(--line);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--surface);
     color: var(--muted);
-    font-size: var(--text-sm);
+    font-family: var(--font-mono);
+    font-size: 11px;
     font-weight: 600;
+    letter-spacing: 0.02em;
     cursor: pointer;
-    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    transition: border-color 0.15s, color 0.15s, background 0.15s;
   }
 
   .archive-filter.is-active {
@@ -174,19 +176,19 @@ const kinds: Array<ArchiveKind | 'all'> = ['all', 'case', 'project', 'resource']
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 22px;
+    padding: 18px;
     border: 1px solid var(--line);
-    border-radius: var(--radius-md);
+    border-radius: 2px;
     background: var(--surface);
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    transition: border-color 0.15s, background 0.15s;
   }
 
   .archive-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-hover);
-    border-color: rgba(36, 87, 197, 0.25);
+    transform: none;
+    box-shadow: none;
+    border-color: var(--primary);
   }
 
   .archive-card__top {
@@ -197,25 +199,30 @@ const kinds: Array<ArchiveKind | 'all'> = ['all', 'case', 'project', 'resource']
   }
 
   .archive-kind {
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: var(--text-xs);
-    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
+    background: transparent;
   }
 
   .archive-kind--case {
-    background: rgba(18, 122, 85, 0.12);
     color: var(--success);
+    border-color: color-mix(in srgb, var(--success) 35%, var(--line));
   }
 
   .archive-kind--project {
-    background: rgba(36, 87, 197, 0.1);
     color: var(--primary);
+    border-color: color-mix(in srgb, var(--primary) 35%, var(--line));
   }
 
   .archive-kind--resource {
-    background: var(--warning-bg);
     color: var(--warning);
+    border-color: var(--warning-border);
   }
 
   .archive-card h3 {
