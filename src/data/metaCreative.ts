@@ -78,7 +78,7 @@ export const metaCreativeProject = {
   slug: 'meta-creative-intelligence',
   title: 'Meta Creative Intelligence — 소재 메타데이터 기반 방향성 분석',
   period: '2025 – 2026',
-  role: 'Performance Marketer · Data (Solo)',
+  role: 'Growth Analytics · Solo',
   githubUrl: 'https://github.com/BANSEOK-KANG1/Growth/tree/main/apps/meta-creative-analyzer',
   /** Streamlit Cloud — Growth Analytics Hub / Meta_Creative page */
   liveDemoUrl: growthAppBase ? `${growthAppBase}/Meta_Creative` : '',

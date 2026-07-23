@@ -1,5 +1,5 @@
 export type ResumeTrack = {
-  id: 'performance-growth' | 'crm-ops' | 'growth-product';
+  id: 'growth-operations' | 'crm-ops' | 'growth-product';
   eyebrow: string;
   title: string;
   target: string;
@@ -34,25 +34,26 @@ export type ProjectEntry = {
 
 export const resumeTracks: ResumeTrack[] = [
   {
-    id: 'performance-growth',
+    id: 'growth-operations',
     eyebrow: 'TRACK 01 · PRIMARY',
-    title: '인하우스 퍼포먼스 / 그로스 마케터',
-    target: '유입부터 리드 품질까지 책임지는 포지션',
+    title: 'Growth Operations / Marketing Analytics',
+    target: '성장 문제·측정 기준·실행 우선순위를 연결하는 포지션',
     summary:
-      'Meta·Google·Naver·TikTok 운영 경험을 기반으로 광고비, 전환 이벤트, 진성문의, 미팅 전환을 한 퍼널로 연결합니다.',
+      '마케팅 실무에서 얻은 채널·전환 이해를 기반으로 데이터를 같은 기준으로 연결하고, 성과가 끊기는 구간과 다음 의사결정을 구조화합니다.',
     contribution:
-      '채널 운영에 머물지 않고 측정 기준을 먼저 정리한 뒤, CPA·CVR과 리드 품질을 함께 보고 예산 유지·축소·확장 후보를 제안할 수 있습니다.',
+      '흩어진 매체·행동·리드 데이터를 하나의 흐름으로 정리하고, 팀이 같은 지표를 보며 유지·중단·실험 우선순위를 결정할 수 있는 운영 구조를 만들 수 있습니다.',
     strengths: [
-      '월 3,800만 원 이상 규모 멀티채널 캠페인 운영·분석',
-      'GA4/GTM/UTM 기반 문의 클릭 → 폼 진입 → 제출 완료 측정',
-      '소재·타깃·랜딩 조합별 CPA·CVR 비교와 후속 액션 정리',
-      '날짜·매체·캠페인 단위 Raw 및 리포트 구조 설계'
+      '문제 → 이벤트 → 지표 → 판단 → 액션으로 의사결정 구조화',
+      'GA4/GTM/UTM 기반 유입 → 행동 → 전환 측정 기준 설계',
+      '날짜·매체·캠페인·리드 상태값을 연결하는 Raw 구조 설계',
+      'API·Python·Streamlit 기반 분석 도구와 실행 브리프 구현'
     ],
     evidence: [
       {
-        label: '광고 성과 분석 및 예산 판단',
-        href: 'cases/performance-funnel-analysis/',
-        note: '실무 경험 기반 · 익명화 샘플'
+        label: 'Marketing Lead Funnel Dashboard',
+        href: 'projects/marketing-lead-dashboard/',
+        note: '데이터 연결·판단 구조 프로젝트',
+        project: true
       },
       {
         label: 'GA4/GTM/UTM 전환 측정 구조',
@@ -60,13 +61,12 @@ export const resumeTracks: ResumeTrack[] = [
         note: '실무 경험 기반 · 도메인/ID 익명화'
       },
       {
-        label: 'Meta Creative Intelligence',
-        href: 'projects/meta-creative-intelligence/',
-        note: '1인 기획·개발',
-        project: true
+        label: '글로벌 앱 그로스 퍼널',
+        href: 'cases/global-app-growth-funnel/',
+        note: '실무 경험 기반 · 서비스/수치 익명화'
       }
     ],
-    pdf: 'files/kang-banseok-resume-performance-growth.pdf'
+    pdf: 'files/kang-banseok-resume-growth-operations.pdf'
   },
   {
     id: 'crm-ops',
@@ -112,7 +112,7 @@ export const resumeTracks: ResumeTrack[] = [
     summary:
       '사용자가 어디서 멈추는지 퍼널로 정의하고, 대표 지표와 트레이드오프를 기준으로 다음 실험의 우선순위를 정합니다.',
     contribution:
-      '퍼포먼스 실무에서 익힌 측정 감각과 개인 프로젝트의 문제정의 프레임을 바탕으로, 마케팅·데이터·제품 사이의 판단 기준을 정리할 수 있습니다.',
+      '마케팅 실무에서 익힌 측정 감각과 개인 프로젝트의 문제정의 프레임을 바탕으로, 마케팅·데이터·제품 사이의 판단 기준을 정리할 수 있습니다.',
     strengths: [
       '유입 → 활성화 → 전환 퍼널의 병목 단계 정의',
       '가설 → 이벤트 → 지표 → 판단 기준으로 실험 구조화',

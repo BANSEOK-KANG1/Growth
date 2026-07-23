@@ -9,11 +9,11 @@ export type ResumeDownload = {
 
 export const resumeDownloads: ResumeDownload[] = [
   {
-    id: 'performance-growth',
-    label: '퍼포먼스 / 그로스 이력서',
-    description: '멀티채널 운영 · GA4/GTM 측정 · CPA/CVR · 리드 품질 중심',
-    filename: 'files/kang-banseok-resume-performance-growth.pdf',
-    tags: ['Performance', 'Growth', 'GA4/GTM', 'Lead Funnel'],
+    id: 'growth-operations',
+    label: 'Growth Operations / Marketing Analytics 이력서',
+    description: '문제정의 · 측정 구조 · 퍼널 분석 · 데이터 기반 실행 우선순위 중심',
+    filename: 'files/kang-banseok-resume-growth-operations.pdf',
+    tags: ['Growth Ops', 'Marketing Analytics', 'Measurement', 'Decision'],
     primary: true
   },
   {

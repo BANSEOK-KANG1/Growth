@@ -77,30 +77,30 @@ class Track:
 
 TRACKS = (
     Track(
-        filename="kang-banseok-resume-performance-growth.pdf",
-        label="PERFORMANCE / GROWTH",
-        role="인하우스 퍼포먼스 / 그로스 마케터",
-        target="유입부터 리드 품질까지 책임지는 포지션",
+        filename="kang-banseok-resume-growth-operations.pdf",
+        label="GROWTH OPERATIONS / MARKETING ANALYTICS",
+        role="Growth Operations · Marketing Analytics",
+        target="성장 문제·측정 기준·실행 우선순위를 연결하는 포지션",
         summary=(
-            "Meta·Google·Naver·TikTok 운영 경험을 기반으로 광고비, 전환 이벤트, "
-            "진성문의, 미팅 전환을 하나의 퍼널로 연결합니다."
+            "광고·사용자 행동·전환 데이터를 연결해 성과가 끊기는 지점을 정의하고, "
+            "팀이 바로 움직일 수 있는 측정 기준과 다음 액션으로 바꿉니다."
         ),
         contribution=(
-            "채널 운영에 머물지 않고 측정 기준을 먼저 정리한 뒤, CPA·CVR과 리드 품질을 "
-            "함께 보고 예산 유지·축소·확장 후보를 제안할 수 있습니다."
+            "마케팅 실무의 맥락과 데이터 구조를 함께 이해해, 흩어진 지표를 공통 언어로 정리하고 "
+            "운영·콘텐츠·CRM·제품 사이의 우선순위를 명확하게 만들 수 있습니다."
         ),
         strengths=(
-            "월 3,800만 원 이상 규모 멀티채널 캠페인 운영·분석",
-            "GA4/GTM/UTM 기반 문의 클릭 → 폼 진입 → 제출 완료 측정",
-            "소재·타깃·랜딩 조합별 CPA·CVR 비교와 후속 액션 정리",
-            "날짜·매체·캠페인 단위 Raw 및 리포트 구조 설계",
+            "문제 → 이벤트 → 지표 → 판단 → 액션의 공통 의사결정 구조 설계",
+            "GA4·GTM·UTM 기반 사용자 행동과 전환 단계 측정",
+            "Raw 데이터와 대시보드를 연결해 리드 품질·후속 전환까지 해석",
+            "API·Python·Streamlit으로 반복 분석을 도구화하고 실행안으로 전환",
         ),
         evidence=(
             Evidence(
-                "광고 성과 분석 및 예산 판단",
-                "CPA + 진성문의율 + 미팅 전환율 기준 채널 판단",
-                SITE + "cases/performance-funnel-analysis/",
-                "실무 기반",
+                "Marketing Lead Funnel Dashboard",
+                "Lead → Qualified Lead → Meeting → Revenue 의사결정 구조",
+                SITE + "projects/marketing-lead-dashboard/",
+                "1인 프로젝트",
             ),
             Evidence(
                 "GA4/GTM/UTM 전환 측정 구조",
@@ -109,16 +109,16 @@ TRACKS = (
                 "실무 기반",
             ),
             Evidence(
-                "Meta Creative Intelligence",
-                "소재 메타 + 성과 지표 → Direction Brief",
-                SITE + "projects/meta-creative-intelligence/",
-                "1인 프로젝트",
+                "글로벌 앱 그로스 퍼널",
+                "국가·채널별 설치 → 참여 → 예약 전환 흐름",
+                SITE + "cases/global-app-growth-funnel/",
+                "실무 기반",
             ),
         ),
-        project_order=("meta", "youtube", "crm"),
+        project_order=("dashboard", "youtube", "meta"),
         fit_note=(
-            "광고 운영만 수행하는 역할보다, 인하우스에서 측정 구조·퍼널·리드 품질을 함께 책임지는 "
-            "퍼포먼스/그로스 포지션을 우선합니다."
+            "퍼포먼스 마케팅 경험은 측정 감각과 비즈니스 맥락을 만든 실무 기반입니다. 지원 정체성은 "
+            "매체 운영 자체보다 성장 문제 정의·데이터 구조·의사결정 운영에 둡니다."
         ),
     ),
     Track(
@@ -176,7 +176,7 @@ TRACKS = (
             "다음 실험의 우선순위를 정합니다."
         ),
         contribution=(
-            "퍼포먼스 실무에서 익힌 측정 감각과 개인 프로젝트의 문제정의 프레임을 바탕으로, "
+            "마케팅 실무에서 익힌 측정 감각과 개인 프로젝트의 문제정의 프레임을 바탕으로, "
             "마케팅·데이터·제품 사이의 판단 기준을 정리할 수 있습니다."
         ),
         strengths=(
@@ -225,6 +225,12 @@ EXPERIENCE_BULLETS = (
 
 
 PROJECTS = {
+    "dashboard": (
+        "Marketing Lead Funnel Dashboard",
+        "2026 · 1인 기획·개발",
+        "광고비와 표면 전환에 머물지 않고 Lead → Qualified Lead → Meeting → Revenue를 연결해 병목과 다음 액션을 판단하는 대시보드.",
+        SITE + "projects/marketing-lead-dashboard/",
+    ),
     "meta": (
         "Meta Creative Intelligence",
         "2025 – 2026 · 1인 기획·개발",
@@ -403,7 +409,7 @@ def draw_page(canvas, doc) -> None:
     canvas.line(15 * mm, 10 * mm, width - 15 * mm, 10 * mm)
     canvas.setFont("NotoKR", 7)
     canvas.setFillColor(MUTED)
-    canvas.drawString(15 * mm, 6.5 * mm, "강반석 · Role-specific Resume")
+    canvas.drawString(15 * mm, 6.5 * mm, "강반석 · Growth Operations Portfolio")
     canvas.drawRightString(width - 15 * mm, 6.5 * mm, f"{doc.page} / 2")
     canvas.restoreState()
 

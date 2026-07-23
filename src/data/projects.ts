@@ -58,10 +58,10 @@ export const projects: ProjectEntry[] = [
   },
   {
     slug: 'growth-performance-portfolio',
-    title: 'Growth Performance Portfolio',
+    title: 'Growth Operations Portfolio',
     period: '2024 – 2026',
     summary:
-      '인하우스 퍼포먼스/그로스/CRM 직무 지원을 위한 케이스 스터디형 포트폴리오입니다. Astro + GitHub Pages로 구축했습니다.',
+      'Growth Operations·Marketing Analytics·CRM·Growth PM 직무 지원을 위한 케이스 스터디형 포트폴리오입니다. Astro + GitHub Pages로 구축했습니다.',
     tags: ['Portfolio', 'Astro', 'Case Study'],
     featured: false,
     externalUrl: 'https://banseok-kang1.github.io/Growth/'

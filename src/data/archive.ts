@@ -31,11 +31,11 @@ export function getResourceArchiveItems(base: string): ArchiveItem[] {
       id: 'resume-hub',
       kind: 'resource',
       title: 'Resume · JD Fit',
-      summary: '그로스 마케터 JD 8항목 매핑, 이력서 bullet·자소서 훅 복사, PDF 다운로드.',
+      summary: 'Growth Operations·CRM·Growth PM 직무별 포지셔닝과 PDF 이력서 다운로드.',
       href: `${base}resume/`,
       category: '지원 자료',
       period: '2026',
-      tags: ['Resume', 'JD Fit', 'PDF'],
+      tags: ['Growth Ops', 'Resume', 'PDF'],
       featured: true
     },
     {
@@ -74,19 +74,19 @@ export function getResourceArchiveItems(base: string): ArchiveItem[] {
       external: true
     },
     {
-      id: 'resume-jd-fit',
+      id: 'resume-tracks',
       kind: 'resource',
-      title: 'JD Fit 한눈에 보기',
-      summary: '자주 보는 그로스 JD 요건과 경험을 1:1 연결. 강점/부분매칭/갭 구분.',
-      href: `${base}resume/#jd-fit`,
+      title: '직무별 이력서 한눈에 보기',
+      summary: 'Growth Operations·CRM·Growth PM 트랙별 강점, 증거, 기여 가능성 비교.',
+      href: `${base}resume/#role-resumes`,
       category: '지원 자료',
-      tags: ['Growth', 'Cover Letter']
+      tags: ['Growth Ops', 'Role Fit']
     },
     {
       id: 'about',
       kind: 'resource',
       title: 'About · Working Style',
-      summary: '측정 우선, 퍼널 통합, 지표 기반 의사결정 — 일하는 방식과 포지션 방향.',
+      summary: '문제정의, 측정 기준, 퍼널 통합, 실행 우선순위 — 일하는 방식과 포지션 방향.',
       href: `${base}about/`,
       category: '소개',
       tags: ['About', 'Principles']

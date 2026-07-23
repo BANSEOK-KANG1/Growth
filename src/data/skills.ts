@@ -8,9 +8,9 @@ export const workPrinciples = [
 
 export const coreSkills = [
   {
-    title: 'Performance Analysis',
+    title: 'Problem & Performance Analysis',
     description:
-      'Meta, Naver, Google, TikTok 매체 어드민 데이터와 GA4 전환 데이터를 통합해 CPA, CVR, ROAS, 리드 품질을 비교하고 예산 유지·축소·확장 후보를 도출합니다.',
+      'Meta, Naver, Google, TikTok 매체 데이터와 GA4 전환 데이터를 통합해, 표면 지표와 실제 리드 품질이 어긋나는 문제를 정의하고 판단 기준을 정리합니다.',
     items: ['Meta Ads', 'Naver Ads', 'Google Ads', 'TikTok Ads', 'CPA/CVR/ROAS', 'Budget Decision']
   },
   {
@@ -20,7 +20,7 @@ export const coreSkills = [
     items: ['GA4', 'GTM', 'UTM Naming', 'Clarity', 'Airbridge', 'Integrated Raw Data']
   },
   {
-    title: 'Growth & CRM Thinking',
+    title: 'Growth Operations & CRM',
     description:
       '유입 이후 문의 미완료, 미팅 미진행, 구매 미전환 유저를 세그먼트화하고 CRM 실험을 설계합니다. Looker Studio·Sheets·SQL로 리포트 자동화 구조를 설계합니다.',
     items: ['Segmentation', 'Lead Funnel', 'CRM Scenario', 'Looker Studio', 'SQL', 'Dashboard']

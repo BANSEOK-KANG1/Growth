@@ -5,9 +5,9 @@
 ## 권장 파일명
 
 ```txt
-kang-banseok-resume-performance-growth.pdf ← 퍼포먼스/그로스 (기본·추천)
-kang-banseok-resume-crm-ops.pdf            ← CRM/Marketing Ops
-kang-banseok-resume-growth-product.pdf      ← Growth PM/Product Analytics
+kang-banseok-resume-growth-operations.pdf ← Growth Operations/Marketing Analytics (기본·추천)
+kang-banseok-resume-crm-ops.pdf           ← CRM/Marketing Ops
+kang-banseok-resume-growth-product.pdf     ← Growth PM/Product Analytics
 ```
 
 경로 설정: `src/data/profile.ts`, `src/data/resumeDownloads.ts`

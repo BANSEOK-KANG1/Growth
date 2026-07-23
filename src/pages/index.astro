@@ -59,28 +59,28 @@ const previewArchiveItems: ArchiveItem[] = [
 ---
 
 <BaseLayout
-  title={`${profile.nameKo} | Growth Performance Marketer Portfolio`}
-  description={`${profile.headline} Meta·Google·GA4/GTM 기반 퍼포먼스·그로스·CRM 포트폴리오.`}
+  title={`${profile.nameKo} | Growth Operations · Marketing Analytics Portfolio`}
+  description={`${profile.headline} GA4/GTM·퍼널·리드 데이터·분석 도구 기반 Growth Operations 포트폴리오.`}
   ogType="profile"
-  keywords={[...profile.keywords, '강반석', 'Kang Banseok', '퍼포먼스 마케팅 포트폴리오']}
+  keywords={[...profile.keywords, '강반석', 'Kang Banseok', 'Growth Operations 포트폴리오']}
 >
   <section class="hero">
     <div class="container hero-grid">
       <div class="reveal">
-        <span class="eyebrow">Growth Performance Marketer</span>
+        <span class="eyebrow">Growth Operations · Marketing Analytics</span>
         <h1 class="hero-title">
-          <span class="hero-title-line">광고 집행자가 아니라,</span>
+          <span class="hero-title-line">채널을 운영하는 것보다,</span>
           <span class="typing-wrap" aria-live="polite">
             <span
               class="typing-text"
               data-typing
               data-phrases={JSON.stringify([
-                '성과 흐름을 설계하는 마케터',
-                '퍼널 병목을 찾는 마케터',
-                '데이터로 액션을 만드는 마케터',
-                '측정 가능한 그로스를 만드는 마케터'
+                '성장 문제를 구조화합니다',
+                '측정 기준을 먼저 만듭니다',
+                '데이터를 판단으로 바꿉니다',
+                '실행 우선순위를 명확히 합니다'
               ])}
-            >성과 흐름을 설계하는 마케터</span>
+            >성장 문제를 구조화합니다</span>
           </span>
         </h1>
         <p class="lead">{profile.headline}</p>
@@ -88,16 +88,16 @@ const previewArchiveItems: ArchiveItem[] = [
         <blockquote class="hero-intro">{profile.oneLineIntro}</blockquote>
         <div class="hero-stats">
           <div class="hero-stat">
-            <strong data-count={4} data-suffix="+">4+</strong>
-            <span>광고 매체 운영</span>
+            <strong data-count={4} data-suffix="">4</strong>
+            <span>구조화된 케이스</span>
           </div>
           <div class="hero-stat">
-            <strong data-count={15} data-suffix="+">15+</strong>
-            <span>실무 도구 · 스택</span>
+            <strong data-count={3} data-suffix="">3</strong>
+            <span>분석 도구 · 대시보드</span>
           </div>
           <div class="hero-stat">
-            <strong data-count={7} data-suffix="">7</strong>
-            <span>대표 프로젝트</span>
+            <strong data-count={1} data-suffix="">1</strong>
+            <span>공통 의사결정 프레임</span>
           </div>
         </div>
         <div class="hero-actions">
@@ -133,16 +133,16 @@ const previewArchiveItems: ArchiveItem[] = [
           </div>
           <div class="metric-stack">
             <div class="metric-row">
-              <strong>Performance</strong>
-              <p>CPA/CVR/ROAS와 리드 품질을 함께 보고 예산 판단 후보를 도출합니다.</p>
+              <strong>Problem</strong>
+              <p>성과 현상을 그대로 받아들이지 않고, 어디에서 판단이 막히는지 먼저 정의합니다.</p>
             </div>
             <div class="metric-row">
               <strong>Measurement</strong>
-              <p>UTM, GTM, GA4, Clarity로 클릭 이후 전환 이벤트를 분리합니다.</p>
+              <p>UTM, GTM, GA4, Airbridge로 유입·행동·전환을 비교 가능한 기준으로 정리합니다.</p>
             </div>
             <div class="metric-row">
-              <strong>Growth & CRM</strong>
-              <p>문의 미완료, 미팅 미진행, 구매 미전환 유저를 세그먼트화합니다.</p>
+              <strong>Decision & Ops</strong>
+              <p>데이터를 보고서에서 끝내지 않고 유지·중단·실험 우선순위와 운영 구조로 연결합니다.</p>
             </div>
           </div>
         </div>
@@ -155,8 +155,8 @@ const previewArchiveItems: ArchiveItem[] = [
       <div class="section-header reveal">
         <div>
           <span class="eyebrow">Tool Stack</span>
-          <h2>실무에서 사용하는 도구와 활용 수준</h2>
-          <p>SQL, Figma, Photoshop 등 분석·디자인·협업 도구를 직무별로 정리했습니다. 탭을 눌러 카테고리별로 확인할 수 있습니다.</p>
+          <h2>도구의 개수보다 어디에 사용했는지를 보여줍니다</h2>
+          <p>광고 운영, 측정, 분석, 기획·제작 도구를 문제 정의와 의사결정 과정에서 어떻게 활용했는지 정리했습니다.</p>
         </div>
       </div>
       <ToolStack />
@@ -181,8 +181,8 @@ const previewArchiveItems: ArchiveItem[] = [
       <div class="section-header reveal">
         <div>
           <span class="eyebrow">Growth Funnel</span>
-          <h2>광고 성과를 매체 지표가 아니라 성장 퍼널로 봅니다</h2>
-          <p>광고 노출부터 CRM 리텐션까지 각 단계별로 다른 질문과 지표를 봅니다.</p>
+          <h2>채널 지표를 사용자와 비즈니스의 성장 퍼널로 연결합니다</h2>
+          <p>유입부터 행동·문의·후속 전환까지 각 단계에서 다른 문제와 판단 기준을 봅니다.</p>
         </div>
       </div>
       <FunnelDiagram />
@@ -291,9 +291,9 @@ const previewArchiveItems: ArchiveItem[] = [
 
   <section class="section">
     <div class="container grid-3">
-      <MetricCard label="Position" value="In-house" description="광고 영업형이 아니라 내부 성과 개선형 마케터를 지향합니다." />
-      <MetricCard label="Core Logic" value="Funnel" description="유입–전환–리드–매출–CRM을 하나의 흐름으로 봅니다." />
-      <MetricCard label="Next Step" value="Growth PM" description="장기적으로는 지표 기반 제품/성장 문제 해결로 확장합니다." />
+      <MetricCard label="Position" value="Growth Ops" description="마케팅·데이터·제품 사이의 측정 기준과 운영 구조를 정리합니다." />
+      <MetricCard label="Core Logic" value="Problem → Metric" description="현상을 문제로 정의하고, 대표 지표와 판단 기준을 먼저 세웁니다." />
+      <MetricCard label="Next Step" value="Analytics / PM" description="지표 기반 성장 문제 해결과 Product Operations로 확장합니다." />
     </div>
   </section>
 
@@ -301,11 +301,11 @@ const previewArchiveItems: ArchiveItem[] = [
     <div class="container info-panel contact-cta-panel">
       <div>
         <span class="eyebrow">Contact</span>
-        <h2>성과 흐름을 함께 개선할 수 있는 팀을 찾고 있습니다</h2>
-        <p>인하우스 퍼포먼스 마케팅, 그로스 마케팅, CRM/Marketing Ops 포지션을 중심으로 지원합니다.</p>
+        <h2>성장 문제와 판단 기준을 함께 정리할 팀을 찾고 있습니다</h2>
+        <p>Growth Operations, Marketing Analytics, CRM/Marketing Ops, Growth PM·Product Operations 포지션을 중심으로 지원합니다.</p>
         {availablePdfCount > 0 && (
           <p style="margin-top: 12px; color: var(--muted); font-size: var(--text-sm)">
-            {availablePdfCount}개 PDF(이력서·포트폴리오)를 Resume 페이지에서 바로 다운로드할 수 있습니다.
+            {availablePdfCount}개 직무별 이력서 PDF를 Resume 페이지에서 바로 다운로드할 수 있습니다.
           </p>
         )}
       </div>

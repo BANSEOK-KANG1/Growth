@@ -1,10 +1,10 @@
-# Growth Performance Portfolio — Kang Banseok
+# Growth Operations Portfolio — Kang Banseok
 
-인하우스 퍼포먼스/그로스/CRM 직무 지원을 위한 케이스 스터디형 포트폴리오 사이트입니다.
+Growth Operations·Marketing Analytics·CRM/Marketing Ops·Growth PM 직무를 위한 케이스 스터디형 포트폴리오 사이트입니다.
 
 **Live:** [https://banseok-kang1.github.io/Growth/](https://banseok-kang1.github.io/Growth/)
 
-> 광고비가 실제 문의·가입·매출로 이어지는 흐름을 추적하고, 지표 기반으로 개선 액션을 설계하는 퍼포먼스/그로스 마케터.
+> 광고·사용자 행동·전환 데이터를 연결해 성장 문제를 측정 가능한 구조로 바꾸고 실행 우선순위를 정합니다.
 
 ## 사이트 구조
 
@@ -13,7 +13,7 @@
 /cases/               Case Studies (4)
 /projects/            Projects 목록
 /projects/marketing-lead-dashboard/   Featured Dashboard
-/resume/              직무별 이력서 (Performance · CRM Ops · Growth PM)
+/resume/              직무별 이력서 (Growth Ops · CRM Ops · Growth PM)
 /about/               일하는 방식
 /contact/             연락처
 ```

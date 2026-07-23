@@ -1,12 +1,12 @@
 export const profile = {
   nameKo: '강반석',
   nameEn: 'Kang Banseok',
-  role: 'Growth Performance Marketer',
-  headline: '광고 성과와 사용자 행동 데이터를 연결해 유입–전환–리드–CRM 퍼널의 병목을 찾고 개선합니다.',
+  role: 'Growth Operations · Marketing Analytics',
+  headline: '광고·사용자 행동·전환 데이터를 연결해 성장 문제를 측정 가능한 구조로 바꾸고 실행 우선순위를 정합니다.',
   summary:
-    '퍼포먼스마케팅 실무를 기반으로 광고 유입, 전환 이벤트, 사용자 행동 데이터를 분석하고 측정 가능한 구조로 정리합니다. Meta, Google, Naver, TikTok 운영과 GA4/GTM/UTM/Clarity 기반 전환 측정 경험을 바탕으로 CPA·CVR·ROAS·문의 전환율을 기준으로 다음 액션을 판단합니다.',
+    '퍼포먼스마케팅 실무에서 광고 유입과 전환 측정의 한계를 경험한 뒤, 채널 운영보다 문제 정의·측정 기준·데이터 구조·후속 액션을 연결하는 역할에 강점이 있음을 확인했습니다. GA4/GTM/UTM, 퍼널 분석, 리드 상태값, API 기반 분석 도구를 활용해 마케팅·데이터·제품 사이의 판단 기준을 구조화합니다.',
   oneLineIntro:
-    '저는 광고를 단순히 집행하는 사람이 아니라, 광고비가 어디서 성과로 이어지고 어디서 새는지 추적해 다음 액션으로 바꾸는 퍼포먼스/그로스 마케터입니다.',
+    '저는 매체 운영 자체보다, 성과가 어디에서 끊기는지 정의하고 측정 기준과 다음 액션을 명확하게 만드는 Growth Operations형 문제 해결자입니다.',
   email: 'kangbs2486@gmail.com',
   phone: '010-9630-2486',
   location: '서울 관악구',
@@ -14,10 +14,10 @@ export const profile = {
   notionUrl: 'https://www.notion.so/DB-326538a06daf8081af93f5dcdcadb04c',
   siteUrl: 'https://banseok-kang1.github.io/Growth/',
   photoPath: 'images/profile.png',
-  resumePdfPath: 'files/kang-banseok-resume-performance-growth.pdf',
+  resumePdfPath: 'files/kang-banseok-resume-growth-operations.pdf',
   portfolioPdfPath: 'files/kang-banseok-portfolio.pdf',
-  targetRoles: ['In-house Performance Marketer', 'Growth Marketer', 'CRM / Marketing Ops', 'Growth PM Assistant'],
-  keywords: ['Performance Marketing', 'Growth Marketing', 'CRM Strategy', 'GA4 / GTM / UTM', 'Funnel Analytics', 'Marketing Ops']
+  targetRoles: ['Growth Operations', 'Marketing Analytics', 'CRM / Marketing Ops', 'Growth PM / Product Operations'],
+  keywords: ['Growth Operations', 'Marketing Analytics', 'CRM Strategy', 'GA4 / GTM / UTM', 'Funnel Analytics', 'Product Operations']
 };
 
 export type EducationEntry = {
