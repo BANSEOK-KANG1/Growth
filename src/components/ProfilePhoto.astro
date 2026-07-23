@@ -14,26 +14,25 @@ const src = `${base}images/profile.png`;
 <style>
   .profile-photo {
     display: block;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: center top;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    background: #fff;
+    border-radius: 2px;
+    border: 1px solid var(--line);
+    background: var(--surface);
   }
 
   .profile-photo-sm {
     width: 96px;
-    height: 120px;
   }
 
   .profile-photo-md {
-    width: 200px;
-    height: 250px;
+    width: min(200px, 100%);
   }
 
   .profile-photo-lg {
-    width: 280px;
-    height: 350px;
+    width: min(280px, 100%);
   }
 </style>

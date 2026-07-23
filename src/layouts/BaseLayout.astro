@@ -24,11 +24,20 @@ const {
 
 const base = import.meta.env.BASE_URL;
 const siteUrl = profile.siteUrl.replace(/\/$/, '');
-const canonicalPath = Astro.url.pathname.replace(/\/index\.html$/, '/').replace(/\/$/, '') || '/';
-const canonicalUrl = new URL(canonicalPath === '/' ? base : `${base}${canonicalPath.replace(/^\//, '')}`, siteUrl + '/').href;
+const baseTrim = base.replace(/\/$/, '');
+const rawPath = Astro.url.pathname.replace(/\/index\.html$/, '/');
+const appPath =
+  baseTrim && (rawPath === baseTrim || rawPath.startsWith(`${baseTrim}/`))
+    ? rawPath.slice(baseTrim.length) || '/'
+    : rawPath || '/';
+const normalizedAppPath = appPath.endsWith('/') || appPath === '/' ? appPath : `${appPath}/`;
+const canonicalUrl = new URL(
+  normalizedAppPath === '/' ? `${baseTrim}/` : `${baseTrim}${normalizedAppPath}`,
+  `${new URL(siteUrl).origin}/`
+).href;
 const resolvedOgImage = ogImage
-  ? new URL(ogImage.replace(/^\//, ''), siteUrl + '/').href
-  : new URL(`${base}og-image.svg`.replace(/\/\//, '/'), siteUrl + '/').href;
+  ? new URL(ogImage.replace(/^\//, ''), `${siteUrl}/`).href
+  : new URL('og-image.svg', `${siteUrl}/`).href;
 const fullTitle = title.includes(profile.nameKo) || title.includes(profile.nameEn) ? title : `${title} | ${profile.nameKo}`;
 
 const personSchema = {

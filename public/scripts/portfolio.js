@@ -31,7 +31,19 @@
 
   function initCounters() {
     const counters = document.querySelectorAll('[data-count]');
-    if (!counters.length || prefersReduced) return;
+    if (!counters.length) return;
+
+    const setFinal = (el) => {
+      const target = Number(el.getAttribute('data-count'));
+      const suffix = el.getAttribute('data-suffix') || '';
+      const prefix = el.getAttribute('data-prefix') || '';
+      el.textContent = `${prefix}${target}${suffix}`;
+    };
+
+    if (prefersReduced) {
+      counters.forEach(setFinal);
+      return;
+    }
 
     const animate = (el) => {
       const target = Number(el.getAttribute('data-count'));
