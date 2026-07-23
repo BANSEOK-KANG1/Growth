@@ -13,7 +13,7 @@
 /cases/               Case Studies (4)
 /projects/            Projects 목록
 /projects/marketing-lead-dashboard/   Featured Dashboard
-/resume/              이력서 요약
+/resume/              직무별 이력서 (Performance · CRM Ops · Growth PM)
 /about/               일하는 방식
 /contact/             연락처
 ```
@@ -51,7 +51,8 @@ npm run preview
 ## 개인정보 수정
 
 [`src/data/profile.ts`](src/data/profile.ts) — email, notionUrl 등  
-[`src/data/resume.ts`](src/data/resume.ts) — 경력 타임라인  
+[`src/data/resume.ts`](src/data/resume.ts) — 직무 트랙·실무 경력·프로젝트  
+[`scripts/generate_resumes.py`](scripts/generate_resumes.py) — 직무별 PDF 3종 생성  
 [`src/content/cases/`](src/content/cases/) — 케이스 MDX  
 [`public/files/`](public/files/) — PDF 이력서·포트폴리오
 
@@ -74,4 +75,5 @@ src/
 ## 주의사항
 
 - 실제 회사 데이터는 익명화하거나 범위값으로 처리
+- 회사 경력과 개인 프로젝트를 명확히 분리
 - 성과 과장보다 판단 기준과 한계 인식을 명확히 기술

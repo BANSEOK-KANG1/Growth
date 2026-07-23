@@ -1,6 +1,6 @@
 ---
 interface Props {
-  current: 'home' | 'work' | 'baro';
+  current: 'home' | 'work' | 'resume' | 'baro';
   compact?: boolean;
 }
 
@@ -19,6 +19,12 @@ const links = [
     href: `${base}work/`,
     label: 'Work Archive',
     hint: '케이스 · 프로젝트 · 지원 자료'
+  },
+  {
+    id: 'resume' as const,
+    href: `${base}resume/`,
+    label: '직무별 이력서',
+    hint: 'Performance · CRM · Growth PM'
   },
   {
     id: 'baro' as const,

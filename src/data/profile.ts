@@ -14,7 +14,7 @@ export const profile = {
   notionUrl: 'https://www.notion.so/DB-326538a06daf8081af93f5dcdcadb04c',
   siteUrl: 'https://banseok-kang1.github.io/Growth/',
   photoPath: 'images/profile.png',
-  resumePdfPath: 'files/kang-banseok-resume-crm-growth.pdf',
+  resumePdfPath: 'files/kang-banseok-resume-performance-growth.pdf',
   portfolioPdfPath: 'files/kang-banseok-portfolio.pdf',
   targetRoles: ['In-house Performance Marketer', 'Growth Marketer', 'CRM / Marketing Ops', 'Growth PM Assistant'],
   keywords: ['Performance Marketing', 'Growth Marketing', 'CRM Strategy', 'GA4 / GTM / UTM', 'Funnel Analytics', 'Marketing Ops']

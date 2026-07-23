@@ -9,39 +9,25 @@ export type ResumeDownload = {
 
 export const resumeDownloads: ResumeDownload[] = [
   {
-    id: 'crm-growth',
-    label: '그로스 마케터 이력서',
-    description: 'JD Fit · 퍼널·전환·CRM · GA4/GTM 중심 그로스 마케터 지원용',
-    filename: 'files/kang-banseok-resume-crm-growth.pdf',
-    tags: ['Growth', 'CRM', 'GA4', 'Funnel'],
+    id: 'performance-growth',
+    label: '퍼포먼스 / 그로스 이력서',
+    description: '멀티채널 운영 · GA4/GTM 측정 · CPA/CVR · 리드 품질 중심',
+    filename: 'files/kang-banseok-resume-performance-growth.pdf',
+    tags: ['Performance', 'Growth', 'GA4/GTM', 'Lead Funnel'],
     primary: true
   },
   {
-    id: 'baro-interactive',
-    label: '바로인터랙티브 맞춤 이력서',
-    description: '온라인광고 운영·분석 AM · SA/DA · GA4/GTM · CPA/CVR/ROAS 중심 지원용',
-    filename: 'files/kang-banseok-resume-baro-interactive.pdf',
-    tags: ['Agency AM', 'Performance', 'SA/DA', 'GA4/GTM']
+    id: 'crm-ops',
+    label: 'CRM / Marketing Ops 이력서',
+    description: '전환 누수 · 세그먼트 · 리드 상태값 · CRM 실험 설계 중심',
+    filename: 'files/kang-banseok-resume-crm-ops.pdf',
+    tags: ['CRM', 'Marketing Ops', 'Segmentation', 'Lifecycle']
   },
   {
-    id: 'revised',
-    label: '한장 이력서 (수정본)',
-    description: 'Product / Growth Analyst · Metric-driven Decision Support',
-    filename: 'files/kang-banseok-resume-revised.pdf',
-    tags: ['Growth', 'PM', 'CRM']
-  },
-  {
-    id: 'one-page',
-    label: '한장 이력서',
-    description: 'Problem & Metric-driven PM 포지셔닝',
-    filename: 'files/kang-banseok-resume-one-page.pdf',
-    tags: ['PM', 'Analytics']
-  },
-  {
-    id: 'performance',
-    label: '퍼포먼스 마케팅 요약',
-    description: '글로벌알파미디어 실무 중심 웹 요약 PDF',
-    filename: 'files/kang-banseok-resume.pdf',
-    tags: ['Performance', 'Ads', 'Tracking']
+    id: 'growth-product',
+    label: 'Growth PM / Product Analytics 이력서',
+    description: '문제정의 · 퍼널 · 실험 설계 · 트레이드오프 중심',
+    filename: 'files/kang-banseok-resume-growth-product.pdf',
+    tags: ['Growth PM', 'Product Analytics', 'Experiment', 'Funnel']
   }
 ];

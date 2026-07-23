@@ -1,14 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProfilePhoto from '../components/ProfilePhoto.astro';
-import ToolStack from '../components/ToolStack.astro';
 import PdfDownloads from '../components/PdfDownloads.astro';
 import PdfPreview from '../components/PdfPreview.astro';
-import JdFitGrid from '../components/JdFitGrid.astro';
-import { profile } from '../data/profile';
-import { resumeTimeline, coreTools, supplementarySkills } from '../data/resume';
-import { education } from '../data/profile';
-import { allPdfDownloads, primaryResumeDownload } from '../data/pdfDownloads';
+import PortfolioCrossLinks from '../components/PortfolioCrossLinks.astro';
+import { profile, education } from '../data/profile';
+import {
+  resumeTracks,
+  experience,
+  projects,
+  toolGroups,
+  supportingBackground
+} from '../data/resume';
+import { primaryResumeDownload } from '../data/pdfDownloads';
+import { resumeDownloads } from '../data/resumeDownloads';
 import { publicAssetExists, publicAssetUrl } from '../utils/assets';
 
 const base = import.meta.env.BASE_URL;
@@ -17,47 +22,102 @@ const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
 ---
 
 <BaseLayout
-  title={`Resume | ${profile.nameKo} — Growth Performance Marketer`}
-  description={`${profile.nameKo}의 퍼포먼스·그로스·CRM 직무용 이력서 요약 및 PDF 다운로드.`}
-  keywords={[...profile.keywords, '이력서', 'Resume PDF', profile.nameKo]}
+  title={`직무별 이력서 | ${profile.nameKo} — Growth Performance Marketer`}
+  description={`${profile.nameKo}의 퍼포먼스·그로스, CRM·Marketing Ops, Growth PM·Product Analytics 직무별 이력서.`}
+  keywords={[...profile.keywords, '직무별 이력서', '퍼포먼스 마케터 이력서', 'Growth PM', profile.nameKo]}
 >
   <section class="page-hero">
-    <div class="container resume-hero reveal">
-      <ProfilePhoto size="lg" />
-      <div>
-        <span class="eyebrow">Resume Summary</span>
-        <h1>{profile.nameKo}</h1>
-        <p>{profile.headline}</p>
-        <p style="color: var(--muted); margin-top: 8px">
-          {profile.location} · {profile.email} · {profile.phone}
+    <div class="container resume-hero">
+      <div class="resume-identity reveal">
+        <ProfilePhoto size="lg" />
+        <div>
+          <span class="eyebrow">ROLE-SPECIFIC RESUME</span>
+          <h1>{profile.nameKo}</h1>
+          <p class="resume-role">Growth Performance Marketer</p>
+          <p class="contact-line">{profile.location} · {profile.email} · {profile.phone}</p>
+        </div>
+      </div>
+      <div class="resume-intro reveal">
+        <span class="eyebrow">CORE POSITIONING</span>
+        <h2>한 개의 이력서에 모든 직무를 섞지 않았습니다.</h2>
+        <p>
+          공통 경력은 같지만, 채용담당자가 확인해야 할 증거는 직무마다 다릅니다.
+          아래 3개 트랙은 실무 경험과 개인 프로젝트를 구분하고, 각 포지션에서 바로 검증할 수 있는 케이스만 연결합니다.
         </p>
-        <div class="tag-list">
-          {profile.targetRoles.map((role) => <span class="tag">{role}</span>)}
-        </div>
-        <div class="hero-actions" style="margin-top: 20px">
-          {hasPrimaryPdf ? (
+        <blockquote>{profile.oneLineIntro}</blockquote>
+        <div class="hero-actions">
+          {hasPrimaryPdf && (
             <a class="btn-primary" href={publicAssetUrl(base, primaryPdf.filename)} download>
-              PDF 이력서 다운로드
+              대표 이력서 PDF
             </a>
-          ) : (
-            <a class="btn-primary" href={`${base}contact/`}>Contact</a>
           )}
-          <a class="btn-secondary" href={`${base}contact/`}>Contact</a>
+          <a class="btn-secondary" href="#role-resumes">직무별 선택</a>
+          <a class="btn-secondary" href={`${base}work/`}>증거 아카이브</a>
         </div>
+        <PortfolioCrossLinks current="resume" />
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="role-resumes">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <span class="eyebrow">3 RESUME TRACKS</span>
+          <h2>지원 직무에 맞는 이력서를 선택하세요</h2>
+          <p>경력 과장 없이, 같은 경험에서 직무별로 다른 기여 가능성과 증거를 선별했습니다.</p>
+        </div>
+      </div>
+
+      <div class="resume-track-grid">
+        {resumeTracks.map((track) => (
+          <article class="resume-track reveal" id={track.id}>
+            <div class="track-head">
+              <div>
+                <span class="eyebrow">{track.eyebrow}</span>
+                <h3>{track.title}</h3>
+                <p class="track-target">{track.target}</p>
+              </div>
+              {publicAssetExists(track.pdf) && (
+                <a class="btn-secondary" href={publicAssetUrl(base, track.pdf)} download>PDF 다운로드</a>
+              )}
+            </div>
+            <p class="track-summary">{track.summary}</p>
+            <div class="track-contribution">
+              <strong>입사 후 기여</strong>
+              <p>{track.contribution}</p>
+            </div>
+            <ul class="track-strengths">
+              {track.strengths.map((strength) => <li>{strength}</li>)}
+            </ul>
+            <div class="track-evidence">
+              <strong>검증 가능한 증거</strong>
+              {track.evidence.map((item) => (
+                <a href={`${base}${item.href}`}>
+                  <span>
+                    {item.label}
+                    {item.project && <em>PROJECT</em>}
+                  </span>
+                  <small>{item.note}</small>
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pdf-section">
     <div class="container reveal">
       <div class="section-header">
         <div>
-          <span class="eyebrow">Resume PDF</span>
-          <h2>직무별 이력서 · 포트폴리오 PDF</h2>
-          <p>퍼포먼스 마케팅, CRM·그로스, PM/Growth Analyst 포지션에 맞춘 PDF를 선택해 다운로드할 수 있습니다.</p>
+          <span class="eyebrow">DOWNLOAD</span>
+          <h2>직무별 PDF 이력서</h2>
+          <p>지원 공고의 핵심 KPI와 업무 범위에 가장 가까운 한 개만 제출하는 것을 권장합니다.</p>
         </div>
       </div>
-      <PdfDownloads items={allPdfDownloads} showEmpty />
+      <PdfDownloads items={resumeDownloads} showEmpty />
     </div>
   </section>
 
@@ -71,47 +131,30 @@ const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
     )
   }
 
-  <section class="section" id="jd-fit">
-    <div class="container reveal">
-      <div class="section-header">
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="section-header reveal">
         <div>
-          <span class="eyebrow">JD Fit</span>
-          <h2>그로스 마케터 JD 강점 매핑</h2>
-          <p>
-            자주 보이는 그로스 마케터 JD 8개 요건과 경험을 1:1로 연결했습니다. 이력서 bullet과 자소서 훅을 복사해
-            지원서에 바로 활용할 수 있습니다.
-          </p>
+          <span class="eyebrow">VERIFIED EXPERIENCE</span>
+          <h2>실무 경력</h2>
+          <p>실제 회사 경력과 개인 프로젝트를 분리했습니다.</p>
         </div>
       </div>
-      <JdFitGrid base={base} />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container grid-2">
-      <article class="info-panel reveal">
-        <h2>Core Positioning</h2>
-        <p>광고 영업형 퍼포먼스 마케터가 아니라, 인하우스에서 광고비와 전환 지표를 보고 성과 개선 액션을 설계하는 퍼포먼스/그로스 마케터를 지향합니다.</p>
-        <blockquote>{profile.oneLineIntro}</blockquote>
-      </article>
-      <article class="info-panel reveal">
-        <h2>Core Tools</h2>
-        <div class="tag-list">
-          {coreTools.map((tool) => <span class="tag">{tool}</span>)}
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container reveal">
-      <div class="section-header">
-        <div>
-          <span class="eyebrow">Tools</span>
-          <h2>카테고리별 실무 도구</h2>
-        </div>
-      </div>
-      <ToolStack />
+      {experience.map((entry) => (
+        <article class="experience-card reveal">
+          <div class="experience-meta">
+            <span>WORK EXPERIENCE</span>
+            <strong>{entry.period}</strong>
+          </div>
+          <div>
+            <h3>{entry.company} · {entry.role}</h3>
+            <p>{entry.summary}</p>
+            <ul>
+              {entry.bullets.map((bullet) => <li>{bullet}</li>)}
+            </ul>
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -119,69 +162,60 @@ const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
     <div class="container">
       <div class="section-header reveal">
         <div>
-          <span class="eyebrow">Experience</span>
-          <h2>직무 연결 중심 경력 요약</h2>
+          <span class="eyebrow">SELECTED PROJECTS</span>
+          <h2>실무를 보완하는 프로젝트</h2>
+          <p>프로젝트는 회사 성과처럼 표현하지 않고, 기획·구현 범위와 한계를 함께 표시했습니다.</p>
         </div>
       </div>
-      <div class="timeline">
-        {resumeTimeline.map((entry) => (
-          <article class="timeline-item reveal">
-            <span>{entry.category}{entry.company ? ` · ${entry.company}` : ''} · {entry.period}</span>
-            <h3>{entry.title}</h3>
-            <p>{entry.description}</p>
-            {entry.bullets && entry.bullets.length > 0 && (
-              <ul>
-                {entry.bullets.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-            )}
-          </article>
+      <div class="project-resume-grid">
+        {projects.map((project) => (
+          <a class="project-resume-card reveal" href={`${base}${project.href}`}>
+            <div class="project-meta">
+              <span>{project.type}</span>
+              <strong>{project.period}</strong>
+            </div>
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
+            <ul>
+              {project.bullets.map((bullet) => <li>{bullet}</li>)}
+            </ul>
+            <strong class="card-link">케이스 확인 →</strong>
+          </a>
         ))}
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="container grid-2">
-      <div class="reveal">
-        <div class="section-header">
-          <div>
-            <span class="eyebrow">Education</span>
-            <h2>학력</h2>
-          </div>
-        </div>
-        <div class="timeline">
-          {education.map((entry) => (
-            <article class="timeline-item">
-              <span>{entry.period}</span>
-              <h3>{entry.school} {entry.degree}</h3>
-              {entry.description && <p>{entry.description}</p>}
-            </article>
-          ))}
-        </div>
-      </div>
-      <div class="reveal">
-        <div class="section-header">
-          <div>
-            <span class="eyebrow">Supplementary Skills</span>
-            <h2>보조 역량</h2>
-          </div>
-        </div>
-        <div class="info-panel">
-          {supplementarySkills.map((skill) => (
-            <div style="margin-bottom: 16px">
-              <div style="display: flex; justify-content: space-between; margin-bottom: 6px">
-                <strong>{skill.name}</strong>
-                <span style="color: var(--muted); font-size: 14px">{skill.category}</span>
-              </div>
-              <div class="bar-track" aria-label={`${skill.name} ${skill.level}`}>
-                <span class="bar-fill" style={`width: ${skill.level}`}></span>
-              </div>
+    <div class="container resume-bottom-grid">
+      <article class="info-panel reveal">
+        <span class="eyebrow">TOOLS BY USE</span>
+        <h2>도구는 숙련도 퍼센트 대신 활용 맥락으로 표시합니다</h2>
+        <div class="tool-use-list">
+          {toolGroups.map((group) => (
+            <div>
+              <strong>{group.label}</strong>
+              <p>{group.tools.join(' · ')}</p>
             </div>
           ))}
         </div>
-      </div>
+      </article>
+
+      <article class="info-panel reveal">
+        <span class="eyebrow">BACKGROUND</span>
+        <h2>보조 경험 · 학력</h2>
+        <ul class="background-list">
+          {supportingBackground.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="education-block">
+          {education.map((entry) => (
+            <>
+              <strong>{entry.school} · {entry.degree}</strong>
+              <span>{entry.period}</span>
+            </>
+          ))}
+        </div>
+      </article>
     </div>
   </section>
 </BaseLayout>
@@ -189,39 +223,299 @@ const hasPrimaryPdf = publicAssetExists(primaryPdf.filename);
 <style>
   .resume-hero {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 32px;
+    grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+    gap: 56px;
     align-items: center;
   }
 
-  .bar-track {
-    height: 8px;
+  .resume-identity {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .resume-identity h1 {
+    margin: 8px 0 4px;
+  }
+
+  .resume-role {
+    color: var(--primary);
+    font-weight: 700;
+  }
+
+  .contact-line,
+  .track-target {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .resume-intro h2 {
+    margin: 12px 0 14px;
+    max-width: 760px;
+  }
+
+  .resume-intro > p {
+    color: var(--muted);
+    max-width: 760px;
+  }
+
+  .resume-intro blockquote {
+    margin: 20px 0 0;
+  }
+
+  .resume-track-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  .resume-track {
+    padding: 32px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .track-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .track-head h3 {
+    margin: 10px 0 4px;
+    font-size: clamp(24px, 3vw, 34px);
+  }
+
+  .track-summary {
+    margin: 22px 0;
+    font-size: 17px;
+    max-width: 920px;
+  }
+
+  .track-contribution {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 20px;
+    padding: 18px 20px;
     background: var(--surface-soft);
-    border-radius: 2px;
-    overflow: hidden;
+    border-left: 3px solid var(--primary);
   }
 
-  .bar-fill {
-    display: block;
-    height: 100%;
-    background: var(--primary);
-    border-radius: 2px;
+  .track-contribution p {
+    margin: 0;
+    color: var(--muted);
   }
 
-  .timeline-item ul {
-    margin-top: 12px;
+  .track-strengths {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 28px;
+    margin: 24px 0;
     padding-left: 20px;
     color: var(--muted);
   }
 
-  .timeline-item li {
-    margin-bottom: 6px;
+  .track-evidence {
+    display: grid;
+    grid-template-columns: 180px repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+    gap: 12px;
+    align-items: start;
   }
 
-  @media (max-width: 768px) {
-    .resume-hero {
+  .track-evidence > strong {
+    padding-top: 12px;
+  }
+
+  .track-evidence a {
+    display: flex;
+    flex-direction: column;
+    min-height: 92px;
+    gap: 8px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    color: inherit;
+    text-decoration: none;
+    transition: transform 160ms ease, border-color 160ms ease;
+  }
+
+  .track-evidence a:hover {
+    transform: translateY(-2px);
+    border-color: var(--primary);
+  }
+
+  .track-evidence span {
+    font-weight: 700;
+  }
+
+  .track-evidence em {
+    margin-left: 6px;
+    color: var(--primary);
+    font-size: 10px;
+    font-style: normal;
+    letter-spacing: 0.08em;
+  }
+
+  .track-evidence small {
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .pdf-section {
+    background: var(--surface-soft);
+  }
+
+  .experience-card {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 36px;
+    padding: 32px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .experience-meta,
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .experience-meta span,
+  .project-meta span {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  .experience-card h3 {
+    margin: 0 0 12px;
+    font-size: 26px;
+  }
+
+  .experience-card p,
+  .experience-card li,
+  .project-resume-card p,
+  .project-resume-card li {
+    color: var(--muted);
+  }
+
+  .experience-card ul,
+  .project-resume-card ul {
+    padding-left: 20px;
+  }
+
+  .project-resume-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .project-resume-card {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    padding: 24px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-resume-card h3 {
+    margin: 18px 0 10px;
+  }
+
+  .project-resume-card .card-link {
+    margin-top: auto;
+    padding-top: 12px;
+    color: var(--primary);
+  }
+
+  .resume-bottom-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+  }
+
+  .tool-use-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .tool-use-list div {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tool-use-list p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .background-list {
+    margin: 22px 0;
+    padding-left: 20px;
+    color: var(--muted);
+  }
+
+  .education-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  .education-block span {
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  @media (max-width: 920px) {
+    .resume-hero,
+    .resume-bottom-grid {
       grid-template-columns: 1fr;
-      justify-items: start;
+    }
+
+    .track-evidence {
+      grid-template-columns: 1fr;
+    }
+
+    .project-resume-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .resume-identity,
+    .track-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .resume-track,
+    .experience-card {
+      padding: 22px;
+    }
+
+    .track-contribution,
+    .experience-card,
+    .tool-use-list div {
+      grid-template-columns: 1fr;
+    }
+
+    .track-strengths {
+      grid-template-columns: 1fr;
     }
   }
 </style>
